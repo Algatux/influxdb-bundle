@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <!--<parameters>-->
+        <!--<parameter key=""></parameter>-->
+    <!--</parameters>-->
+
+    <services>
+
+        <service class="Algatux\InfluxDbBundle\Services\WriterClient" id="algatux_influx_db.services.udp.writer_client">
+            <argument>%influxdb.host%</argument>
+            <argument>%influxdb.writer_client.port%</argument>
+            <call method="setProtocol">
+                <argument type="string">udp</argument>
+            </call>
+        </service>
+
+        <service class="Algatux\InfluxDbBundle\Services\WriterClient" id="algatux_influx_db.services.tcp.writer_client">
+            <argument>%influxdb.host%</argument>
+            <argument>%influxdb.writer_client.port%</argument>
+        </service>
+
+        <service class="Algatux\InfluxDbBundle\Services\TcpReaderClient" id="algatux_influx_db.services.tcp.reader_client">
+            <argument>%influxdb.reader_client.port%</argument>
+        </service>
+
+    </services>
+
+</container>
