@@ -1,2 +1,4 @@
 services:
-
+#    influx_db.example:
+#        class: Algatux\InfluxDbBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

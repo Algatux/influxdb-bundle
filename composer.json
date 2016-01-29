@@ -1,0 +1,28 @@
+{
+    "name": "algatux/influxdb-bundle",
+    "description": "InfluxDB Bundle",
+    "require": {
+        "influxdb/influxdb-php": "^1.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.1"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alessandro Galli",
+            "email": "a.galli85@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "Algatux\\InfluxDbBundle\\": "" },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    },
+    "config": {
+        "preferred-install": "dist",
+        "bin-dir": "bin"
+    },
+    "minimum-stability": "stable"
+}

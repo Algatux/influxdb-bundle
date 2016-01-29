@@ -24,26 +24,6 @@ class Configuration implements ConfigurationInterface
         // configure your bundle. See the documentation linked above for
         // more information on that topic.
 
-        $rootNode
-            ->children()
-                ->scalarNode('host')->defaultValue('localhost')->end()
-                ->arrayNode('writer_client')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('port')->defaultValue('4444')->end()
-                        ->scalarNode('type')->defaultValue('udp')->end()
-                    ->end()
-                ->end()
-                ->arrayNode('reader_client')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('port')->defaultValue('4444')->end()
-//                        ->scalarNode('type')->defaultValue('tcp')->end()
-                    ->end()
-                ->end()
-            ->end()
-        ;
-
         return $treeBuilder;
     }
 }
