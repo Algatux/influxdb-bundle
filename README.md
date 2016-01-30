@@ -8,3 +8,23 @@ Integration bundle for writing and reading to influxdb
 
 [![Code Coverage](https://scrutinizer-ci.com/g/Algatux/influxdb-bundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Algatux/influxdb-bundle/?branch=master)
 
+### install using composer 
+
+    composer require algatux/influxdb-bundle dev-master
+
+### configuration
+
+in your config.yml add:
+    
+    influx_db:
+      host: '{your influxdb host address}'
+      udp_port: '{your influxdb udp port}'
+      http_port: '{your influxdb http port}'
+    
+
+### todo:
+
+- implementation of ReaderClient service
+- add support for credentials login on clients
+- ...
+
