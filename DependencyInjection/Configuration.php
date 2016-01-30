@@ -20,10 +20,15 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('influx_db');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->children()
+                ->scalarNode('host')->defaultValue('localhost')->end()
+                ->scalarNode('udp_port')->defaultValue('4444')->end()
+                ->scalarNode('http_port')->defaultValue('8080')->end()
+            ->end();
 
         return $treeBuilder;
     }
+
 }
+
