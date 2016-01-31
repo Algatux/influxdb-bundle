@@ -15,6 +15,6 @@ interface WriterInterface
      * @param string $payload
      * @return bool
      */
-    public function write(PointsCollection $points, string $payload): bool;
+    public function write(PointsCollection $points, $payload): bool;
 
 }
