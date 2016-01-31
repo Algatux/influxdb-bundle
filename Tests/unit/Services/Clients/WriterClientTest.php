@@ -8,6 +8,7 @@ use Algatux\InfluxDbBundle\Services\Clients\Contracts\WriterInterface;
 use Algatux\InfluxDbBundle\Services\Clients\InfluxDbClientFactory;
 use Algatux\InfluxDbBundle\Services\Clients\WriterClient;
 use InfluxDB\Client;
+use InfluxDB\Database;
 use Prophecy\Argument;
 
 class WriterClientTest extends \PHPUnit_Framework_TestCase
@@ -35,8 +36,8 @@ class WriterClientTest extends \PHPUnit_Framework_TestCase
 
     public function test_write()
     {
-        $idbClient = $this->prophesize(Client::class);
-        $idbClient->write(Argument::type('array'),Argument::type('string'))
+        $idbClient = $this->prophesize(Database::class);
+        $idbClient->writePoints(Argument::type('array'),Argument::type('string'))
             ->shouldBeCalledTimes(1)
             ->willReturn(true);
 

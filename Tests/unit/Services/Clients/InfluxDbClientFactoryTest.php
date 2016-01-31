@@ -5,6 +5,7 @@ namespace Algatux\InfluxDbBundle\Tests\unit\Services\Clients;
 
 use Algatux\InfluxDbBundle\Services\Clients\InfluxDbClientFactory;
 use InfluxDB\Client;
+use InfluxDB\Database;
 use InfluxDB\Driver\Guzzle;
 use InfluxDB\Driver\UDP;
 
@@ -27,8 +28,8 @@ class InfluxDbClientFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = new InfluxDbClientFactory(self::TEST_HOST,self::TEST_DB,self::TEST_UDP,self::TEST_HTTP);
         $client = $factory->buildUdpClient();
 
-        $this->assertInstanceOf(Client::class, $client);
-        $this->assertInstanceOf(UDP::class,$client->getDriver());
+        $this->assertInstanceOf(Database::class, $client);
+        $this->assertEquals(self::TEST_DB, $client->getName());
     }
 
     public function test_build_http_client_returns_a_valid_client()
@@ -36,8 +37,8 @@ class InfluxDbClientFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = new InfluxDbClientFactory(self::TEST_HOST,self::TEST_DB,self::TEST_UDP,self::TEST_HTTP);
         $client = $factory->buildHttpClient();
 
-        $this->assertInstanceOf(Client::class, $client);
-        $this->assertInstanceOf(Guzzle::class,$client->getDriver());
+        $this->assertInstanceOf(Database::class, $client);
+        $this->assertEquals(self::TEST_DB, $client->getName());
     }
 
 }

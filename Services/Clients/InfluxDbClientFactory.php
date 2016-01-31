@@ -3,6 +3,7 @@ declare(strict_types = 1);
 namespace Algatux\InfluxDbBundle\Services\Clients;
 
 use InfluxDB\Client;
+use InfluxDB\Database;
 use InfluxDB\Driver\UDP;
 
 /**
@@ -40,26 +41,24 @@ class InfluxDbClientFactory
     }
 
     /**
-     * @return Client
+     * @return Database
      */
-    public function buildUdpClient(): Client
+    public function buildUdpClient(): Database
     {
         $client = new Client($this->host,$this->udpPort);
         $client->setDriver(new UDP($this->host, $this->udpPort));
-        $client->selectDB($this->database);
 
-        return $client;
+        return $client->selectDB($this->database);
     }
 
     /**
-     * @return Client
+     * @return Database
      */
-    public function buildHttpClient(): Client
+    public function buildHttpClient(): Database
     {
         $client = new Client($this->host,$this->udpPort);
-        $client->selectDB($this->database);
 
-        return $client;
+        return $client->selectDB($this->database);
     }
 
 }
