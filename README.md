@@ -21,6 +21,8 @@ in your config.yml add:
 ### todo:
 
 - implementation of ReaderClient service
-- add support for credentials login on clients
+- implementation of event listener to admit event driven data writings
+- add support for credentials login
+- add support for database selection
 - ...
 

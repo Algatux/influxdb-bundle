@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace Algatux\InfluxDbBundle\unit\Services\Clients;
 
+use Algatux\InfluxDbBundle\Model\PointsCollection;
 use Algatux\InfluxDbBundle\Services\Clients\Contracts\ClientInterface;
 use Algatux\InfluxDbBundle\Services\Clients\Contracts\WriterInterface;
 use Algatux\InfluxDbBundle\Services\Clients\InfluxDbClientFactory;
@@ -43,7 +44,7 @@ class WriterClientTest extends \PHPUnit_Framework_TestCase
         $factory->buildHttpClient()->shouldBeCalledTimes(1)->willReturn($idbClient->reveal());
 
         $writer = new WriterClient($factory->reveal(), ClientInterface::HTTP_CLIENT);
-        $writer->write([],'test');
+        $writer->write(new PointsCollection(),'test');
     }
     
 }

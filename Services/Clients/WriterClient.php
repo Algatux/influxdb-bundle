@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace Algatux\InfluxDbBundle\Services\Clients;
 
+use Algatux\InfluxDbBundle\Model\PointsCollection;
 use Algatux\InfluxDbBundle\Services\Clients\Contracts\ClientInterface;
 use Algatux\InfluxDbBundle\Services\Clients\Contracts\WriterInterface;
 use InfluxDB\Client as InfluxDbClient;
@@ -29,13 +30,13 @@ class WriterClient implements WriterInterface
     }
 
     /**
-     * @param array $parameters
+     * @param PointsCollection $points
      * @param string $payload
      * @return bool
      */
-    public function write(array $parameters, string $payload): bool
+    public function write(PointsCollection $points, string $payload): bool
     {
-        return $this->client->write($parameters, $payload);
+        return $this->client->write($points->toArray(), $payload);
     }
 
 }
