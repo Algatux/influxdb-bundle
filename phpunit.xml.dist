@@ -12,7 +12,7 @@
 
     <testsuites>
         <testsuite name="InfluxDb Bundle Test Suite">
-            <directory>./Tests/</directory>
+            <directory>./tests/</directory>
         </testsuite>
     </testsuites>
 
@@ -20,8 +20,8 @@
         <whitelist>
             <directory>./</directory>
             <exclude>
-                <directory>./Resources</directory>
-                <directory>./Tests</directory>
+                <directory>./src/Resources</directory>
+                <directory>./tests</directory>
                 <directory>./vendor</directory>
             </exclude>
         </whitelist>

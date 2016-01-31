@@ -22,7 +22,7 @@
     "autoload": {
         "psr-4": { "Algatux\\InfluxDbBundle\\": "src/" },
         "exclude-from-classmap": [
-            "/Tests/"
+            "/tests/"
         ]
     },
     "config": {
