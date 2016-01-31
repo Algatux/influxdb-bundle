@@ -37,12 +37,12 @@ class InfluxDbEventListener
         }
 
         if ($event->getWriteClient() === ClientInterface::UDP_CLIENT) {
-            $this->udpWriter->write($event->getPoints(), ClientInterface::UDP_CLIENT);
+            $this->udpWriter->write($event->getPoints(), $event->getPayload());
             return true;
         }
 
         if ($event->getWriteClient() === ClientInterface::HTTP_CLIENT) {
-            $this->httpWriter->write($event->getPoints(), ClientInterface::HTTP_CLIENT);
+            $this->httpWriter->write($event->getPoints(), $event->getPayload());
             return true;
         }
 
