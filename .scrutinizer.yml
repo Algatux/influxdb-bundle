@@ -2,7 +2,7 @@
 filter:
     excluded_paths:
         - 'vendor/*'
-        - 'Tests/*'
+        - 'tests/*'
         - 'bin/*'
 
 checks:
