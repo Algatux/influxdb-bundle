@@ -56,7 +56,7 @@ class InfluxDbClientFactory
      */
     public function buildHttpClient(): Database
     {
-        $client = new Client($this->host,$this->udpPort);
+        $client = new Client($this->host,$this->httpPort);
 
         return $client->selectDB($this->database);
     }

@@ -26,19 +26,21 @@ class InfluxDbClientFactoryTest extends \PHPUnit_Framework_TestCase
     public function test_build_udp_client_returns_a_valid_client()
     {
         $factory = new InfluxDbClientFactory(self::TEST_HOST,self::TEST_DB,self::TEST_UDP,self::TEST_HTTP);
-        $client = $factory->buildUdpClient();
+        $database = $factory->buildUdpClient();
 
-        $this->assertInstanceOf(Database::class, $client);
-        $this->assertEquals(self::TEST_DB, $client->getName());
+        $this->assertInstanceOf(Database::class, $database);
+        $this->assertEquals(self::TEST_DB, $database->getName());
+        $this->assertInstanceOf(UDP::class,$database->getClient()->getDriver());
     }
 
     public function test_build_http_client_returns_a_valid_client()
     {
         $factory = new InfluxDbClientFactory(self::TEST_HOST,self::TEST_DB,self::TEST_UDP,self::TEST_HTTP);
-        $client = $factory->buildHttpClient();
+        $database = $factory->buildHttpClient();
 
-        $this->assertInstanceOf(Database::class, $client);
-        $this->assertEquals(self::TEST_DB, $client->getName());
+        $this->assertInstanceOf(Database::class, $database);
+        $this->assertEquals(self::TEST_DB, $database->getName());
+        $this->assertInstanceOf(Guzzle::class,$database->getClient()->getDriver());
     }
 
 }

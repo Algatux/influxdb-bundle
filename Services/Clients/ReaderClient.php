@@ -3,7 +3,7 @@ declare(strict_types=1);
 namespace Algatux\InfluxDbBundle\Services\Clients;
 
 use Algatux\InfluxDbBundle\Services\Clients\Contracts\ReaderInterface;
-use InfluxDB\Client as InfluxDbClient;
+use InfluxDB\Database;
 
 /**
  * Class ReaderClient
@@ -12,8 +12,8 @@ use InfluxDB\Client as InfluxDbClient;
 class ReaderClient implements ReaderInterface
 {
 
-    /** @var InfluxDbClient  */
-    private $client;
+    /** @var Database  */
+    private $database;
 
     /**
      * ReaderClient constructor.
@@ -21,7 +21,7 @@ class ReaderClient implements ReaderInterface
      */
     public function __construct(InfluxDbClientFactory $clientFactory)
     {
-        $this->client = $clientFactory->buildHttpClient();
+        $this->database = $clientFactory->buildHttpClient();
     }
 
 }

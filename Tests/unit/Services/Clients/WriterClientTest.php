@@ -36,13 +36,13 @@ class WriterClientTest extends \PHPUnit_Framework_TestCase
 
     public function test_write()
     {
-        $idbClient = $this->prophesize(Database::class);
-        $idbClient->writePoints(Argument::type('array'),Argument::type('string'))
+        $idbDatabase = $this->prophesize(Database::class);
+        $idbDatabase->writePoints(Argument::type('array'),Argument::type('string'))
             ->shouldBeCalledTimes(1)
             ->willReturn(true);
 
         $factory = $this->prophesize(InfluxDbClientFactory::class);
-        $factory->buildHttpClient()->shouldBeCalledTimes(1)->willReturn($idbClient->reveal());
+        $factory->buildHttpClient()->shouldBeCalledTimes(1)->willReturn($idbDatabase->reveal());
 
         $writer = new WriterClient($factory->reveal(), ClientInterface::HTTP_CLIENT);
         $writer->write(new PointsCollection(),'test');

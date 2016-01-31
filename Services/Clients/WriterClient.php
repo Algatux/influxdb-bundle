@@ -5,7 +5,6 @@ namespace Algatux\InfluxDbBundle\Services\Clients;
 use Algatux\InfluxDbBundle\Model\PointsCollection;
 use Algatux\InfluxDbBundle\Services\Clients\Contracts\ClientInterface;
 use Algatux\InfluxDbBundle\Services\Clients\Contracts\WriterInterface;
-use InfluxDB\Client as InfluxDbClient;
 use InfluxDB\Database;
 
 /**
@@ -16,7 +15,7 @@ class WriterClient implements WriterInterface
 {
 
     /** @var Database  */
-    private $client;
+    private $database;
 
     /**
      * WriterClient constructor.
@@ -25,7 +24,7 @@ class WriterClient implements WriterInterface
      */
     public function __construct(InfluxDbClientFactory $factory, $clientType)
     {
-        $this->client = $clientType === ClientInterface::HTTP_CLIENT ?
+        $this->database = $clientType === ClientInterface::HTTP_CLIENT ?
             $factory->buildHttpClient() :
             $factory->buildUdpClient();
     }
@@ -37,7 +36,7 @@ class WriterClient implements WriterInterface
      */
     public function write(PointsCollection $points, string $payload): bool
     {
-        return $this->client->writePoints($points->toArray(), $payload);
+        return $this->database->writePoints($points->toArray(), $payload);
     }
 
 }
