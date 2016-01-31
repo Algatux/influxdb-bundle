@@ -1,6 +1,5 @@
 <?php
-//declare(strict_types=1);
-
+declare(strict_types=1);
 namespace Algatux\InfluxDbBundle\Tests\unit;
 
 use Algatux\InfluxDbBundle\DependencyInjection\Configuration;
@@ -27,10 +26,12 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('host', $conf);
         $this->assertArrayHasKey('udp_port', $conf);
         $this->assertArrayHasKey('http_port', $conf);
+        $this->assertArrayHasKey('database', $conf);
 
         $this->assertEquals('localhost',$conf['host']);
         $this->assertEquals('4444',$conf['udp_port']);
         $this->assertEquals('8080',$conf['http_port']);
+        $this->assertEquals('udp',$conf['database']);
     }
     
 }
