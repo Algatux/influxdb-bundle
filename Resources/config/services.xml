@@ -10,6 +10,7 @@
         <service class="Algatux\InfluxDbBundle\Services\Clients\InfluxDbClientFactory"
                  id="algatux_influx_db.services_clients.influx_db_client_factory">
             <argument>%influx_db.host%</argument>
+            <argument>%influx_db.database%</argument>
             <argument>%influx_db.udp.port%</argument>
             <argument>%influx_db.http.port%</argument>
         </service>
@@ -26,6 +27,12 @@
                  id="algatux_influx_db.services_clients.http.writer_client">
             <argument id="algatux_influx_db.services_clients.influx_db_client_factory" type="service"/>
             <argument type="string">http</argument>
+        </service>
+
+        <!--ReaderClient HTTP -->
+        <service class="Algatux\InfluxDbBundle\Services\Clients\ReaderClient"
+                 id="algatux_influx_db.services_clients.http.reader_client">
+            <argument id="algatux_influx_db.services_clients.influx_db_client_factory" type="service"/>
         </service>
 
 

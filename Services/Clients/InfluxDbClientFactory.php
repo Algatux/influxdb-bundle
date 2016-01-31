@@ -42,7 +42,7 @@ class InfluxDbClientFactory
     /**
      * @return Client
      */
-    public function buildUdpClient()
+    public function buildUdpClient(): Client
     {
         $client = new Client($this->host,$this->udpPort);
         $client->setDriver(new UDP($this->host, $this->udpPort));
@@ -54,7 +54,7 @@ class InfluxDbClientFactory
     /**
      * @return Client
      */
-    public function buildHttpClient()
+    public function buildHttpClient(): Client
     {
         $client = new Client($this->host,$this->udpPort);
         $client->selectDB($this->database);
