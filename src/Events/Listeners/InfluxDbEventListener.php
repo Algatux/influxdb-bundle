@@ -32,21 +32,15 @@ class InfluxDbEventListener
     public function onInfluxDbEventDispatched(InfluxDbEvent $event): bool
     {
 
-        if ($event->isPropagationStopped()) {
-            return false;
-        }
-
         if ($event->getWriteClient() === ClientInterface::UDP_CLIENT) {
             $this->udpWriter->write($event->getPoints(), $event->getPayload());
-            return true;
         }
 
         if ($event->getWriteClient() === ClientInterface::HTTP_CLIENT) {
             $this->httpWriter->write($event->getPoints(), $event->getPayload());
-            return true;
         }
 
-        return false;
+        return true;
 
     }
 
