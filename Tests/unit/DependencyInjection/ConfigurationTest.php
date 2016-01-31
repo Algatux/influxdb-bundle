@@ -30,7 +30,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('localhost',$conf['host']);
         $this->assertEquals('4444',$conf['udp_port']);
-        $this->assertEquals('8080',$conf['http_port']);
+        $this->assertEquals('8086',$conf['http_port']);
         $this->assertEquals('udp',$conf['database']);
     }
     

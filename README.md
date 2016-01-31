@@ -13,9 +13,10 @@ Integration bundle for writing and reading to influxdb
 in your config.yml add:
     
     influx_db:
-      host: '{your influxdb host address}'
-      udp_port: '{your influxdb udp port}'
-      http_port: '{your influxdb http port}'
+      host: '{your influxdb host address}' (default localhost)
+      database: '{your influxdb host address}' (default udp)
+      udp_port: '{your influxdb udp port}' (default 4444)
+      http_port: '{your influxdb http port}' (default 8086)
     
 
 ### todo:

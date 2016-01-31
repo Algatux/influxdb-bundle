@@ -14,7 +14,7 @@ class InfluxDbClientFactoryTest extends \PHPUnit_Framework_TestCase
     const TEST_HOST = 'localhost';
     const TEST_DB = 'udp';
     const TEST_UDP = '4444';
-    const TEST_HTTP = '8080';
+    const TEST_HTTP = '8086';
 
     public function test_client_factory_test_exists()
     {
