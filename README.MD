@@ -38,9 +38,7 @@ $points = new PointsCollection([new Point(
 ```
 
 ###### Service
-
 ```php
-
 // UDP
 $container
     ->get('algatux_influx_db.services_clients.udp.writer_client')
@@ -54,9 +52,7 @@ $container
 ```
 
 ###### Event Dispatcher
-
 ```php
-
 // UDP
 $container
     ->get('event_dispatcher')
@@ -70,7 +66,6 @@ $container
 ```
 
 ### Todo:
-
 - add support for credentials login
 - add support to select database
 - ...
