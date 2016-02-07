@@ -15,7 +15,7 @@ in your config.yml add:
     
     influx_db:
       host: '{your influxdb host address}' (default localhost)
-      database: '{your influxdb host address}' (default udp)
+      database: '{your influxdb database name}' (default udp)
       udp_port: '{your influxdb udp port}' (default 4444)
       http_port: '{your influxdb http port}' (default 8086)
       use_events: true (default false)
