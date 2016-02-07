@@ -33,7 +33,7 @@ $points = new PointsCollection([new Point(
     ['host' => 'server01', 'region' => 'italy'], // optional tags
     ['cpucount' => rand(1,100), 'memory' => memory_get_usage(true)], // optional additional fields
     $time->getTimestamp()
-)]);
+)],Database::PRECISION_SECONDS);
 
 ```
 
@@ -42,12 +42,12 @@ $points = new PointsCollection([new Point(
 // UDP
 $container
     ->get('algatux_influx_db.services_clients.udp.writer_client')
-    ->write($points, Database::PRECISION_SECONDS);
+    ->write($points);
 
 // HTTP
 $container
     ->get('algatux_influx_db.services_clients.http.writer_client')
-    ->write($points, Database::PRECISION_SECONDS);
+    ->write($points);
 
 ```
 
@@ -56,12 +56,12 @@ $container
 // UDP
 $container
     ->get('event_dispatcher')
-    ->dispatch(InfluxDbEvent::NAME, new InfluxDbEvent($points, Database::PRECISION_SECONDS, ClientInterface::UDP_CLIENT));
+    ->dispatch(InfluxDbEvent::NAME, new UdpEvent($points));
 
 // HTTP
 $container
     ->get('event_dispatcher')
-    ->dispatch(InfluxDbEvent::NAME, new InfluxDbEvent($points, Database::PRECISION_SECONDS, ClientInterface::HTTP_CLIENT));
+    ->dispatch(InfluxDbEvent::NAME, new HttpEvent($points));
 
 ```
 

@@ -26,6 +26,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('database')->defaultValue('udp')->end()
                 ->scalarNode('udp_port')->defaultValue('4444')->end()
                 ->scalarNode('http_port')->defaultValue('8086')->end()
+                ->scalarNode('use_events')->defaultValue(false)->end()
             ->end();
 
         return $treeBuilder;

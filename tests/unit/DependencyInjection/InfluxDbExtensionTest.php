@@ -10,6 +10,7 @@ class InfluxDbExtensionTest extends \PHPUnit_Framework_TestCase
 
     public function test_load()
     {
+
         $extension = new InfluxDbExtension();
         $config = $extension->load([],new ContainerBuilder());
 

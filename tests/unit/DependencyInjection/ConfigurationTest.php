@@ -27,11 +27,13 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('udp_port', $conf);
         $this->assertArrayHasKey('http_port', $conf);
         $this->assertArrayHasKey('database', $conf);
+        $this->assertArrayHasKey('use_events', $conf);
 
         $this->assertEquals('localhost',$conf['host']);
         $this->assertEquals('4444',$conf['udp_port']);
         $this->assertEquals('8086',$conf['http_port']);
         $this->assertEquals('udp',$conf['database']);
+        $this->assertEquals(false,$conf['use_events']);
     }
     
 }
