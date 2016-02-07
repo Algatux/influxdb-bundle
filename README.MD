@@ -41,12 +41,12 @@ $points = new PointsCollection([new Point(
 ```php
 // UDP
 $container
-    ->get('algatux_influx_db.services_clients.udp.writer_client')
+    ->get('algatux_influx_db.client.udp.writer_client')
     ->write($points);
 
 // HTTP
 $container
-    ->get('algatux_influx_db.services_clients.http.writer_client')
+    ->get('algatux_influx_db.client.http.writer_client')
     ->write($points);
 
 ```

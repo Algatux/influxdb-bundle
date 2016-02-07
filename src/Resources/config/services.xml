@@ -17,23 +17,23 @@
 
         <!--WriterClient UDP -->
         <service class="Algatux\InfluxDbBundle\Services\Clients\WriterClient"
-                 id="algatux_influx_db.services_clients.udp.writer_client">
+                 id="algatux_influx_db.client.udp.writer_client">
             <argument id="algatux_influx_db.services_clients.influx_db_client_factory" type="service"/>
             <argument type="string">udp</argument>
         </service>
 
         <!--WriterClient HTTP -->
         <service class="Algatux\InfluxDbBundle\Services\Clients\WriterClient"
-                 id="algatux_influx_db.services_clients.http.writer_client">
+                 id="algatux_influx_db.client.http.writer_client">
             <argument id="algatux_influx_db.services_clients.influx_db_client_factory" type="service"/>
             <argument type="string">http</argument>
         </service>
 
         <!--ReaderClient HTTP -->
-        <service class="Algatux\InfluxDbBundle\Services\Clients\ReaderClient"
-                 id="algatux_influx_db.services_clients.http.reader_client">
-            <argument id="algatux_influx_db.services_clients.influx_db_client_factory" type="service"/>
-        </service>
+        <!--<service class="Algatux\InfluxDbBundle\Services\Clients\ReaderClient"-->
+                 <!--id="algatux_influx_db.client.http.reader_client">-->
+            <!--<argument id="algatux_influx_db.services_clients.influx_db_client_factory" type="service"/>-->
+        <!--</service>-->
 
 
     </services>

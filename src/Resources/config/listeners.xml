@@ -8,8 +8,8 @@
 
         <service class="Algatux\InfluxDbBundle\Events\Listeners\InfluxDbEventListener"
                  id="algatux_influx_db.events_listeners.influx_db_event_listener">
-            <argument id="algatux_influx_db.services_clients.http.writer_client" type="service"/>
-            <argument id="algatux_influx_db.services_clients.udp.writer_client" type="service"/>
+            <argument id="algatux_influx_db.client.http.writer_client" type="service"/>
+            <argument id="algatux_influx_db.client.udp.writer_client" type="service"/>
             <tag name="kernel.event_listener" event="influxdb.event" />
         </service>
 
