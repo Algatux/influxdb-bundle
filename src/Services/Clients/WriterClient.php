@@ -31,12 +31,11 @@ class WriterClient implements WriterInterface
 
     /**
      * @param PointsCollection $points
-     * @param string $payload
      * @return bool
      */
-    public function write(PointsCollection $points, $payload): bool
+    public function write(PointsCollection $points): bool
     {
-        return $this->database->writePoints($points->toArray(), $payload);
+        return $this->database->writePoints($points->toArray(), $points->getPrecision());
     }
 
 }

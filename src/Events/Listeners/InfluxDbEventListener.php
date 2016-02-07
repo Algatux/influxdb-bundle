@@ -32,12 +32,14 @@ class InfluxDbEventListener
     public function onInfluxDbEventDispatched(InfluxDbEvent $event): bool
     {
 
-        if ($event->getWriteClient() === ClientInterface::UDP_CLIENT) {
-            $this->udpWriter->write($event->getPoints(), $event->getPayload());
+        $points = $event->getPoints();
+
+        if ($event->getWriteMode() === ClientInterface::UDP_CLIENT) {
+            $this->udpWriter->write($points);
         }
 
-        if ($event->getWriteClient() === ClientInterface::HTTP_CLIENT) {
-            $this->httpWriter->write($event->getPoints(), $event->getPayload());
+        if ($event->getWriteMode() === ClientInterface::HTTP_CLIENT) {
+            $this->httpWriter->write($points);
         }
 
         return true;
