@@ -10,7 +10,8 @@
                  id="algatux_influx_db.events_listeners.influx_db_event_listener">
             <argument id="algatux_influx_db.client.http.writer_client" type="service"/>
             <argument id="algatux_influx_db.client.udp.writer_client" type="service"/>
-            <tag name="kernel.event_listener" event="influxdb.event" />
+            <tag name="kernel.event_listener" event="influxdb.points_collected" method="onPointsCollected" />
+            <tag name="kernel.event_listener" event="kernel.terminate" method="onKernelTerminate" />
         </service>
 
     </services>

@@ -13,7 +13,7 @@ use Symfony\Component\EventDispatcher\Event;
 abstract class InfluxDbEvent extends Event
 {
 
-    const NAME = 'influxdb.event';
+    const NAME = 'influxdb.points_collected';
 
     /** @var string  */
     protected $writeMode;
