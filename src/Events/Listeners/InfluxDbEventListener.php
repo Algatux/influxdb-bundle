@@ -38,25 +38,12 @@ class InfluxDbEventListener
 
     public function onPointsCollected(InfluxDbEvent $event): bool
     {
-        if ($event->isPropagationStopped()) {
-            return false;
-        }
-
         $points = $event->getPoints();
 
         if ($event instanceof DeferredInfluxDbEvent) {
 
             $this->initCollection($event->getWriteMode(),$points->getPrecision());
-
-            /** @var PointsCollection $actualCollection */
-            $actualCollection = $this->pointCollections[$event->getWriteMode()][$points->getPrecision()];
-
-            $mergedCollection = new PointsCollection(array_merge(
-                $actualCollection->toArray(),
-                $points->toArray()
-            ), $points->getPrecision());
-
-            $this->pointCollections[$event->getWriteMode()][$points->getPrecision()] = $mergedCollection;
+            $this->mergeCollections($event->getWriteMode(), $points);
 
             return true;
         }
@@ -72,19 +59,11 @@ class InfluxDbEventListener
      */
     public function onKernelTerminate(Event $event): bool
     {
-        if ($event->isPropagationStopped()) {
-            return false;
-        }
-
-        if (! empty($this->pointCollections)) {
-
-            foreach ($this->pointCollections as $writeMode => $precisionGroup) {
-                /** @var PointsCollection $pointsCollection */
-                foreach ($precisionGroup as $precision => $pointsCollection) {
-                    $this->writePoints($writeMode, $pointsCollection);
-                }
+        foreach ($this->pointCollections as $writeMode => $precisionGroup) {
+            /** @var PointsCollection $pointsCollection */
+            foreach ($precisionGroup as $precision => $pointsCollection) {
+                $this->writePoints($writeMode, $pointsCollection);
             }
-
         }
 
         return true;
@@ -118,6 +97,24 @@ class InfluxDbEventListener
         if (!isset($this->pointCollections[$getWriteMode][$getPrecision])) {
             $this->pointCollections[$getWriteMode][$getPrecision] = new PointsCollection([], $getPrecision);
         }
+    }
+
+    /**
+     * @param string $writemode
+     * @param PointsCollection $points
+     * @internal param InfluxDbEvent $event
+     */
+    private function mergeCollections(string $writemode, PointsCollection $points)
+    {
+        /** @var PointsCollection $actualCollection */
+        $actualCollection = $this->pointCollections[$writemode][$points->getPrecision()];
+
+        $mergedCollection = new PointsCollection(array_merge(
+            $actualCollection->toArray(),
+            $points->toArray()
+        ), $points->getPrecision());
+
+        $this->pointCollections[$writemode][$points->getPrecision()] = $mergedCollection;
     }
 
 }
