@@ -9,6 +9,7 @@ use Algatux\InfluxDbBundle\Events\Listeners\InfluxDbEventListener;
 use Algatux\InfluxDbBundle\Events\UdpEvent;
 use Algatux\InfluxDbBundle\Model\PointsCollection;
 use Algatux\InfluxDbBundle\Services\Clients\WriterClient;
+use Algatux\InfluxDbBundle\Services\PointsCollectionStorage;
 use InfluxDB\Database;
 use Prophecy\Argument;
 use Symfony\Component\EventDispatcher\Event;
@@ -20,6 +21,10 @@ class InfluxDbEventListenerTest extends \PHPUnit_Framework_TestCase
     {
         $event = new UdpEvent(new PointsCollection());
 
+        $storage = $this->prophesize(PointsCollectionStorage::class);
+        $storage->storeCollection(Argument::cetera())
+            ->shouldNotBeCalled();
+
         $httpWriter = $this->prophesize(WriterClient::class);
         $httpWriter->write(Argument::cetera())
             ->shouldNotBeCalled();
@@ -29,13 +34,17 @@ class InfluxDbEventListenerTest extends \PHPUnit_Framework_TestCase
             ->shouldBeCalledTimes(1)
             ->willReturn(true);
 
-        $listener = new InfluxDbEventListener($httpWriter->reveal(), $udpWriter->reveal());
+        $listener = new InfluxDbEventListener($httpWriter->reveal(), $udpWriter->reveal(), $storage->reveal());
         $listener->onPointsCollected($event);
     }
 
     public function test_listening_for_http_infuxdb_event()
     {
         $event = new HttpEvent(new PointsCollection());
+
+        $storage = $this->prophesize(PointsCollectionStorage::class);
+        $storage->storeCollection(Argument::cetera())
+            ->shouldNotBeCalled();
 
         $udpWriter = $this->prophesize(WriterClient::class);
         $udpWriter->write(Argument::cetera())
@@ -46,7 +55,7 @@ class InfluxDbEventListenerTest extends \PHPUnit_Framework_TestCase
             ->shouldBeCalledTimes(1)
             ->willReturn(true);
 
-        $listener = new InfluxDbEventListener($httpWriter->reveal(), $udpWriter->reveal());
+        $listener = new InfluxDbEventListener($httpWriter->reveal(), $udpWriter->reveal(), $storage->reveal());
         $listener->onPointsCollected($event);
     }
 
@@ -55,6 +64,13 @@ class InfluxDbEventListenerTest extends \PHPUnit_Framework_TestCase
         $event1 = new DeferredUdpEvent(new PointsCollection([1]));
         $event2 = new DeferredUdpEvent(new PointsCollection([2]));
         $event3 = new DeferredUdpEvent(new PointsCollection([3]));
+
+        $storage = $this->prophesize(PointsCollectionStorage::class);
+        $storage->storeCollection(Argument::cetera())
+            ->shouldBeCalledTimes(3);
+        $storage->getStoredCollections()
+            ->shouldBeCalledTimes(1)
+            ->willReturn(['udp' => ['s' => new PointsCollection([1,2,3])]]);
 
         $httpWriter = $this->prophesize(WriterClient::class);
         $httpWriter->write(Argument::cetera())
@@ -65,7 +81,7 @@ class InfluxDbEventListenerTest extends \PHPUnit_Framework_TestCase
             ->shouldBeCalledTimes(1)
             ->willReturn(true);
 
-        $listener = new InfluxDbEventListener($httpWriter->reveal(), $udpWriter->reveal());
+        $listener = new InfluxDbEventListener($httpWriter->reveal(), $udpWriter->reveal(), $storage->reveal());
         $listener->onPointsCollected($event1);
         $listener->onPointsCollected($event2);
         $listener->onPointsCollected($event3);
@@ -79,6 +95,14 @@ class InfluxDbEventListenerTest extends \PHPUnit_Framework_TestCase
         $event2 = new DeferredHttpEvent(new PointsCollection([2]));
         $event3 = new DeferredHttpEvent(new PointsCollection([3]));
 
+        $storage = $this->prophesize(PointsCollectionStorage::class);
+        $storage->storeCollection(Argument::cetera())
+            ->shouldBeCalledTimes(3);
+
+        $storage->getStoredCollections()
+            ->shouldBeCalledTimes(1)
+            ->willReturn(['http' => ['s' => new PointsCollection([1,2,3])]]);
+
         $httpWriter = $this->prophesize(WriterClient::class);
         $httpWriter->write(new PointsCollection([1,2,3]))
             ->shouldBeCalledTimes(1)
@@ -88,7 +112,7 @@ class InfluxDbEventListenerTest extends \PHPUnit_Framework_TestCase
         $udpWriter->write(Argument::cetera())
             ->shouldNotBeCalled();
 
-        $listener = new InfluxDbEventListener($httpWriter->reveal(), $udpWriter->reveal());
+        $listener = new InfluxDbEventListener($httpWriter->reveal(), $udpWriter->reveal(), $storage->reveal());
         $listener->onPointsCollected($event1);
         $listener->onPointsCollected($event2);
         $listener->onPointsCollected($event3);
