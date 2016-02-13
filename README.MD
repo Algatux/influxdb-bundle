@@ -14,12 +14,13 @@ Integration bundle for writing to influxdb
 in your config.yml add:
     
     influx_db:
-      host: '{your influxdb host address}' (default localhost)
-      database: '{your influxdb database name}' (default udp)
-      udp_port: '{your influxdb udp port}' (default 4444)
-      http_port: '{your influxdb http port}' (default 8086)
-      use_events: true (default false)
-    
+        host: '{your influxdb host address}'
+        database: '{your influxdb database name}'
+
+        # Other not required options
+        udp_port: '{your influxdb udp port}' (default 4444)
+        http_port: '{your influxdb http port}' (default 8086)
+        use_events: true (default false)
 
 ### Sending data to influx db
 
@@ -64,10 +65,25 @@ $container
     ->get('event_dispatcher')
     ->dispatch(InfluxDbEvent::NAME, new HttpEvent($points));
 
+
+// Deferred Events
+// Collect your measurements during the request and make only one write to influxdb.
+// Deferred events are catched and "stored". Than on the kernel.terminate event one write per
+// event type and precision will be fired.
+
+// UDP
+$container
+    ->get('event_dispatcher')
+    ->dispatch(InfluxDbEvent::NAME, new DeferredUdpEvent($points));
+
+// HTTP
+$container
+    ->get('event_dispatcher')
+    ->dispatch(InfluxDbEvent::NAME, new DeferredHttpEvent($points));
+
 ```
 
 ### Todo:
 - add support for credentials login
-- add support to select database
 - ...
 
