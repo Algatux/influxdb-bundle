@@ -26,6 +26,8 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('database')->end()
                 ->scalarNode('udp_port')->defaultValue('4444')->end()
                 ->scalarNode('http_port')->defaultValue('8086')->end()
+                ->scalarNode('username')->defaultValue('')->end()
+                ->scalarNode('password')->defaultValue('')->end()
                 ->scalarNode('use_events')->defaultValue(false)->end()
             ->end();
 

@@ -13,6 +13,8 @@
             <argument>%influx_db.database%</argument>
             <argument>%influx_db.udp.port%</argument>
             <argument>%influx_db.http.port%</argument>
+            <argument>%influx_db.username%</argument>
+            <argument>%influx_db.password%</argument>
         </service>
 
         <!--WriterClient UDP -->

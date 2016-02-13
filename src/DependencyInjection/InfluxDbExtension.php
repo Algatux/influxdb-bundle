@@ -26,6 +26,8 @@ class InfluxDbExtension extends Extension
         $container->setParameter('influx_db.http.port', $config['http_port']);
         $container->setParameter('influx_db.host', $config['host']);
         $container->setParameter('influx_db.database', $config['database']);
+        $container->setParameter('influx_db.username', $config['username']);
+        $container->setParameter('influx_db.password', $config['password']);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');

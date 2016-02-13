@@ -25,19 +25,29 @@ class InfluxDbClientFactory
     /** @var string  */
     private $database;
 
+    /** @var string */
+    private $username;
+
+    /** @var string  */
+    private $password;
+
     /**
      * InfluxDbClientFactory constructor.
      * @param string $host
      * @param string $database
      * @param string $udpPort
      * @param string $httpPort
+     * @param string $username
+     * @param string $password
      */
-    public function __construct($host, $database, $udpPort, $httpPort)
+    public function __construct($host, $database, $udpPort, $httpPort, $username = '', $password = '')
     {
         $this->host = $host;
         $this->database = $database;
         $this->udpPort = $udpPort;
         $this->httpPort = $httpPort;
+        $this->username = $username;
+        $this->password = $password;
     }
 
     /**
@@ -45,7 +55,7 @@ class InfluxDbClientFactory
      */
     public function buildUdpClient(): Database
     {
-        $client = new Client($this->host,$this->udpPort);
+        $client = new Client($this->host,$this->udpPort, $this->username, $this->password);
         $client->setDriver(new UDP($this->host, $this->udpPort));
 
         return $client->selectDB($this->database);
@@ -56,7 +66,7 @@ class InfluxDbClientFactory
      */
     public function buildHttpClient(): Database
     {
-        $client = new Client($this->host,$this->httpPort);
+        $client = new Client($this->host,$this->httpPort, $this->username, $this->password);
 
         return $client->selectDB($this->database);
     }
