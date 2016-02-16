@@ -22,7 +22,7 @@ class WriterClient implements WriterInterface
      * @param InfluxDbClientFactory $factory
      * @param string $clientType
      */
-    public function __construct(InfluxDbClientFactory $factory, $clientType)
+    public function __construct(InfluxDbClientFactory $factory, string $clientType)
     {
         $this->database = $clientType === ClientInterface::HTTP_CLIENT ?
             $factory->buildHttpClient() :

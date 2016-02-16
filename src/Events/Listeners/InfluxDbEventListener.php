@@ -78,9 +78,9 @@ class InfluxDbEventListener
 
     /**
      * @param string $writemode
-     * @param $points
+     * @param PointsCollection $points
      */
-    private function writePoints(string $writemode, $points)
+    private function writePoints(string $writemode, PointsCollection $points)
     {
         if ($writemode === ClientInterface::UDP_CLIENT) {
             $this->udpWriter->write($points);

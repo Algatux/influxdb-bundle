@@ -26,7 +26,7 @@ class PointsCollectionStorage implements CollectionStorageInterface
      * @param PointsCollection $collection
      * @param string $writeMode
      */
-    public function storeCollection(PointsCollection $collection, $writeMode)
+    public function storeCollection(PointsCollection $collection, string $writeMode)
     {
         $this->checkStorageInitialization($writeMode, $collection->getPrecision());
         $this->mergeCollections($writeMode, $collection);

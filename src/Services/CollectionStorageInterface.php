@@ -11,7 +11,7 @@ use Algatux\InfluxDbBundle\Model\PointsCollection;
 interface CollectionStorageInterface
 {
 
-    public function storeCollection(PointsCollection $collection, $writeMode);
+    public function storeCollection(PointsCollection $collection, string $writeMode);
 
     public function getStoredCollections(): array;
 

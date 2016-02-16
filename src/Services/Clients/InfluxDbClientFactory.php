@@ -40,7 +40,14 @@ class InfluxDbClientFactory
      * @param string $username
      * @param string $password
      */
-    public function __construct($host, $database, $udpPort, $httpPort, $username = '', $password = '')
+    public function __construct(
+        string $host,
+        string $database,
+        string $udpPort,
+        string $httpPort,
+        string $username = '',
+        string $password = ''
+    )
     {
         $this->host = $host;
         $this->database = $database;
