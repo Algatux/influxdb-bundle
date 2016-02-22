@@ -7,7 +7,7 @@ Integration bundle for writing to influxdb
 
 ### Install using Composer
 
-    composer require algatux/influxdb-bundle dev-master
+    composer require algatux/influxdb-bundle
 
 ### Configuration
 
