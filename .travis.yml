@@ -8,7 +8,7 @@ php:
 # Commands to be run before your environment runs.
 before_script:
   - composer self-update
-  - composer install --prefer-source --no-interaction
+  - composer update --prefer-source --no-interaction
 
 
 # Commands you want to run that will verify your build.
