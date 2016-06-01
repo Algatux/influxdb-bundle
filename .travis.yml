@@ -8,7 +8,8 @@ php:
 # Commands to be run before your environment runs.
 before_script:
   - composer self-update
-  - composer install --prefer-source --no-interaction
+  - if [ "$SYMFONY" != "" ]; then composer require "symfony/symfony:${SYMFONY}" --no-update; fi;
+  - composer update --prefer-source --no-interaction ${COMPOSER_FLAGS}
 
 
 # Commands you want to run that will verify your build.
@@ -28,6 +29,13 @@ matrix:
 #    - php: 7
 #    - php: hhvm
   fast_finish: true
+  include:
+    - php: '7.0'
+      env: COMPOSER_FLAGS="--prefer-lowest"
+    - php: '7.0'
+      env: SYMFONY=2.8.*
+    - php: '7.0'
+      env: SYMFONY=3.0.*
 
 # Customize when the notification emails are sent.
 notifications:

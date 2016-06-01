@@ -2,15 +2,15 @@
     "name": "algatux/influxdb-bundle",
     "description": "InfluxDB Bundle",
     "require": {
-        
+
         "php": ">=7.0",
-        
+
         "influxdb/influxdb-php": "^1.2",
-        "symfony/dependency-injection": "^3.0",
-        "symfony/config": "^3.0",
-        "symfony/http-kernel": "^3.0",
+        "symfony/dependency-injection": "^2.8 || ^3.0",
+        "symfony/config": "^2.8 || ^3.0",
+        "symfony/http-kernel": "^2.8 || ^3.0",
         "doctrine/collections": "^1.3",
-        "symfony/event-dispatcher": "^3.0"
+        "symfony/event-dispatcher": "^2.8 || ^3.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.1",
