@@ -1,17 +1,17 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Algatux\InfluxDbBundle\Services;
 
 use Algatux\InfluxDbBundle\Model\PointsCollection;
 
 /**
- * Class PointsCollectionStorage
- * @package Algatux\InfluxDbBundle\Services
+ * Class PointsCollectionStorage.
  */
 class PointsCollectionStorage implements CollectionStorageInterface
 {
-
-    /** @var array  */
+    /** @var array */
     protected $storage;
 
     /**
@@ -24,7 +24,7 @@ class PointsCollectionStorage implements CollectionStorageInterface
 
     /**
      * @param PointsCollection $collection
-     * @param string $writeMode
+     * @param string           $writeMode
      */
     public function storeCollection(PointsCollection $collection, string $writeMode)
     {
@@ -46,7 +46,7 @@ class PointsCollectionStorage implements CollectionStorageInterface
      */
     private function checkStorageInitialization(string $getWriteMode, string $getPrecision)
     {
-        if (! isset($this->storage[$getWriteMode])) {
+        if (!isset($this->storage[$getWriteMode])) {
             $this->storage[$getWriteMode] = null;
         }
 
@@ -56,8 +56,9 @@ class PointsCollectionStorage implements CollectionStorageInterface
     }
 
     /**
-     * @param string $writemode
+     * @param string           $writemode
      * @param PointsCollection $points
+     *
      * @internal param InfluxDbEvent $event
      */
     private function mergeCollections(string $writemode, PointsCollection $points)
@@ -69,7 +70,5 @@ class PointsCollectionStorage implements CollectionStorageInterface
             $actualCollection->toArray(),
             $points->toArray()
         ), $points->getPrecision());
-
     }
-    
 }
