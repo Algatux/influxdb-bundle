@@ -28,7 +28,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('http_port')->defaultValue('8086')->end()
                 ->scalarNode('username')->defaultValue('')->end()
                 ->scalarNode('password')->defaultValue('')->end()
-                ->scalarNode('use_events')->defaultValue(false)->end()
+                ->booleanNode('use_events')->defaultFalse()->end()
             ->end();
 
         return $treeBuilder;
