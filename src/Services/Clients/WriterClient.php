@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Algatux\InfluxDbBundle\Services\Clients;
 
 use Algatux\InfluxDbBundle\Model\PointsCollection;
@@ -8,19 +10,18 @@ use Algatux\InfluxDbBundle\Services\Clients\Contracts\WriterInterface;
 use InfluxDB\Database;
 
 /**
- * Class WriterClient
- * @package Algatux\InfluxDbBundle\Services\Clients
+ * Class WriterClient.
  */
 class WriterClient implements WriterInterface
 {
-
-    /** @var Database  */
+    /** @var Database */
     private $database;
 
     /**
      * WriterClient constructor.
+     *
      * @param InfluxDbClientFactory $factory
-     * @param string $clientType
+     * @param string                $clientType
      */
     public function __construct(InfluxDbClientFactory $factory, string $clientType)
     {
@@ -31,11 +32,11 @@ class WriterClient implements WriterInterface
 
     /**
      * @param PointsCollection $points
+     *
      * @return bool
      */
     public function write(PointsCollection $points): bool
     {
         return $this->database->writePoints($points->toArray(), $points->getPrecision());
     }
-
 }

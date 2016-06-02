@@ -1,18 +1,17 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Algatux\InfluxDbBundle\Services;
 
 use Algatux\InfluxDbBundle\Model\PointsCollection;
 
 /**
- * Interface CollectionStorageInterface
- * @package Algatux\InfluxDbBundle\Services
+ * Interface CollectionStorageInterface.
  */
 interface CollectionStorageInterface
 {
-
     public function storeCollection(PointsCollection $collection, string $writeMode);
 
     public function getStoredCollections(): array;
-
 }

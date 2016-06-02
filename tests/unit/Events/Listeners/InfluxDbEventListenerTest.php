@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Algatux\InfluxDbBundle\unit\Events\Listeners;
 
 use Algatux\InfluxDbBundle\Events\DeferredHttpEvent;
@@ -10,13 +12,11 @@ use Algatux\InfluxDbBundle\Events\UdpEvent;
 use Algatux\InfluxDbBundle\Model\PointsCollection;
 use Algatux\InfluxDbBundle\Services\Clients\WriterClient;
 use Algatux\InfluxDbBundle\Services\PointsCollectionStorage;
-use InfluxDB\Database;
 use Prophecy\Argument;
 use Symfony\Component\EventDispatcher\Event;
 
 class InfluxDbEventListenerTest extends \PHPUnit_Framework_TestCase
 {
-
     public function test_listening_for_udp_infuxdb_event()
     {
         $event = new UdpEvent(new PointsCollection());
@@ -70,14 +70,14 @@ class InfluxDbEventListenerTest extends \PHPUnit_Framework_TestCase
             ->shouldBeCalledTimes(3);
         $storage->getStoredCollections()
             ->shouldBeCalledTimes(1)
-            ->willReturn(['udp' => ['s' => new PointsCollection([1,2,3])]]);
+            ->willReturn(['udp' => ['s' => new PointsCollection([1, 2, 3])]]);
 
         $httpWriter = $this->prophesize(WriterClient::class);
         $httpWriter->write(Argument::cetera())
             ->shouldNotBeCalled();
 
         $udpWriter = $this->prophesize(WriterClient::class);
-        $udpWriter->write(new PointsCollection([1,2,3]))
+        $udpWriter->write(new PointsCollection([1, 2, 3]))
             ->shouldBeCalledTimes(1)
             ->willReturn(true);
 
@@ -101,10 +101,10 @@ class InfluxDbEventListenerTest extends \PHPUnit_Framework_TestCase
 
         $storage->getStoredCollections()
             ->shouldBeCalledTimes(1)
-            ->willReturn(['http' => ['s' => new PointsCollection([1,2,3])]]);
+            ->willReturn(['http' => ['s' => new PointsCollection([1, 2, 3])]]);
 
         $httpWriter = $this->prophesize(WriterClient::class);
-        $httpWriter->write(new PointsCollection([1,2,3]))
+        $httpWriter->write(new PointsCollection([1, 2, 3]))
             ->shouldBeCalledTimes(1)
             ->willReturn(true);
 
@@ -119,5 +119,4 @@ class InfluxDbEventListenerTest extends \PHPUnit_Framework_TestCase
 
         $listener->onKernelTerminate(new Event());
     }
-
 }

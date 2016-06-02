@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Algatux\InfluxDbBundle\Events;
 
 use Algatux\InfluxDbBundle\Model\PointsCollection;
@@ -7,24 +9,23 @@ use Algatux\InfluxDbBundle\Services\Clients\Contracts\ClientInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
- * Class InfluxDbEvent
- * @package Algatux\InfluxDbBundle\Events
+ * Class InfluxDbEvent.
  */
 abstract class InfluxDbEvent extends Event
 {
-
     const NAME = 'influxdb.points_collected';
 
-    /** @var string  */
+    /** @var string */
     protected $writeMode;
 
-    /** @var PointsCollection  */
+    /** @var PointsCollection */
     protected $points;
 
     /**
      * InfluxDbEvent constructor.
+     *
      * @param PointsCollection $collection
-     * @param string $writeMode
+     * @param string           $writeMode
      */
     public function __construct(PointsCollection $collection, string $writeMode = ClientInterface::UDP_CLIENT)
     {
@@ -47,5 +48,4 @@ abstract class InfluxDbEvent extends Event
     {
         return $this->points;
     }
-
 }

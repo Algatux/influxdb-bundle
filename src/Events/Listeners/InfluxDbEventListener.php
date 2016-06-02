@@ -1,6 +1,9 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Algatux\InfluxDbBundle\Events\Listeners;
+
 use Algatux\InfluxDbBundle\Events\DeferredInfluxDbEvent;
 use Algatux\InfluxDbBundle\Events\InfluxDbEvent;
 use Algatux\InfluxDbBundle\Model\PointsCollection;
@@ -10,33 +13,31 @@ use Algatux\InfluxDbBundle\Services\PointsCollectionStorage;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
- * Class InfluxDbEventListener
- * @package Algatux\InfluxDbBundle\Events\Listeners
+ * Class InfluxDbEventListener.
  */
 class InfluxDbEventListener
 {
-
-    /** @var WriterClient  */
+    /** @var WriterClient */
     private $httpWriter;
 
-    /** @var WriterClient  */
+    /** @var WriterClient */
     private $udpWriter;
 
-    /** @var PointsCollectionStorage  */
+    /** @var PointsCollectionStorage */
     private $collectionStorage;
 
     /**
      * InfluxDbEventListener constructor.
-     * @param WriterClient $httpWriter
-     * @param WriterClient $udpWriter
+     *
+     * @param WriterClient            $httpWriter
+     * @param WriterClient            $udpWriter
      * @param PointsCollectionStorage $collectionStorage
      */
     public function __construct(
         WriterClient $httpWriter,
         WriterClient $udpWriter,
         PointsCollectionStorage $collectionStorage
-    )
-    {
+    ) {
         $this->httpWriter = $httpWriter;
         $this->udpWriter = $udpWriter;
         $this->collectionStorage = $collectionStorage;
@@ -47,7 +48,6 @@ class InfluxDbEventListener
         $points = $event->getPoints();
 
         if ($event instanceof DeferredInfluxDbEvent) {
-
             $this->collectionStorage->storeCollection($points, $event->getWriteMode());
 
             return true;
@@ -60,6 +60,7 @@ class InfluxDbEventListener
 
     /**
      * @param Event $event
+     *
      * @return bool
      */
     public function onKernelTerminate(Event $event): bool
@@ -77,7 +78,7 @@ class InfluxDbEventListener
     }
 
     /**
-     * @param string $writemode
+     * @param string           $writemode
      * @param PointsCollection $points
      */
     private function writePoints(string $writemode, PointsCollection $points)
@@ -90,7 +91,4 @@ class InfluxDbEventListener
             $this->httpWriter->write($points);
         }
     }
-
-
-
 }
