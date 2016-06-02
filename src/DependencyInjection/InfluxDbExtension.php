@@ -31,6 +31,8 @@ class InfluxDbExtension extends Extension
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
+        $loader->load('clients.xml');
+        $loader->load('databases.xml');
 
         if ($config['use_events'] === true) {
             $loader->load('listeners.xml');

@@ -8,8 +8,15 @@ use InfluxDB\Client;
 use InfluxDB\Database;
 use InfluxDB\Driver\UDP;
 
+@trigger_error(
+    'The '.__NAMESPACE__.'\InfluxDbClientFactory class is deprecated since version 1.1 and will be removed in 2.0.',
+    E_USER_DEPRECATED
+);
+
 /**
  * Class InfluxDbClientFactory.
+ *
+ * @deprecated Since version 1.1, to be removed in 2.0.
  */
 class InfluxDbClientFactory
 {

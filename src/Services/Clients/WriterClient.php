@@ -9,8 +9,15 @@ use Algatux\InfluxDbBundle\Services\Clients\Contracts\ClientInterface;
 use Algatux\InfluxDbBundle\Services\Clients\Contracts\WriterInterface;
 use InfluxDB\Database;
 
+@trigger_error(
+    'The '.__NAMESPACE__.'\WriterClient class is deprecated since version 1.1 and will be removed in 2.0.',
+    E_USER_DEPRECATED
+);
+
 /**
  * Class WriterClient.
+ *
+ * @deprecated Since version 1.1, to be removed in 2.0.
  */
 class WriterClient implements WriterInterface
 {

@@ -9,6 +9,9 @@ use InfluxDB\Database;
 use InfluxDB\Driver\Guzzle;
 use InfluxDB\Driver\UDP;
 
+/**
+ * @group legacy
+ */
 class InfluxDbClientFactoryTest extends \PHPUnit_Framework_TestCase
 {
     const TEST_HOST = 'localhost';

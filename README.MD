@@ -48,9 +48,22 @@ influx_db:
     use_events: true (default false)
 ```
 
-### Sending data to influx db
+### Services
 
-assuming this collection to send:
+You can directly access to the `InfluxDB\Database` trough UDP or HTTP with those services:
+
+```php
+$httpDatabase = $this->get('algatux_influx_db.database.http');
+$udpDatabase = $this->get('algatux_influx_db.database.udp');
+```
+
+To manipulate the database, please read the official documentation
+for [reading](https://github.com/influxdata/influxdb-php#reading)
+and [writing](https://github.com/influxdata/influxdb-php#writing-data).
+
+### Sending data to influx db trough events
+
+Assuming this collection to send:
 
 ```php
 $time = new \DateTime();
@@ -65,21 +78,8 @@ $points = new PointsCollection([new Point(
 
 ```
 
-###### Service
-```php
-// UDP
-$container
-    ->get('algatux_influx_db.client.udp.writer_client')
-    ->write($points);
+Dispatch the event instance according to the chosen writing protocol:
 
-// HTTP
-$container
-    ->get('algatux_influx_db.client.http.writer_client')
-    ->write($points);
-
-```
-
-###### Event Dispatcher
 ```php
 // UDP
 $container
@@ -90,8 +90,11 @@ $container
 $container
     ->get('event_dispatcher')
     ->dispatch(InfluxDbEvent::NAME, new HttpEvent($points));
+```
 
+Or, if you prefer to defer the event:
 
+```php
 // Deferred Events
 // Collect your measurements during the request and make only one write to influxdb.
 // Deferred events are catched and "stored". Than on the kernel.terminate event one write per
@@ -106,7 +109,4 @@ $container
 $container
     ->get('event_dispatcher')
     ->dispatch(InfluxDbEvent::NAME, new DeferredHttpEvent($points));
-
 ```
-
-
