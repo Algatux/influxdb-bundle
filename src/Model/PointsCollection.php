@@ -12,6 +12,7 @@ use InfluxDB\Database;
 class PointsCollection extends ArrayCollection
 {
 
+    /** @var string  */
     public $precision;
 
     /**
