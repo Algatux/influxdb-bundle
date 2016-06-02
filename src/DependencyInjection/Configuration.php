@@ -22,8 +22,8 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('host')->end()
-                ->scalarNode('database')->end()
+                ->scalarNode('host')->isRequired()->end()
+                ->scalarNode('database')->isRequired()->end()
                 ->scalarNode('udp_port')->defaultValue('4444')->end()
                 ->scalarNode('http_port')->defaultValue('8086')->end()
                 ->scalarNode('username')->defaultValue('')->end()

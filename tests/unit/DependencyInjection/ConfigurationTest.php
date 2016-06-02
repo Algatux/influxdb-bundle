@@ -21,7 +21,10 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
 
         $processor = new Processor();
 
-        $conf = $processor->process($builtConf, []);
+        $conf = $processor->process($builtConf, ['influx_db' => [
+            'host' => '127.0.0.1',
+            'database' => 'telegraf',
+        ]]);
 
         $this->assertArrayHasKey('udp_port', $conf);
         $this->assertArrayHasKey('http_port', $conf);
