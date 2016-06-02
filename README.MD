@@ -9,7 +9,9 @@ Integration bundle for writing to influxdb
 
 First of all, you need to require this library through composer:
 
-    composer require algatux/influxdb-bundle
+```bash
+composer require algatux/influxdb-bundle
+```
 
 Then, enable the bundle on the `AppKernel` class:
 
@@ -33,16 +35,18 @@ public function registerBundles()
 
 in your config.yml add:
 
-    influx_db:
-        host: '{your influxdb host address}'
-        database: '{your influxdb database name}'
+```yaml
+influx_db:
+    host: '{your influxdb host address}'
+    database: '{your influxdb database name}'
 
-        # Other not required options
-        username: '{your influxdb username}'
-        password: '{your influxdb password}'
-        udp_port: '{your influxdb udp port}' (default 4444)
-        http_port: '{your influxdb http port}' (default 8086)
-        use_events: true (default false)
+    # Other not required options
+    username: '{your influxdb username}'
+    password: '{your influxdb password}'
+    udp_port: '{your influxdb udp port}' (default 4444)
+    http_port: '{your influxdb http port}' (default 8086)
+    use_events: true (default false)
+```
 
 ### Sending data to influx db
 
