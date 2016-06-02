@@ -42,10 +42,6 @@ class InfluxDbEventListener
         $this->collectionStorage = $collectionStorage;
     }
 
-    /**
-     * @param InfluxDbEvent $event
-     * @return bool
-     */
     public function onPointsCollected(InfluxDbEvent $event): bool
     {
         $points = $event->getPoints();

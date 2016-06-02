@@ -12,10 +12,6 @@ use Algatux\InfluxDbBundle\Services\Clients\Contracts\ClientInterface;
 class UdpEvent extends InfluxDbEvent
 {
 
-    /**
-     * UdpEvent constructor.
-     * @param PointsCollection $collection
-     */
     public function __construct(PointsCollection $collection)
     {
         parent::__construct($collection, ClientInterface::UDP_CLIENT);
