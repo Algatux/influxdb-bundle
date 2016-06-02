@@ -14,7 +14,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^5.1",
-        "phpspec/prophecy": "^1.6.0"
+        "phpspec/prophecy": "^1.6.0",
+        "sllh/php-cs-fixer-styleci-bridge": "^2.0"
     },
     "license": "MIT",
     "authors": [
