@@ -12,7 +12,7 @@ Integration bundle for writing to influxdb
 ### Configuration
 
 in your config.yml add:
-    
+
     influx_db:
         host: '{your influxdb host address}'
         database: '{your influxdb database name}'
