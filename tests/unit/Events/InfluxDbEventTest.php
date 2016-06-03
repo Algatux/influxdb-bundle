@@ -11,6 +11,9 @@ use Algatux\InfluxDbBundle\Services\Clients\Contracts\ClientInterface;
 
 class InfluxDbEventTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @group legacy
+     */
     public function test_event_interface()
     {
         $event = new HttpEvent(new PointsCollection([1, 2, 3]), ClientInterface::HTTP_CLIENT);
