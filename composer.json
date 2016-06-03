@@ -1,6 +1,13 @@
 {
     "name": "algatux/influxdb-bundle",
     "description": "InfluxDB Bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alessandro Galli",
+            "email": "a.galli85@gmail.com"
+        }
+    ],
     "require": {
         "php": "^7.0",
         "influxdb/influxdb-php": "^1.2",
@@ -16,13 +23,6 @@
         "sllh/php-cs-fixer-styleci-bridge": "^2.0",
         "matthiasnoback/symfony-dependency-injection-test": "^0.7.6"
     },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Alessandro Galli",
-            "email": "a.galli85@gmail.com"
-        }
-    ],
     "autoload": {
         "psr-4": { "Algatux\\InfluxDbBundle\\": "src/" },
         "exclude-from-classmap": [
