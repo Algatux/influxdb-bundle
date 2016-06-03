@@ -8,7 +8,6 @@ use Algatux\InfluxDbBundle\DependencyInjection\InfluxDbExtension;
 use Algatux\InfluxDbBundle\Events\Listeners\InfluxDbEventListener;
 use Algatux\InfluxDbBundle\Services\Clients\InfluxDbClientFactory;
 use Algatux\InfluxDbBundle\Services\Clients\WriterClient;
-use Algatux\InfluxDbBundle\Services\PointsCollectionStorage;
 use InfluxDB\Database;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 
@@ -53,7 +52,6 @@ class InfluxDbExtensionTest extends AbstractExtensionTestCase
         ]);
 
         $this->assertContainerBuilderHasService('algatux_influx_db.events_listeners.influx_db_event_listener', InfluxDbEventListener::class);
-        $this->assertContainerBuilderHasService('algatux_influx_db.services.points_collection_storage', PointsCollectionStorage::class);
     }
 
     protected function getMinimalConfiguration()
