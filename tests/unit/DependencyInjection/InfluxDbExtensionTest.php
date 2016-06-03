@@ -18,6 +18,24 @@ class InfluxDbExtensionTest extends AbstractExtensionTestCase
     {
         $this->load();
 
+        $this->assertContainerBuilderHasService('algatux_influx_db.database.http', Database::class);
+        $httpDatabase = $this->container->get('algatux_influx_db.database.http');
+        $this->assertInstanceOf(Database::class, $httpDatabase);
+        $this->assertSame('telegraf', $httpDatabase->getName());
+
+        $this->assertContainerBuilderHasService('algatux_influx_db.database.udp', Database::class);
+        $udpDatabase = $this->container->get('algatux_influx_db.database.udp');
+        $this->assertInstanceOf(Database::class, $udpDatabase);
+        $this->assertSame('telegraf', $udpDatabase->getName());
+    }
+
+    /**
+     * @group legacy
+     */
+    public function test_load_legacy_services()
+    {
+        $this->load();
+
         $this->assertContainerBuilderHasService('algatux_influx_db.services_clients.influx_db_client_factory', InfluxDbClientFactory::class);
         $this->assertContainerBuilderHasService('algatux_influx_db.client.udp.writer_client', WriterClient::class);
         $this->assertContainerBuilderHasService('algatux_influx_db.client.http.writer_client', WriterClient::class);

@@ -12,6 +12,9 @@ use Algatux\InfluxDbBundle\Services\Clients\WriterClient;
 use InfluxDB\Database;
 use Prophecy\Argument;
 
+/**
+ * @group legacy
+ */
 class WriterClientTest extends \PHPUnit_Framework_TestCase
 {
     public function test_http_client_construction()

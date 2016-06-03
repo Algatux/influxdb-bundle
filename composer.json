@@ -16,7 +16,8 @@
         "symfony/config": "^2.8 || ^3.0",
         "symfony/dependency-injection": "^2.8 || ^3.0",
         "symfony/event-dispatcher": "^2.8 || ^3.0",
-        "symfony/http-kernel": "^2.8 || ^3.0"
+        "symfony/http-kernel": "^2.8 || ^3.0",
+        "symfony/phpunit-bridge": "^3.1"
     },
     "require-dev": {
         "matthiasnoback/symfony-dependency-injection-test": "^0.7.6",

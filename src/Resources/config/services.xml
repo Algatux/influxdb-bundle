@@ -15,6 +15,7 @@
             <argument>%influx_db.http.port%</argument>
             <argument>%influx_db.username%</argument>
             <argument>%influx_db.password%</argument>
+            <deprecated>The "%service_id%" service is deprecated since version 1.1 and will be removed in 2.0.</deprecated>
         </service>
 
         <!--WriterClient UDP -->
@@ -22,6 +23,7 @@
                  id="algatux_influx_db.client.udp.writer_client">
             <argument id="algatux_influx_db.services_clients.influx_db_client_factory" type="service"/>
             <argument type="string">udp</argument>
+            <deprecated>The "%service_id%" service is deprecated since version 1.1 and will be removed in 2.0.</deprecated>
         </service>
 
         <!--WriterClient HTTP -->
@@ -29,6 +31,7 @@
                  id="algatux_influx_db.client.http.writer_client">
             <argument id="algatux_influx_db.services_clients.influx_db_client_factory" type="service"/>
             <argument type="string">http</argument>
+            <deprecated>The "%service_id%" service is deprecated since version 1.1 and will be removed in 2.0.</deprecated>
         </service>
 
         <!--ReaderClient HTTP -->

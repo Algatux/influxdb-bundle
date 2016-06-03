@@ -8,6 +8,9 @@ use Algatux\InfluxDbBundle\Services\Clients\Contracts\ReaderInterface;
 use Algatux\InfluxDbBundle\Services\Clients\InfluxDbClientFactory;
 use Algatux\InfluxDbBundle\Services\Clients\ReaderClient;
 
+/**
+ * @group legacy
+ */
 class ReaderClientTest extends \PHPUnit_Framework_TestCase
 {
     public function test_http_client_construction()
