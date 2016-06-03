@@ -3,6 +3,16 @@ language: php
 php:
   - 7
 
+matrix:
+  fast_finish: true
+  include:
+    - php: '7.0'
+      env: COMPOSER_FLAGS="--prefer-lowest"
+    - php: '7.0'
+      env: SYMFONY=2.8.*
+    - php: '7.0'
+      env: SYMFONY=3.0.*
+
 before_script:
   - composer self-update
   - if [ "$SYMFONY" != "" ]; then composer require "symfony/symfony:${SYMFONY}" --no-update; fi;
@@ -13,16 +23,6 @@ script: bin/phpunit -c . --coverage-clover=./build/coverage/coverage.clover
 after_success:
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover ./build/coverage/coverage.clover
-
-matrix:
-  fast_finish: true
-  include:
-    - php: '7.0'
-      env: COMPOSER_FLAGS="--prefer-lowest"
-    - php: '7.0'
-      env: SYMFONY=2.8.*
-    - php: '7.0'
-      env: SYMFONY=3.0.*
 
 notifications:
     on_success: never
