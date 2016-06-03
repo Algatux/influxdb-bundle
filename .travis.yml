@@ -4,6 +4,10 @@ php:
   - '7.0'
   - nightly
 
+env:
+  global:
+    - PATH="$HOME/bin:$PATH"
+
 matrix:
   fast_finish: true
   include:
@@ -33,7 +37,8 @@ before_install:
   - if [ "$SYMFONY" != "" ]; then composer require "symfony/symfony:${SYMFONY}" --no-update; fi;
 
 install:
-  - wget https://scrutinizer-ci.com/ocular.phar
+  - mkdir --parents "${HOME}/bin"
+  - wget https://scrutinizer-ci.com/ocular.phar --output-document="${HOME}/bin/ocular" && chmod +x "${HOME}/bin/ocular"
   - composer update --prefer-dist --no-interaction ${COMPOSER_FLAGS}
 
 before_script:
@@ -42,7 +47,7 @@ before_script:
 script: bin/phpunit -c . --coverage-clover=./build/coverage/coverage.clover
 
 after_success:
-  - php ocular.phar code-coverage:upload --format=php-clover ./build/coverage/coverage.clover
+  - ocular code-coverage:upload --format=php-clover ./build/coverage/coverage.clover
 
 notifications:
   on_success: never
