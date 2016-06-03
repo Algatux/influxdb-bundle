@@ -1,6 +1,7 @@
 {
     "name": "algatux/influxdb-bundle",
     "description": "InfluxDB Bundle",
+    "type": "symfony-bundle",
     "license": "MIT",
     "authors": [
         {
