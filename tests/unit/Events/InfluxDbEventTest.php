@@ -21,5 +21,20 @@ class InfluxDbEventTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals([1, 2, 3], $event->getPoints());
         $this->assertEquals(Database::PRECISION_SECONDS, $event->getPrecision());
+        $this->assertNull($event->getConnection());
+    }
+
+    /**
+     * @group legacy
+     */
+    public function test_event_interface_with_connection()
+    {
+        $event = new HttpEvent([1, 2, 3], Database::PRECISION_SECONDS, 'telegraf');
+
+        $this->assertInstanceOf(InfluxDbEvent::class, $event);
+
+        $this->assertEquals([1, 2, 3], $event->getPoints());
+        $this->assertEquals(Database::PRECISION_SECONDS, $event->getPrecision());
+        $this->assertEquals('telegraf', $event->getConnection());
     }
 }

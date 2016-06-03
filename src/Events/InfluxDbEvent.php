@@ -25,13 +25,20 @@ abstract class InfluxDbEvent extends Event
     protected $precision;
 
     /**
+     * @var string|null
+     */
+    private $connection;
+
+    /**
      * @param Point[] $points
      * @param string  $precision
+     * @param string  $connection
      */
-    public function __construct(array $points, string $precision)
+    public function __construct(array $points, string $precision, string $connection = null)
     {
         $this->points = $points;
         $this->precision = $precision;
+        $this->connection = $connection;
     }
 
     /**
@@ -48,5 +55,13 @@ abstract class InfluxDbEvent extends Event
     final public function getPrecision()
     {
         return $this->precision;
+    }
+
+    /**
+     * @return string|null
+     */
+    final public function getConnection()
+    {
+        return $this->connection;
     }
 }

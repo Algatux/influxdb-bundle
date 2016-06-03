@@ -2,9 +2,13 @@
 
 namespace Algatux\InfluxDbBundle\DependencyInjection;
 
+use Algatux\InfluxDbBundle\Events\Listeners\InfluxDbEventListener;
+use InfluxDB\Database;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
@@ -22,18 +26,71 @@ class InfluxDbExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('influx_db.udp.port', $config['udp_port']);
-        $container->setParameter('influx_db.http.port', $config['http_port']);
-        $container->setParameter('influx_db.host', $config['host']);
-        $container->setParameter('influx_db.database', $config['database']);
-        $container->setParameter('influx_db.username', $config['username']);
-        $container->setParameter('influx_db.password', $config['password']);
-
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('clients.xml');
-        $loader->load('databases.xml');
-        $loader->load('listeners.xml');
+        $loader->load('factory.xml');
+
+        // If the default connection if not defined, get the first one.
+        $defaultConnection = isset($config['default_connection']) ? $config['default_connection'] : key($config['connections']);
+        foreach ($config['connections'] as $connection => $connectionConfig) {
+            $this->createConnection($container, $connection, $connectionConfig, 'http');
+            $this->createConnection($container, $connection, $connectionConfig, 'udp');
+
+            $this->createConnectionListener($container, $connection, $defaultConnection);
+        }
+
+        $container->setAlias(
+            'algatux_influx_db.connection.http',
+            'algatux_influx_db.connection.'.$defaultConnection.'.http'
+        );
+        $container->setAlias(
+            'algatux_influx_db.connection.udp',
+            'algatux_influx_db.connection.'.$defaultConnection.'.udp'
+        );
 
         return $config;
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     * @param string           $connection The connection name
+     * @param array            $config     The connection configuration
+     * @param string           $protocol   The connection protocol ('http' or 'udp')
+     */
+    private function createConnection(ContainerBuilder $container, $connection, array $config, $protocol)
+    {
+        // Create the connection based from the abstract one.
+        $connectionDefinition = new Definition(Database::class, [
+            $config['database'],
+            $config['host'],
+            $config['http_port'],
+            $config['udp_port'],
+            $config['username'],
+            $config['password'],
+            'udp' === $protocol,
+        ]);
+        $connectionDefinition->setFactory([new Reference('algatux_influx_db.connection_factory'), 'createConnection']);
+
+        // E.g.: algatux_influx_db.connection.default.http
+        $container->setDefinition('algatux_influx_db.connection.'.$connection.'.'.$protocol, $connectionDefinition);
+    }
+
+    private function createConnectionListener(ContainerBuilder $container, $connection, $defaultConnection)
+    {
+        $listenerDefinition = new Definition(InfluxDbEventListener::class, [
+            $connection,
+            $connection === $defaultConnection,
+            new Reference('algatux_influx_db.connection.'.$connection.'.http'),
+            new Reference('algatux_influx_db.connection.'.$connection.'.udp'),
+        ]);
+        $listenerDefinition->addTag('kernel.event_listener', [
+            'event' => 'influxdb.points_collected',
+            'method' => 'onPointsCollected',
+        ]);
+        $listenerDefinition->addTag('kernel.event_listener', [
+            'event' => 'kernel.terminate',
+            'method' => 'onKernelTerminate',
+        ]);
+
+        $container->setDefinition('algatux_influx_db.event_listener.'.$connection, $listenerDefinition);
     }
 }

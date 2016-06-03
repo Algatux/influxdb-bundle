@@ -21,6 +21,16 @@ class InfluxDbEventListener
     const STORAGE_KEY_HTTP = 'http';
 
     /**
+     * @var string
+     */
+    private $connection;
+
+    /**
+     * @var bool
+     */
+    private $isDefault;
+
+    /**
      * @var Database
      */
     private $httpDatabase;
@@ -36,13 +46,15 @@ class InfluxDbEventListener
     private $storage;
 
     /**
+     * @param string   $connection
+     * @param bool     $isDefault
      * @param Database $httpDatabase
      * @param Database $udpDatabase
      */
-    public function __construct(
-        Database $httpDatabase,
-        Database $udpDatabase
-    ) {
+    public function __construct(string $connection, bool $isDefault, Database $httpDatabase, Database $udpDatabase)
+    {
+        $this->connection = $connection;
+        $this->isDefault = $isDefault;
         $this->httpDatabase = $httpDatabase;
         $this->udpDatabase = $udpDatabase;
         $this->initStorage();
@@ -50,6 +62,11 @@ class InfluxDbEventListener
 
     public function onPointsCollected(InfluxDbEvent $event): bool
     {
+        $isConcerned = $this->connection === $event->getConnection() || !$event->getConnection() && $this->isDefault;
+        if (!$isConcerned) {
+            return false;
+        }
+
         $points = $event->getPoints();
         $precision = $event->getPrecision();
 
