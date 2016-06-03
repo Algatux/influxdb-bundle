@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Algatux\InfluxDbBundle\Services;
 
 use InfluxDB\Client;
+use InfluxDB\Driver\UDP;
 
 /**
  * Factory to build InfluxDB\Client instances.
@@ -26,7 +27,7 @@ final class ClientFactory
         $client = new Client($host, $httpPort, $user, $password);
 
         if ($udp) {
-            $client->setDriver(new \InfluxDB\Driver\UDP($client->getHost(), $udpPort));
+            $client->setDriver(new UDP($client->getHost(), $udpPort));
         }
 
         return $client;
