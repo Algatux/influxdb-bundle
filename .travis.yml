@@ -22,13 +22,18 @@ matrix:
     - env: SYMFONY=3.1.*
     - env: SYMFONY=dev-master
 
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
 before_install:
   - composer self-update
+  - composer config --quiet --global github-oauth.github.com ${GITHUB_OAUTH_TOKEN}
   - if [ "$SYMFONY" != "" ]; then composer require "symfony/symfony:${SYMFONY}" --no-update; fi;
 
 install:
   - wget https://scrutinizer-ci.com/ocular.phar
-  - composer update --prefer-source --no-interaction ${COMPOSER_FLAGS}
+  - composer update --prefer-dist --no-interaction ${COMPOSER_FLAGS}
 
 script: bin/phpunit -c . --coverage-clover=./build/coverage/coverage.clover
 
