@@ -2,9 +2,7 @@
     "name": "algatux/influxdb-bundle",
     "description": "InfluxDB Bundle",
     "require": {
-
         "php": "^7.0",
-
         "influxdb/influxdb-php": "^1.2",
         "symfony/dependency-injection": "^2.8 || ^3.0",
         "symfony/config": "^2.8 || ^3.0",
