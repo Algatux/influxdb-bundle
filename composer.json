@@ -28,8 +28,7 @@
         "psr-4": { "Algatux\\InfluxDbBundle\\": "src/" }
     },
     "config": {
-        "sort-packages": true,
-        "bin-dir": "bin"
+        "sort-packages": true
     },
     "minimum-stability": "stable"
 }

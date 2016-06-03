@@ -6,7 +6,7 @@ php:
 
 env:
   global:
-    - PATH="$HOME/bin:./bin:$PATH"
+    - PATH="$HOME/bin:./vendor/bin:$PATH"
 
 matrix:
   fast_finish: true
