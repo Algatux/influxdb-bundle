@@ -2,6 +2,7 @@ language: php
 
 php:
   - '7.0'
+  - nightly
 
 matrix:
   fast_finish: true
@@ -12,6 +13,14 @@ matrix:
       env: SYMFONY=2.8.*
     - php: '7.0'
       env: SYMFONY=3.0.*
+    - php: '7.0'
+      env: SYMFONY=3.1.*
+    - php: '7.0'
+      env: SYMFONY=dev-master
+  allow_failures:
+    - php: nightly
+    - env: SYMFONY=3.1.*
+    - env: SYMFONY=dev-master
 
 before_script:
   - composer self-update
