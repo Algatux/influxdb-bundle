@@ -45,5 +45,5 @@ after_success:
   - php ocular.phar code-coverage:upload --format=php-clover ./build/coverage/coverage.clover
 
 notifications:
-    on_success: never
-    on_failure: always
+  on_success: never
+  on_failure: always
