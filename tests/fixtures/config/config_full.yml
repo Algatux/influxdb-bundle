@@ -1,8 +1,8 @@
 influx_db:
     host: localhost
     database: telegraf
-    udp_port: '1337'
-    http_port: '42'
+    udp_port: 1337
+    http_port: 42
     username: 'foo'
     password: 'bar'
     use_events: true

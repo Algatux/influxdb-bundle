@@ -14,15 +14,15 @@ final class ClientFactory
 {
     /**
      * @param string $host
-     * @param string $httpPort
-     * @param string $udpPort
+     * @param int    $httpPort
+     * @param int    $udpPort
      * @param string $user
      * @param string $password
      * @param bool   $udp
      *
      * @return Client
      */
-    public static function createClient(string $host, string $httpPort, string $udpPort, string $user, string $password, bool $udp = false)
+    public static function createClient(string $host, int $httpPort, int $udpPort, string $user, string $password, bool $udp = false)
     {
         $client = new Client($host, $httpPort, $user, $password);
 

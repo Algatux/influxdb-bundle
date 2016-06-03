@@ -43,8 +43,8 @@ influx_db:
     # Other not required options
     username: '{your influxdb username}'
     password: '{your influxdb password}'
-    udp_port: '{your influxdb udp port}' (default 4444)
-    http_port: '{your influxdb http port}' (default 8086)
+    udp_port: 4444
+    http_port: 8086
     use_events: true (default false)
 ```
 
