@@ -22,15 +22,17 @@ matrix:
     - env: SYMFONY=3.1.*
     - env: SYMFONY=dev-master
 
-before_script:
+before_install:
   - composer self-update
   - if [ "$SYMFONY" != "" ]; then composer require "symfony/symfony:${SYMFONY}" --no-update; fi;
+
+install:
+  - wget https://scrutinizer-ci.com/ocular.phar
   - composer update --prefer-source --no-interaction ${COMPOSER_FLAGS}
 
 script: bin/phpunit -c . --coverage-clover=./build/coverage/coverage.clover
 
 after_success:
-  - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover ./build/coverage/coverage.clover
 
 notifications:
