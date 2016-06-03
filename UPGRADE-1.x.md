@@ -21,6 +21,7 @@ Some class are deprecated and should not be used anymore:
 * `Algatux\InfluxDbBundle\Services\Clients\InfluxDbClientFactory`
 * `Algatux\InfluxDbBundle\Services\Clients\WriterClient`
 * `Algatux\InfluxDbBundle\Services\Clients\ReaderClient`
+* `Algatux\InfluxDbBundle\Model\PointsCollection`
 
 ## Deprecated interfaces
 
