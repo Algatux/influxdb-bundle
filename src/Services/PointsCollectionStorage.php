@@ -59,7 +59,7 @@ class PointsCollectionStorage implements CollectionStorageInterface
      * @param string           $writemode
      * @param PointsCollection $points
      *
-     * @internal param InfluxDbEvent $event
+     * @internal param AbstractInfluxDbEvent $event
      */
     private function mergeCollections(string $writemode, PointsCollection $points)
     {

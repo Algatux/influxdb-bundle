@@ -6,9 +6,9 @@ namespace Algatux\InfluxDbBundle\unit\Events\Listeners;
 
 use Algatux\InfluxDbBundle\Events\DeferredHttpEvent;
 use Algatux\InfluxDbBundle\Events\DeferredUdpEvent;
-use Algatux\InfluxDbBundle\Events\HttpEvent;
+use Algatux\InfluxDbBundle\Events\HttpEventAbstract;
 use Algatux\InfluxDbBundle\Events\Listeners\InfluxDbEventListener;
-use Algatux\InfluxDbBundle\Events\UdpEvent;
+use Algatux\InfluxDbBundle\Events\UdpEventAbstract;
 use Algatux\InfluxDbBundle\Model\PointsCollection;
 use Algatux\InfluxDbBundle\Services\Clients\WriterClient;
 use Algatux\InfluxDbBundle\Services\PointsCollectionStorage;
@@ -19,7 +19,7 @@ class InfluxDbEventListenerTest extends \PHPUnit_Framework_TestCase
 {
     public function test_listening_for_udp_infuxdb_event()
     {
-        $event = new UdpEvent(new PointsCollection());
+        $event = new UdpEventAbstract(new PointsCollection());
 
         $storage = $this->prophesize(PointsCollectionStorage::class);
         $storage->storeCollection(Argument::cetera())
@@ -40,7 +40,7 @@ class InfluxDbEventListenerTest extends \PHPUnit_Framework_TestCase
 
     public function test_listening_for_http_infuxdb_event()
     {
-        $event = new HttpEvent(new PointsCollection());
+        $event = new HttpEventAbstract(new PointsCollection());
 
         $storage = $this->prophesize(PointsCollectionStorage::class);
         $storage->storeCollection(Argument::cetera())

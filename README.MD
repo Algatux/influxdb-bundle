@@ -84,12 +84,12 @@ Dispatch the event instance according to the chosen writing protocol:
 // UDP
 $container
     ->get('event_dispatcher')
-    ->dispatch(InfluxDbEvent::NAME, new UdpEvent($points));
+    ->dispatch(AbstractInfluxDbEvent::NAME, new UdpEventAbstract($points));
 
 // HTTP
 $container
     ->get('event_dispatcher')
-    ->dispatch(InfluxDbEvent::NAME, new HttpEvent($points));
+    ->dispatch(AbstractInfluxDbEvent::NAME, new HttpEventAbstract($points));
 ```
 
 Or, if you prefer to defer the event:
@@ -103,10 +103,10 @@ Or, if you prefer to defer the event:
 // UDP
 $container
     ->get('event_dispatcher')
-    ->dispatch(InfluxDbEvent::NAME, new DeferredUdpEvent($points));
+    ->dispatch(AbstractInfluxDbEvent::NAME, new DeferredUdpEvent($points));
 
 // HTTP
 $container
     ->get('event_dispatcher')
-    ->dispatch(InfluxDbEvent::NAME, new DeferredHttpEvent($points));
+    ->dispatch(AbstractInfluxDbEvent::NAME, new DeferredHttpEvent($points));
 ```

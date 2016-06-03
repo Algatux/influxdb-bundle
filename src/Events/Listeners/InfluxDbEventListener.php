@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Algatux\InfluxDbBundle\Events\Listeners;
 
 use Algatux\InfluxDbBundle\Events\DeferredInfluxDbEvent;
-use Algatux\InfluxDbBundle\Events\InfluxDbEvent;
+use Algatux\InfluxDbBundle\Events\AbstractInfluxDbEvent;
 use Algatux\InfluxDbBundle\Model\PointsCollection;
 use Algatux\InfluxDbBundle\Services\Clients\Contracts\ClientInterface;
 use Algatux\InfluxDbBundle\Services\Clients\WriterClient;
@@ -43,7 +43,7 @@ class InfluxDbEventListener
         $this->collectionStorage = $collectionStorage;
     }
 
-    public function onPointsCollected(InfluxDbEvent $event): bool
+    public function onPointsCollected(AbstractInfluxDbEvent $event): bool
     {
         $points = $event->getPoints();
 
