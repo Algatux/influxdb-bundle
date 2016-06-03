@@ -1,0 +1,3 @@
+influx_db:
+    host: localhost
+    database: telegraf

@@ -5,34 +5,69 @@ declare(strict_types=1);
 namespace Algatux\InfluxDbBundle\Tests\unit;
 
 use Algatux\InfluxDbBundle\DependencyInjection\Configuration;
-use Symfony\Component\Config\Definition\ArrayNode;
-use Symfony\Component\Config\Definition\Processor;
+use Algatux\InfluxDbBundle\DependencyInjection\InfluxDbExtension;
+use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionConfigurationTestCase;
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
-class ConfigurationTest extends \PHPUnit_Framework_TestCase
+class ConfigurationTest extends AbstractExtensionConfigurationTestCase
 {
-    public function test_configuration_tree_build()
+    public function test_empty_configuration_process()
     {
-        $conf = new Configuration();
-        $tree = $conf->getConfigTreeBuilder();
+        $this->expectException(InvalidConfigurationException::class);
+        $this->expectExceptionMessage('The child node "host" at path "influx_db" must be configured.');
 
-        $builtConf = $tree->buildTree();
+        $this->assertProcessedConfigurationEquals([], [
+            __DIR__.'/../../fixtures/config/config_empty.yml',
+        ]);
+    }
 
-        $this->assertInstanceOf(ArrayNode::class, $builtConf);
-        $this->assertEquals('influx_db', $builtConf->getName());
-
-        $processor = new Processor();
-
-        $conf = $processor->process($builtConf, ['influx_db' => [
-            'host' => '127.0.0.1',
+    public function test_minimal_configuration_process()
+    {
+        $expectedConfiguration = [
+            'host' => 'localhost',
             'database' => 'telegraf',
-        ]]);
+            'udp_port' => '4444',
+            'http_port' => '8086',
+            'username' => '',
+            'password' => '',
+            'use_events' => false,
+        ];
 
-        $this->assertArrayHasKey('udp_port', $conf);
-        $this->assertArrayHasKey('http_port', $conf);
-        $this->assertArrayHasKey('use_events', $conf);
+        $this->assertProcessedConfigurationEquals($expectedConfiguration, [
+            __DIR__.'/../../fixtures/config/config_minimal.yml',
+        ]);
+    }
 
-        $this->assertEquals('4444', $conf['udp_port']);
-        $this->assertEquals('8086', $conf['http_port']);
-        $this->assertEquals(false, $conf['use_events']);
+    public function test_full_configuration_process()
+    {
+        $expectedConfiguration = [
+            'host' => 'localhost',
+            'database' => 'telegraf',
+            'udp_port' => '1337',
+            'http_port' => '42',
+            'username' => 'foo',
+            'password' => 'bar',
+            'use_events' => true,
+        ];
+
+        $this->assertProcessedConfigurationEquals($expectedConfiguration, [
+            __DIR__.'/../../fixtures/config/config_full.yml',
+        ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getContainerExtension()
+    {
+        return new InfluxDbExtension();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getConfiguration()
+    {
+        return new Configuration();
     }
 }
