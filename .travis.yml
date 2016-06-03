@@ -1,33 +1,14 @@
-# Required to run your project under the correct environment.
 language: php
 
-# Versions of PHP you want your project run with.
 php:
-  - 7
+  - '7.0'
+  - nightly
 
-# Commands to be run before your environment runs.
-before_script:
-  - composer self-update
-  - if [ "$SYMFONY" != "" ]; then composer require "symfony/symfony:${SYMFONY}" --no-update; fi;
-  - composer update --prefer-source --no-interaction ${COMPOSER_FLAGS}
+env:
+  global:
+    - PATH="$HOME/bin:./bin:$PATH"
 
-
-# Commands you want to run that will verify your build.
-script: bin/phpunit -c . --coverage-clover=./build/coverage/coverage.clover
-
-#after_script:
-#  - php bin/coveralls -v
-
-after_success:
-  - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover ./build/coverage/coverage.clover
-
-# allow_failures: Allow this build to fail under the specified environments.
-# fast_finish: If your build fails do not continue trying to build, just stop.
 matrix:
-#  allow_failures:
-#    - php: 7
-#    - php: hhvm
   fast_finish: true
   include:
     - php: '7.0'
@@ -36,8 +17,38 @@ matrix:
       env: SYMFONY=2.8.*
     - php: '7.0'
       env: SYMFONY=3.0.*
+    - php: '7.0'
+      env: SYMFONY=3.1.*
+    - php: '7.0'
+      env: SYMFONY=dev-master
+  allow_failures:
+    - php: nightly
+    - env: SYMFONY=3.1.*
+    - env: SYMFONY=dev-master
 
-# Customize when the notification emails are sent.
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+before_install:
+  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then phpenv config-rm xdebug.ini; fi;
+  - composer self-update
+  - composer config --quiet --global github-oauth.github.com ${GITHUB_OAUTH_TOKEN}
+  - if [ "$SYMFONY" != "" ]; then composer require "symfony/symfony:${SYMFONY}" --no-update; fi;
+
+install:
+  - mkdir --parents "${HOME}/bin"
+  - wget https://scrutinizer-ci.com/ocular.phar --output-document="${HOME}/bin/ocular" && chmod +x "${HOME}/bin/ocular"
+  - composer update --prefer-dist --no-interaction ${COMPOSER_FLAGS}
+
+before_script:
+  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then echo "zend_extension=xdebug.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi;
+
+script: phpunit -c . --coverage-clover=./build/coverage/coverage.clover
+
+after_success:
+  - ocular code-coverage:upload --format=php-clover ./build/coverage/coverage.clover
+
 notifications:
-    on_success: never
-    on_failure: always
+  on_success: never
+  on_failure: always
