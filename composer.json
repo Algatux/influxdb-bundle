@@ -29,7 +29,6 @@
     },
     "config": {
         "sort-packages": true,
-        "preferred-install": "dist",
         "bin-dir": "bin"
     },
     "minimum-stability": "stable"
