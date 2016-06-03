@@ -25,10 +25,7 @@
         "sllh/php-cs-fixer-styleci-bridge": "^2.0"
     },
     "autoload": {
-        "psr-4": { "Algatux\\InfluxDbBundle\\": "src/" },
-        "exclude-from-classmap": [
-            "/tests/"
-        ]
+        "psr-4": { "Algatux\\InfluxDbBundle\\": "src/" }
     },
     "config": {
         "sort-packages": true,
