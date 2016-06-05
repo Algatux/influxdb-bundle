@@ -6,8 +6,6 @@ namespace Algatux\InfluxDbBundle\unit\DependencyInjection;
 
 use Algatux\InfluxDbBundle\DependencyInjection\InfluxDbExtension;
 use Algatux\InfluxDbBundle\Events\Listeners\InfluxDbEventListener;
-use Algatux\InfluxDbBundle\Services\Clients\InfluxDbClientFactory;
-use Algatux\InfluxDbBundle\Services\Clients\WriterClient;
 use InfluxDB\Database;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 
