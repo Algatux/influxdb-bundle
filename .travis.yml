@@ -38,7 +38,6 @@ before_install:
 
 install:
   - mkdir --parents "${HOME}/bin"
-  - wget https://scrutinizer-ci.com/ocular.phar --output-document="${HOME}/bin/ocular" && chmod +x "${HOME}/bin/ocular"
   - composer global require --prefer-dist --no-interaction sllh/composer-lint:@stable
   - composer update --prefer-dist --no-interaction ${COMPOSER_FLAGS}
 
@@ -50,6 +49,7 @@ script:
   - phpunit -c . --coverage-clover=./build/coverage/coverage.clover
 
 after_success:
+  - wget https://scrutinizer-ci.com/ocular.phar --output-document="${HOME}/bin/ocular" && chmod +x "${HOME}/bin/ocular"
   - ocular code-coverage:upload --format=php-clover ./build/coverage/coverage.clover
 
 notifications:
