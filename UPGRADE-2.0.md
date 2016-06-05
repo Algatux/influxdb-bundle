@@ -13,6 +13,17 @@ See also the [diff code](https://github.com/sonata-project/SonataAdminBundle/com
 
 The `use_events` keys does not exists anymore. Listeners will be always defined.
 
+## Dependency Injection
+
+The following parameters does not exist anymore:
+
+* `influx_db.udp.port`
+* `influx_db.http.port`
+* `influx_db.host`
+* `influx_db.database`
+* `influx_db.username`
+* `influx_db.password`
+
 ## Internal classes
 
 Some classes are now internal:

@@ -1,0 +1,13 @@
+influx_db:
+    default_connection: test
+    connections:
+        default:
+            database: telegraf
+            host: localhost
+            username: foo
+            password: bar
+        test:
+            database: test
+            host: localhost
+            username: foo
+            password: bar

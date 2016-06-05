@@ -33,19 +33,42 @@ public function registerBundles()
 
 ### Configuration
 
-in your config.yml add:
+Here is the configuration reference:
 
 ```yaml
 influx_db:
-    host: '{your influxdb host address}'
-    database: '{your influxdb database name}'
 
-    # Other not required options
-    username: '{your influxdb username}'
-    password: '{your influxdb password}'
-    udp_port: 4444
-    http_port: 8086
-    use_events: true (default false)
+    # If not defined, the first connection will be taken.
+    default_connection:   ~
+    connections:
+
+        # Prototype
+        name:
+
+            # Your InfluxDB host address
+            host:                 ~ # Required
+
+            # Your InfluxDB database name
+            database:             ~ # Required
+            udp_port:             4444
+            http_port:            8086
+            username:             ''
+            password:             ''
+```
+
+If you have only one connection to configure, this can be simplified to this:
+
+```yaml
+influx_db:
+    # Your InfluxDB host address
+    host:                 ~ # Required
+
+    # Your InfluxDB database name
+    database:             ~ # Required
+    udp_port:             4444
+    http_port:            8086
+    username:             ''
+    password:             ''
 ```
 
 ### Services
@@ -53,8 +76,12 @@ influx_db:
 You can directly access to the `InfluxDB\Database` trough UDP or HTTP with those services:
 
 ```php
-$httpDatabase = $this->get('algatux_influx_db.database.http');
-$udpDatabase = $this->get('algatux_influx_db.database.udp');
+$httpDatabase = $this->get('algatux_influx_db.connection.http'); // Default HTTP connection
+$udpDatabase = $this->get('algatux_influx_db.connection.udp');   // Default HTTP connection
+
+// Same as before.
+$httpDatabase = $this->get('algatux_influx_db.connection.default.http');
+$udpDatabase = $this->get('algatux_influx_db.connection.default.udp');
 ```
 
 To manipulate the database, please read the official documentation
@@ -108,4 +135,18 @@ $container
 $container
     ->get('event_dispatcher')
     ->dispatch(InfluxDbEvent::NAME, new DeferredHttpEvent($points, Database::PRECISION_SECONDS));
+```
+
+If you want to write to another connection than the default, you must specify it:
+
+```php
+// UDP
+$container
+    ->get('event_dispatcher')
+    ->dispatch(InfluxDbEvent::NAME, new UdpEvent($points, Database::PRECISION_SECONDS, 'other_connection'));
+
+// HTTP
+$container
+    ->get('event_dispatcher')
+    ->dispatch(InfluxDbEvent::NAME, new HttpEvent($points, Database::PRECISION_SECONDS, 'other_connection'));
 ```

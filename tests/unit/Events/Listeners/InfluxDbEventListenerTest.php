@@ -28,7 +28,7 @@ class InfluxDbEventListenerTest extends \PHPUnit_Framework_TestCase
             ->shouldBeCalledTimes(1)
             ->willReturn(true);
 
-        $listener = new InfluxDbEventListener($httpDatabase->reveal(), $udpDatabase->reveal());
+        $listener = new InfluxDbEventListener('default', true, $httpDatabase->reveal(), $udpDatabase->reveal());
         $listener->onPointsCollected($event);
     }
 
@@ -45,7 +45,7 @@ class InfluxDbEventListenerTest extends \PHPUnit_Framework_TestCase
             ->shouldBeCalledTimes(1)
             ->willReturn(true);
 
-        $listener = new InfluxDbEventListener($httpDatabase->reveal(), $udpDatabase->reveal());
+        $listener = new InfluxDbEventListener('default', true, $httpDatabase->reveal(), $udpDatabase->reveal());
         $listener->onPointsCollected($event);
     }
 
@@ -64,7 +64,7 @@ class InfluxDbEventListenerTest extends \PHPUnit_Framework_TestCase
             ->shouldBeCalledTimes(1)
             ->willReturn(true);
 
-        $listener = new InfluxDbEventListener($httpDatabase->reveal(), $udpDatabase->reveal());
+        $listener = new InfluxDbEventListener('default', true, $httpDatabase->reveal(), $udpDatabase->reveal());
         $listener->onPointsCollected($event1);
         $listener->onPointsCollected($event2);
         $listener->onPointsCollected($event3);
@@ -87,11 +87,27 @@ class InfluxDbEventListenerTest extends \PHPUnit_Framework_TestCase
         $udpDatabase->writePoints(Argument::cetera())
             ->shouldNotBeCalled();
 
-        $listener = new InfluxDbEventListener($httpDatabase->reveal(), $udpDatabase->reveal());
+        $listener = new InfluxDbEventListener('default', true, $httpDatabase->reveal(), $udpDatabase->reveal());
         $listener->onPointsCollected($event1);
         $listener->onPointsCollected($event2);
         $listener->onPointsCollected($event3);
 
         $listener->onKernelTerminate(new Event());
+    }
+
+    public function test_it_should_do_nothing_if_not_same_connection()
+    {
+        $event = new UdpEvent([], Database::PRECISION_SECONDS, 'other_connection');
+
+        $httpDatabase = $this->prophesize(Database::class);
+        $httpDatabase->writePoints(Argument::cetera())
+            ->shouldNotBeCalled();
+
+        $udpDatabase = $this->prophesize(Database::class);
+        $udpDatabase->writePoints(Argument::cetera())
+            ->shouldNotBeCalled();
+
+        $listener = new InfluxDbEventListener('default', true, $httpDatabase->reveal(), $udpDatabase->reveal());
+        $listener->onPointsCollected($event);
     }
 }
