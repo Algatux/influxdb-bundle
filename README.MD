@@ -150,3 +150,16 @@ $container
     ->get('event_dispatcher')
     ->dispatch(InfluxDbEvent::NAME, new HttpEvent($points, Database::PRECISION_SECONDS, 'other_connection'));
 ```
+
+### Commands
+
+Some commands are provided:
+
+* `algatux:influx:database:create`: To create the database.
+* `algatux:influx:database:drop`: To drop the database.
+
+To get more information, run:
+
+```bash
+./app/console help <command>
+```
