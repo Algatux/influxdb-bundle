@@ -30,7 +30,6 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
             'http_port' => '8086',
             'username' => '',
             'password' => '',
-            'use_events' => false,
         ];
 
         $this->assertProcessedConfigurationEquals($expectedConfiguration, [
@@ -47,7 +46,6 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
             'http_port' => '42',
             'username' => 'foo',
             'password' => 'bar',
-            'use_events' => true,
         ];
 
         $this->assertProcessedConfigurationEquals($expectedConfiguration, [

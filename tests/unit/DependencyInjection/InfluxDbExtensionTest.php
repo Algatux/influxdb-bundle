@@ -24,13 +24,6 @@ class InfluxDbExtensionTest extends AbstractExtensionTestCase
         $udpDatabase = $this->container->get('algatux_influx_db.database.udp');
         $this->assertInstanceOf(Database::class, $udpDatabase);
         $this->assertSame('telegraf', $udpDatabase->getName());
-    }
-
-    public function test_load_use_events()
-    {
-        $this->load([
-            'use_events' => true,
-        ]);
 
         $this->assertContainerBuilderHasService('algatux_influx_db.events_listeners.influx_db_event_listener', InfluxDbEventListener::class);
     }

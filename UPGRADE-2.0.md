@@ -9,6 +9,10 @@ Please read [1.x](UPGRADE-1.x.md) upgrade guides for more information.
 
 See also the [diff code](https://github.com/sonata-project/SonataAdminBundle/compare/1.x...2.0.0).
 
+## Configuration
+
+The `use_events` keys does not exists anymore. Listeners will be always defined.
+
 ## Internal classes
 
 Some classes are now internal:
