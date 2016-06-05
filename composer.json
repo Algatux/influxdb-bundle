@@ -16,14 +16,14 @@
         "symfony/config": "^2.8 || ^3.0",
         "symfony/dependency-injection": "^2.8 || ^3.0",
         "symfony/event-dispatcher": "^2.8 || ^3.0",
-        "symfony/http-kernel": "^2.8 || ^3.0",
-        "symfony/phpunit-bridge": "^3.1"
+        "symfony/http-kernel": "^2.8 || ^3.0"
     },
     "require-dev": {
         "matthiasnoback/symfony-dependency-injection-test": "^0.7.6",
         "phpspec/prophecy": "^1.6.0",
         "phpunit/phpunit": "^5.2",
-        "sllh/php-cs-fixer-styleci-bridge": "^2.0"
+        "sllh/php-cs-fixer-styleci-bridge": "^2.0",
+        "symfony/phpunit-bridge": "^3.1"
     },
     "autoload": {
         "psr-4": { "Algatux\\InfluxDbBundle\\": "src/" }
