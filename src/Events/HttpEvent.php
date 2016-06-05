@@ -7,6 +7,6 @@ namespace Algatux\InfluxDbBundle\Events;
 /**
  * Class HttpEvent.
  */
-class HttpEvent extends InfluxDbEvent
+class HttpEvent extends AbstractInfluxDbEvent
 {
 }

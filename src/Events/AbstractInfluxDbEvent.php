@@ -8,9 +8,9 @@ use InfluxDB\Point;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
- * Class InfluxDbEvent.
+ * Class AbstractInfluxDbEvent.
  */
-abstract class InfluxDbEvent extends Event
+abstract class AbstractInfluxDbEvent extends Event
 {
     const NAME = 'influxdb.points_collected';
 
