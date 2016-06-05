@@ -30,7 +30,6 @@ class InfluxDbExtension extends Extension
         $container->setParameter('influx_db.password', $config['password']);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.xml');
         $loader->load('clients.xml');
         $loader->load('databases.xml');
 
