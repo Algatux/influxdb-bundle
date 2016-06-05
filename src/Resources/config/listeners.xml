@@ -8,15 +8,11 @@
 
         <service class="Algatux\InfluxDbBundle\Events\Listeners\InfluxDbEventListener"
                  id="algatux_influx_db.events_listeners.influx_db_event_listener">
-            <argument id="algatux_influx_db.client.http.writer_client" type="service"/>
-            <argument id="algatux_influx_db.client.udp.writer_client" type="service"/>
-            <argument id="algatux_influx_db.services.points_collection_storage" type="service"/>
+            <argument id="algatux_influx_db.database.http" type="service"/>
+            <argument id="algatux_influx_db.database.udp" type="service"/>
             <tag name="kernel.event_listener" event="influxdb.points_collected" method="onPointsCollected" />
             <tag name="kernel.event_listener" event="kernel.terminate" method="onKernelTerminate" />
         </service>
-
-        <service class="Algatux\InfluxDbBundle\Services\PointsCollectionStorage"
-                 id="algatux_influx_db.services.points_collection_storage"/>
 
     </services>
 

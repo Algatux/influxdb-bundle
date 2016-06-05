@@ -68,14 +68,13 @@ Assuming this collection to send:
 ```php
 $time = new \DateTime();
 
-$points = new PointsCollection([new Point(
+$points = [new Point(
     'test_metric', // name of the measurement
     0.64, // the measurement value
     ['host' => 'server01', 'region' => 'italy'], // optional tags
     ['cpucount' => rand(1,100), 'memory' => memory_get_usage(true)], // optional additional fields
     $time->getTimestamp()
-)],Database::PRECISION_SECONDS);
-
+)];
 ```
 
 Dispatch the event instance according to the chosen writing protocol:
@@ -84,12 +83,12 @@ Dispatch the event instance according to the chosen writing protocol:
 // UDP
 $container
     ->get('event_dispatcher')
-    ->dispatch(InfluxDbEvent::NAME, new UdpEvent($points));
+    ->dispatch(InfluxDbEvent::NAME, new UdpEvent($points, Database::PRECISION_SECONDS));
 
 // HTTP
 $container
     ->get('event_dispatcher')
-    ->dispatch(InfluxDbEvent::NAME, new HttpEvent($points));
+    ->dispatch(InfluxDbEvent::NAME, new HttpEvent($points, Database::PRECISION_SECONDS));
 ```
 
 Or, if you prefer to defer the event:
@@ -103,10 +102,10 @@ Or, if you prefer to defer the event:
 // UDP
 $container
     ->get('event_dispatcher')
-    ->dispatch(InfluxDbEvent::NAME, new DeferredUdpEvent($points));
+    ->dispatch(InfluxDbEvent::NAME, new DeferredUdpEvent($points, Database::PRECISION_SECONDS));
 
 // HTTP
 $container
     ->get('event_dispatcher')
-    ->dispatch(InfluxDbEvent::NAME, new DeferredHttpEvent($points));
+    ->dispatch(InfluxDbEvent::NAME, new DeferredHttpEvent($points, Database::PRECISION_SECONDS));
 ```

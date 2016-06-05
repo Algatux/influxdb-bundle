@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Algatux\InfluxDbBundle\Events;
 
-use Algatux\InfluxDbBundle\Model\PointsCollection;
-use Algatux\InfluxDbBundle\Services\Clients\Contracts\ClientInterface;
+use InfluxDB\Point;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
@@ -15,37 +14,39 @@ abstract class InfluxDbEvent extends Event
 {
     const NAME = 'influxdb.points_collected';
 
-    /** @var string */
-    protected $writeMode;
-
-    /** @var PointsCollection */
+    /**
+     * @var Point[]
+     */
     protected $points;
 
     /**
-     * InfluxDbEvent constructor.
-     *
-     * @param PointsCollection $collection
-     * @param string           $writeMode
+     * @var string
      */
-    public function __construct(PointsCollection $collection, string $writeMode = ClientInterface::UDP_CLIENT)
+    protected $precision;
+
+    /**
+     * @param Point[] $points
+     * @param string  $precision
+     */
+    public function __construct(array $points, string $precision)
     {
-        $this->points = $collection;
-        $this->writeMode = $writeMode;
+        $this->points = $points;
+        $this->precision = $precision;
+    }
+
+    /**
+     * @return Point[]
+     */
+    final public function getPoints(): array
+    {
+        return $this->points;
     }
 
     /**
      * @return string
      */
-    public function getWriteMode(): string
+    final public function getPrecision()
     {
-        return $this->writeMode;
-    }
-
-    /**
-     * @return PointsCollection
-     */
-    public function getPoints(): PointsCollection
-    {
-        return $this->points;
+        return $this->precision;
     }
 }

@@ -5,55 +5,71 @@ declare(strict_types=1);
 namespace Algatux\InfluxDbBundle\Events\Listeners;
 
 use Algatux\InfluxDbBundle\Events\DeferredInfluxDbEvent;
+use Algatux\InfluxDbBundle\Events\DeferredUdpEvent;
 use Algatux\InfluxDbBundle\Events\InfluxDbEvent;
-use Algatux\InfluxDbBundle\Model\PointsCollection;
-use Algatux\InfluxDbBundle\Services\Clients\Contracts\ClientInterface;
-use Algatux\InfluxDbBundle\Services\Clients\WriterClient;
-use Algatux\InfluxDbBundle\Services\PointsCollectionStorage;
+use Algatux\InfluxDbBundle\Events\UdpEvent;
+use InfluxDB\Database;
+use InfluxDB\Point;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
- * Class InfluxDbEventListener.
+ * @internal
  */
 class InfluxDbEventListener
 {
-    /** @var WriterClient */
-    private $httpWriter;
-
-    /** @var WriterClient */
-    private $udpWriter;
-
-    /** @var PointsCollectionStorage */
-    private $collectionStorage;
+    const STORAGE_KEY_UDP = 'udp';
+    const STORAGE_KEY_HTTP = 'http';
 
     /**
-     * InfluxDbEventListener constructor.
-     *
-     * @param WriterClient            $httpWriter
-     * @param WriterClient            $udpWriter
-     * @param PointsCollectionStorage $collectionStorage
+     * @var Database
+     */
+    private $httpDatabase;
+
+    /**
+     * @var Database
+     */
+    private $udpDatabase;
+
+    /**
+     * @var array
+     */
+    private $storage;
+
+    /**
+     * @param Database $httpDatabase
+     * @param Database $udpDatabase
      */
     public function __construct(
-        WriterClient $httpWriter,
-        WriterClient $udpWriter,
-        PointsCollectionStorage $collectionStorage
+        Database $httpDatabase,
+        Database $udpDatabase
     ) {
-        $this->httpWriter = $httpWriter;
-        $this->udpWriter = $udpWriter;
-        $this->collectionStorage = $collectionStorage;
+        $this->httpDatabase = $httpDatabase;
+        $this->udpDatabase = $udpDatabase;
+        $this->initStorage();
     }
 
     public function onPointsCollected(InfluxDbEvent $event): bool
     {
         $points = $event->getPoints();
+        $precision = $event->getPrecision();
 
         if ($event instanceof DeferredInfluxDbEvent) {
-            $this->collectionStorage->storeCollection($points, $event->getWriteMode());
+            $typeKey = $event instanceof DeferredUdpEvent ? static::STORAGE_KEY_UDP : static::STORAGE_KEY_HTTP;
+            $this->storage[$typeKey][$precision] =
+                array_key_exists($precision, $this->storage[$typeKey])
+                ? array_merge($this->storage[$typeKey][$precision], $points)
+                : $points;
 
             return true;
         }
 
-        $this->writePoints($event->getWriteMode(), $points);
+        if ($event instanceof UdpEvent) {
+            $this->writeUdpPoints($points, $precision);
+
+            return true;
+        }
+
+        $this->writeHttpPoints($points, $precision);
 
         return true;
     }
@@ -65,30 +81,43 @@ class InfluxDbEventListener
      */
     public function onKernelTerminate(Event $event): bool
     {
-        $collections = $this->collectionStorage->getStoredCollections();
-
-        foreach ($collections as $writeMode => $precisionGroup) {
-            /** @var PointsCollection $pointsCollection */
-            foreach ($precisionGroup as $precision => $pointsCollection) {
-                $this->writePoints($writeMode, $pointsCollection);
-            }
+        foreach ($this->storage[static::STORAGE_KEY_UDP] as $precision => $points) {
+            $this->writeUdpPoints($points, $precision);
         }
+
+        foreach ($this->storage[static::STORAGE_KEY_HTTP] as $precision => $points) {
+            $this->writeHttpPoints($points, $precision);
+        }
+
+        // Reset the storage after writing points.
+        $this->initStorage();
 
         return true;
     }
 
-    /**
-     * @param string           $writemode
-     * @param PointsCollection $points
-     */
-    private function writePoints(string $writemode, PointsCollection $points)
+    private function initStorage()
     {
-        if ($writemode === ClientInterface::UDP_CLIENT) {
-            $this->udpWriter->write($points);
-        }
+        $this->storage = [
+            static::STORAGE_KEY_UDP => [],
+            static::STORAGE_KEY_HTTP => [],
+        ];
+    }
 
-        if ($writemode === ClientInterface::HTTP_CLIENT) {
-            $this->httpWriter->write($points);
-        }
+    /**
+     * @param Point[] $points
+     * @param string  $precision
+     */
+    private function writeUdpPoints(array $points, string $precision)
+    {
+        $this->udpDatabase->writePoints($points, $precision);
+    }
+
+    /**
+     * @param Point[] $points
+     * @param string  $precision
+     */
+    private function writeHttpPoints(array $points, string $precision)
+    {
+        $this->httpDatabase->writePoints($points, $precision);
     }
 }
