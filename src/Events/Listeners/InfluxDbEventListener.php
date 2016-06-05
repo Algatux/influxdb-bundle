@@ -55,10 +55,7 @@ class InfluxDbEventListener
 
         if ($event instanceof DeferredInfluxDbEvent) {
             $typeKey = $event instanceof DeferredUdpEvent ? static::STORAGE_KEY_UDP : static::STORAGE_KEY_HTTP;
-            $this->storage[$typeKey][$precision] =
-                array_key_exists($precision, $this->storage[$typeKey])
-                ? array_merge($this->storage[$typeKey][$precision], $points)
-                : $points;
+            $this->addPointsToStorage($typeKey, $precision, $points);
 
             return true;
         }
@@ -119,5 +116,21 @@ class InfluxDbEventListener
     private function writeHttpPoints(array $points, string $precision)
     {
         $this->httpDatabase->writePoints($points, $precision);
+    }
+
+    /**
+     * @param string $typeKey
+     * @param string $precision
+     * @param array $points
+     */
+    private function addPointsToStorage(string $typeKey, string $precision, array $points)
+    {
+        if (array_key_exists($precision, $this->storage[$typeKey])) {
+            $this->storage[$typeKey][$precision] = array_merge($this->storage[$typeKey][$precision], $points);
+
+            return;
+        }
+
+        $this->storage[$typeKey][$precision] = $points;
     }
 }
