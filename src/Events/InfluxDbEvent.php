@@ -17,12 +17,12 @@ abstract class InfluxDbEvent extends Event
     /**
      * @var Point[]
      */
-    protected $points;
+    private $points;
 
     /**
      * @var string
      */
-    protected $precision;
+    private $precision;
 
     /**
      * @param Point[] $points
