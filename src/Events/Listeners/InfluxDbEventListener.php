@@ -121,7 +121,7 @@ class InfluxDbEventListener
     /**
      * @param string $typeKey
      * @param string $precision
-     * @param array $points
+     * @param array  $points
      */
     private function addPointsToStorage(string $typeKey, string $precision, array $points)
     {
