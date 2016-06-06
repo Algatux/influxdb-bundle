@@ -115,3 +115,7 @@ $container
 
 The `PointsCollectionStorage` does not exist anymore.
 This class had an internal goal, this should not affect your project.
+
+## CollectionStorageInterface
+
+The unused `CollectionStorageInterface` does not exist anymore.
