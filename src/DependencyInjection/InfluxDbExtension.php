@@ -33,7 +33,9 @@ final class InfluxDbExtension extends Extension
         $defaultConnection = isset($config['default_connection']) ? $config['default_connection'] : key($config['connections']);
         foreach ($config['connections'] as $connection => $connectionConfig) {
             $this->createConnection($container, $connection, $connectionConfig, 'http');
-            $this->createConnection($container, $connection, $connectionConfig, 'udp');
+            if ($connectionConfig['udp']) {
+                $this->createConnection($container, $connection, $connectionConfig, 'udp');
+            }
 
             $this->createConnectionListener($container, $connection, $defaultConnection);
         }
@@ -42,10 +44,12 @@ final class InfluxDbExtension extends Extension
             'algatux_influx_db.connection.http',
             'algatux_influx_db.connection.'.$defaultConnection.'.http'
         );
-        $container->setAlias(
-            'algatux_influx_db.connection.udp',
-            'algatux_influx_db.connection.'.$defaultConnection.'.udp'
-        );
+        if ($container->hasDefinition('algatux_influx_db.connection.'.$defaultConnection.'.udp')) {
+            $container->setAlias(
+                'algatux_influx_db.connection.udp',
+                'algatux_influx_db.connection.'.$defaultConnection.'.udp'
+            );
+        }
 
         return $config;
     }
@@ -76,12 +80,16 @@ final class InfluxDbExtension extends Extension
 
     private function createConnectionListener(ContainerBuilder $container, $connection, $defaultConnection)
     {
-        $listenerDefinition = new Definition(InfluxDbEventListener::class, [
+        $listenerArguments = [
             $connection,
             $connection === $defaultConnection,
             new Reference('algatux_influx_db.connection.'.$connection.'.http'),
-            new Reference('algatux_influx_db.connection.'.$connection.'.udp'),
-        ]);
+        ];
+        if ($container->hasDefinition('algatux_influx_db.connection.'.$connection.'.udp')) {
+            array_push($listenerArguments, new Reference('algatux_influx_db.connection.'.$connection.'.udp'));
+        }
+
+        $listenerDefinition = new Definition(InfluxDbEventListener::class, $listenerArguments);
         $listenerDefinition->addTag('kernel.event_listener', [
             'event' => 'influxdb.points_collected',
             'method' => 'onPointsCollected',

@@ -13,6 +13,18 @@ See also the [diff code](https://github.com/sonata-project/SonataAdminBundle/com
 
 The `use_events` keys does not exists anymore. Listeners will be always defined.
 
+## UDP connection
+
+The UDP connection is now not available by default.
+If you use it, you must activate it trough configuration:
+
+```yaml
+influx_db:
+    host:     localhost
+    database: telegraf
+    udp:      true
+```
+
 ## Dependency Injection
 
 The following parameters does not exist anymore:
