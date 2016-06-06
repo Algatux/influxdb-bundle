@@ -62,7 +62,7 @@ final class InfluxDbEventListener
 
     /**
      * @param AbstractInfluxDbEvent $event
-     * 
+     *
      * @return bool
      */
     public function onPointsCollected(AbstractInfluxDbEvent $event): bool
@@ -164,7 +164,7 @@ final class InfluxDbEventListener
 
     /**
      * @param AbstractInfluxDbEvent $event
-     * 
+     *
      * @return bool
      */
     private function isConcerned(AbstractInfluxDbEvent $event): bool
