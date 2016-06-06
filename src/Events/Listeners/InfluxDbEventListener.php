@@ -71,30 +71,15 @@ final class InfluxDbEventListener
             return false;
         }
 
-        if (!$this->udpDatabase && ($event instanceof UdpEvent || $event instanceof DeferredUdpEvent)) {
-            throw new \RuntimeException(
-                'No UDP connection available for database "'.$this->httpDatabase->getName().'". '
-                .'You must enable it on the configuration to use it.'
-            );
-        }
-
-        $points = $event->getPoints();
-        $precision = $event->getPrecision();
+        $this->testUdpConnection($event);
 
         if ($event instanceof AbstractDeferredInfluxDbEvent) {
-            $typeKey = $event instanceof DeferredUdpEvent ? static::STORAGE_KEY_UDP : static::STORAGE_KEY_HTTP;
-            $this->addPointsToStorage($typeKey, $precision, $points);
+            $this->addEventPointsToStorage($event);
 
             return true;
         }
 
-        if ($event instanceof UdpEvent) {
-            $this->writeUdpPoints($points, $precision);
-
-            return true;
-        }
-
-        $this->writeHttpPoints($points, $precision);
+        $this->writeEventPoints($event);
 
         return true;
     }
@@ -147,12 +132,14 @@ final class InfluxDbEventListener
     }
 
     /**
-     * @param string $typeKey
-     * @param string $precision
-     * @param array  $points
+     * @param AbstractInfluxDbEvent $event
      */
-    private function addPointsToStorage(string $typeKey, string $precision, array $points)
+    private function addEventPointsToStorage(AbstractInfluxDbEvent $event)
     {
+        $typeKey = $event instanceof DeferredUdpEvent ? static::STORAGE_KEY_UDP : static::STORAGE_KEY_HTTP;
+        $precision = $event->getPrecision();
+        $points = $event->getPoints();
+
         if (array_key_exists($precision, $this->storage[$typeKey])) {
             $this->storage[$typeKey][$precision] = array_merge($this->storage[$typeKey][$precision], $points);
 
@@ -170,5 +157,35 @@ final class InfluxDbEventListener
     private function isConcerned(AbstractInfluxDbEvent $event): bool
     {
         return $this->connection === $event->getConnection() || is_null($event->getConnection()) && $this->isDefault;
+    }
+
+    /**
+     * @param AbstractInfluxDbEvent $event
+     */
+    private function testUdpConnection(AbstractInfluxDbEvent $event)
+    {
+        if (!$this->udpDatabase && ($event instanceof UdpEvent || $event instanceof DeferredUdpEvent)) {
+            throw new \RuntimeException(
+                'No UDP connection available for database "'.$this->httpDatabase->getName().'". '
+                .'You must enable it on the configuration to use it.'
+            );
+        }
+    }
+
+    /**
+     * @param AbstractInfluxDbEvent $event
+     */
+    private function writeEventPoints(AbstractInfluxDbEvent $event)
+    {
+        $points = $event->getPoints();
+        $precision = $event->getPrecision();
+
+        if ($event instanceof UdpEvent) {
+            $this->writeUdpPoints($points, $precision);
+
+            return;
+        }
+
+        $this->writeHttpPoints($points, $precision);
     }
 }
