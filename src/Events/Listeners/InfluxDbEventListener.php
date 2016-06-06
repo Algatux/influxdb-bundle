@@ -60,10 +60,14 @@ final class InfluxDbEventListener
         $this->initStorage();
     }
 
+    /**
+     * @param AbstractInfluxDbEvent $event
+     *
+     * @return bool
+     */
     public function onPointsCollected(AbstractInfluxDbEvent $event): bool
     {
-        $isConcerned = $this->connection === $event->getConnection() || !$event->getConnection() && $this->isDefault;
-        if (!$isConcerned) {
+        if (!$this->isConcerned($event)) {
             return false;
         }
 
@@ -156,5 +160,15 @@ final class InfluxDbEventListener
         }
 
         $this->storage[$typeKey][$precision] = $points;
+    }
+
+    /**
+     * @param AbstractInfluxDbEvent $event
+     *
+     * @return bool
+     */
+    private function isConcerned(AbstractInfluxDbEvent $event): bool
+    {
+        return $this->connection === $event->getConnection() || is_null($event->getConnection()) && $this->isDefault;
     }
 }
