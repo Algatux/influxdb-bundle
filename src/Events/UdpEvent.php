@@ -7,6 +7,6 @@ namespace Algatux\InfluxDbBundle\Events;
 /**
  * Class UdpEvent.
  */
-class UdpEvent extends InfluxDbEvent
+class UdpEvent extends AbstractInfluxDbEvent
 {
 }

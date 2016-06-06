@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Algatux\InfluxDbBundle\Events\Listeners;
 
-use Algatux\InfluxDbBundle\Events\DeferredInfluxDbEvent;
+use Algatux\InfluxDbBundle\Events\AbstractDeferredInfluxDbEvent;
+use Algatux\InfluxDbBundle\Events\AbstractInfluxDbEvent;
 use Algatux\InfluxDbBundle\Events\DeferredUdpEvent;
-use Algatux\InfluxDbBundle\Events\InfluxDbEvent;
 use Algatux\InfluxDbBundle\Events\UdpEvent;
 use InfluxDB\Database;
 use InfluxDB\Point;
@@ -60,7 +60,7 @@ class InfluxDbEventListener
         $this->initStorage();
     }
 
-    public function onPointsCollected(InfluxDbEvent $event): bool
+    public function onPointsCollected(AbstractInfluxDbEvent $event): bool
     {
         $isConcerned = $this->connection === $event->getConnection() || !$event->getConnection() && $this->isDefault;
         if (!$isConcerned) {
@@ -70,7 +70,7 @@ class InfluxDbEventListener
         $points = $event->getPoints();
         $precision = $event->getPrecision();
 
-        if ($event instanceof DeferredInfluxDbEvent) {
+        if ($event instanceof AbstractDeferredInfluxDbEvent) {
             $typeKey = $event instanceof DeferredUdpEvent ? static::STORAGE_KEY_UDP : static::STORAGE_KEY_HTTP;
             $this->addPointsToStorage($typeKey, $precision, $points);
 

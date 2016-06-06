@@ -7,6 +7,6 @@ namespace Algatux\InfluxDbBundle\Events;
 /**
  * Class DeferredUdpEvent.
  */
-class DeferredUdpEvent extends DeferredInfluxDbEvent
+class DeferredUdpEvent extends AbstractDeferredInfluxDbEvent
 {
 }

@@ -30,6 +30,13 @@ Some classes are now internal:
 
 * `Algatux\InfluxDbBundle\Events\Listeners\InfluxDbEventListener`
 
+## Class renames
+
+Some classes are renames:
+
+* `InfluxDbEvent` -> `AbstractInfluxDbEvent`
+* `DeferredAbstractInfluxDbEvent` -> `AbstractDeferredInfluxDbEvent`
+
 Those classes should not be used outside of the package scope and can have BC break modifications.
 
 ## Integer type for port parameters
