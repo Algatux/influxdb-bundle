@@ -1,6 +1,7 @@
 {
     "name": "algatux/influxdb-bundle",
-    "description": "InfluxDB Bundle",
+    "description": "Bundle service integration of official influxdb/influxdb-php client",
+    "keywords": ["InfluxDB", "Symfony", "database"],
     "type": "symfony-bundle",
     "license": "MIT",
     "authors": [
