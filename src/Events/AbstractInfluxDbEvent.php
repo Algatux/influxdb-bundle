@@ -52,7 +52,7 @@ abstract class AbstractInfluxDbEvent extends Event
     /**
      * @return string
      */
-    final public function getPrecision()
+    final public function getPrecision(): string
     {
         return $this->precision;
     }
