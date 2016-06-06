@@ -9,5 +9,6 @@ influx_db:
         test:
             database: test
             host: localhost
+            udp: true
             username: foo
             password: bar

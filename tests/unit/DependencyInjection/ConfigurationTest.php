@@ -28,6 +28,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                 'default' => [
                     'host' => 'localhost',
                     'database' => 'telegraf',
+                    'udp' => false,
                     'udp_port' => '4444',
                     'http_port' => '8086',
                     'username' => '',
@@ -49,6 +50,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                 'default' => [
                     'host' => 'localhost',
                     'database' => 'telegraf',
+                    'udp' => true,
                     'udp_port' => '1337',
                     'http_port' => '42',
                     'username' => 'foo',
@@ -70,6 +72,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                 'default' => [
                     'database' => 'telegraf',
                     'host' => 'localhost',
+                    'udp' => false,
                     'udp_port' => 4444,
                     'http_port' => 8086,
                     'username' => 'foo',
@@ -78,6 +81,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                 'test' => [
                     'database' => 'test',
                     'host' => 'localhost',
+                    'udp' => true,
                     'udp_port' => 4444,
                     'http_port' => 8086,
                     'username' => 'foo',

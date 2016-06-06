@@ -51,7 +51,7 @@ final class InfluxDbEventListener
      * @param Database $httpDatabase
      * @param Database $udpDatabase
      */
-    public function __construct(string $connection, bool $isDefault, Database $httpDatabase, Database $udpDatabase)
+    public function __construct(string $connection, bool $isDefault, Database $httpDatabase, Database $udpDatabase = null)
     {
         $this->connection = $connection;
         $this->isDefault = $isDefault;
@@ -65,6 +65,13 @@ final class InfluxDbEventListener
         $isConcerned = $this->connection === $event->getConnection() || !$event->getConnection() && $this->isDefault;
         if (!$isConcerned) {
             return false;
+        }
+
+        if (!$this->udpDatabase && ($event instanceof UdpEvent || $event instanceof DeferredUdpEvent)) {
+            throw new \RuntimeException(
+                'No UDP connection available for database "'.$this->httpDatabase->getName().'". '
+                .'You must enable it on the configuration to use it.'
+            );
         }
 
         $points = $event->getPoints();

@@ -49,6 +49,22 @@ class InfluxDbEventListenerTest extends \PHPUnit_Framework_TestCase
         $listener->onPointsCollected($event);
     }
 
+    public function test_not_available_udp_infuxdb_event()
+    {
+        $event = new UdpEvent([], Database::PRECISION_SECONDS);
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('No UDP connection available for database "default".');
+
+        $httpDatabase = $this->prophesize(Database::class);
+        $httpDatabase->getName()->shouldBeCalled()->willReturn('default');
+        $httpDatabase->writePoints(Argument::cetera())
+            ->shouldNotBeCalled();
+
+        $listener = new InfluxDbEventListener('default', true, $httpDatabase->reveal(), null);
+        $listener->onPointsCollected($event);
+    }
+
     public function test_listening_for_deferred_udp_infuxdb_event()
     {
         $event1 = new DeferredUdpEvent([1], Database::PRECISION_SECONDS);
@@ -93,6 +109,22 @@ class InfluxDbEventListenerTest extends \PHPUnit_Framework_TestCase
         $listener->onPointsCollected($event3);
 
         $listener->onKernelTerminate(new Event());
+    }
+
+    public function test_not_available_deferred_udp_infuxdb_event()
+    {
+        $event = new DeferredUdpEvent([], Database::PRECISION_SECONDS);
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('No UDP connection available for database "default".');
+
+        $httpDatabase = $this->prophesize(Database::class);
+        $httpDatabase->getName()->shouldBeCalled()->willReturn('default');
+        $httpDatabase->writePoints(Argument::cetera())
+            ->shouldNotBeCalled();
+
+        $listener = new InfluxDbEventListener('default', true, $httpDatabase->reveal(), null);
+        $listener->onPointsCollected($event);
     }
 
     public function test_it_should_do_nothing_if_not_same_connection()

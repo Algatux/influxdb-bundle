@@ -50,6 +50,9 @@ influx_db:
 
             # Your InfluxDB database name
             database:             ~ # Required
+
+            # Set it to true to activate the UDP connection
+            udp:                  false
             udp_port:             4444
             http_port:            8086
             username:             ''
@@ -65,6 +68,9 @@ influx_db:
 
     # Your InfluxDB database name
     database:             ~ # Required
+
+    # Set it to true to activate the UDP connection
+    udp:                  false
     udp_port:             4444
     http_port:            8086
     username:             ''
