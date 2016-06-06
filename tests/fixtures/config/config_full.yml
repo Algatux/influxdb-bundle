@@ -1,4 +1,5 @@
 influx_db:
+    default_connection: default # No sense to specify it. This is it just for test coverage.
     host: localhost
     database: telegraf
     udp_port: 1337

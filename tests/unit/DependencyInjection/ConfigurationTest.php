@@ -44,6 +44,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
     public function test_full_configuration_process()
     {
         $expectedConfiguration = [
+            'default_connection' => 'default',
             'connections' => [
                 'default' => [
                     'host' => 'localhost',
