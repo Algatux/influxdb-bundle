@@ -15,7 +15,7 @@ use Symfony\Component\EventDispatcher\Event;
 /**
  * @internal
  */
-class InfluxDbEventListener
+final class InfluxDbEventListener
 {
     const STORAGE_KEY_UDP = 'udp';
     const STORAGE_KEY_HTTP = 'http';

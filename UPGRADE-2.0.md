@@ -24,6 +24,19 @@ The following parameters does not exist anymore:
 * `influx_db.username`
 * `influx_db.password`
 
+## Final classes
+
+Some classes are now `final` and should not be overridden:
+
+* `Algatux\InfluxDbBundle\DependencyInjection\Configuration`
+* `Algatux\InfluxDbBundle\DependencyInjection\InfluxDbExtension`
+* `Algatux\InfluxDbBundle\Events\Listeners\InfluxDbEventListener`
+* `Algatux\InfluxDbBundle\Events\DeferredHttpEvent`
+* `Algatux\InfluxDbBundle\Events\DeferredUdpEvent`
+* `Algatux\InfluxDbBundle\Events\HttpEvent`
+* `Algatux\InfluxDbBundle\Events\UdpEvent`
+* `Algatux\InfluxDbBundle\InfluxDbBundle`
+
 ## Internal classes
 
 Some classes are now internal:
