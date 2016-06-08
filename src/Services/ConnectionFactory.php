@@ -41,17 +41,9 @@ final class ConnectionFactory
         if (!empty($user)) {
             $clientKey .= '.'.$user;
         }
-        if (!empty($password)) {
-            $clientKey .= '.'.$password;
-        }
         $clientKey .= '.'.$protocol;
 
-        if (!array_key_exists($clientKey, $this->clients)) {
-            $client = $this->createClient($host, $httpPort, $udpPort, $user, $password, $udp);
-            $this->clients[$clientKey] = $client;
-        } else {
-            $client = $this->clients[$clientKey];
-        }
+        $client = $this->getClientForConfiguration($host, $httpPort, $udpPort, $user, $password, $udp, $clientKey);
 
         return $client->selectDB($database);
     }
@@ -73,6 +65,30 @@ final class ConnectionFactory
         if ($udp) {
             $client->setDriver(new UDP($client->getHost(), $udpPort));
         }
+
+        return $client;
+    }
+
+    /**
+     * @param string $host
+     * @param int    $httpPort
+     * @param int    $udpPort
+     * @param string $user
+     * @param string $password
+     * @param bool   $udp
+     * @param string $clientKey
+     *
+     * @return Client
+     */
+    private function getClientForConfiguration(string $host, int $httpPort, int $udpPort, string $user, string $password, bool $udp, $clientKey): Client
+    {
+        if (!array_key_exists($clientKey, $this->clients)) {
+            $client = $this->createClient($host, $httpPort, $udpPort, $user, $password, $udp);
+            $this->clients[$clientKey] = $client;
+
+            return $client;
+        }
+        $client = $this->clients[$clientKey];
 
         return $client;
     }
