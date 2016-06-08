@@ -63,9 +63,9 @@ final class InfluxDbExtension extends Extension
     }
 
     /**
-     * @param ContainerBuilder  $container
-     * @param string            $connection
-     * @param string            $defaultConnection
+     * @param ContainerBuilder $container
+     * @param string           $connection
+     * @param string           $defaultConnection
      */
     private function createConnectionListener(ContainerBuilder $container, $connection, string $defaultConnection)
     {
@@ -92,9 +92,9 @@ final class InfluxDbExtension extends Extension
     }
 
     /**
-     * @param ContainerBuilder  $container
-     * @param array             $config
-     * @param string            $defaultConnection
+     * @param ContainerBuilder $container
+     * @param array            $config
+     * @param string           $defaultConnection
      */
     private function buildConnections(ContainerBuilder $container, array $config, string $defaultConnection)
     {
@@ -109,20 +109,20 @@ final class InfluxDbExtension extends Extension
     }
 
     /**
-     * @param ContainerBuilder  $container
-     * @param string            $defaultConnection
+     * @param ContainerBuilder $container
+     * @param string           $defaultConnection
      */
     private function setDefaultConnectionAlias(ContainerBuilder $container, string $defaultConnection)
     {
         $container->setAlias(
             'algatux_influx_db.connection.http',
-            'algatux_influx_db.connection.' . $defaultConnection . '.http'
+            'algatux_influx_db.connection.'.$defaultConnection.'.http'
         );
 
-        if ($container->hasDefinition('algatux_influx_db.connection.' . $defaultConnection . '.udp')) {
+        if ($container->hasDefinition('algatux_influx_db.connection.'.$defaultConnection.'.udp')) {
             $container->setAlias(
                 'algatux_influx_db.connection.udp',
-                'algatux_influx_db.connection.' . $defaultConnection . '.udp'
+                'algatux_influx_db.connection.'.$defaultConnection.'.udp'
             );
         }
     }
