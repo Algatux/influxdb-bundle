@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Algatux\InfluxDbBundle\Services;
 
 use InfluxDB\Client;
+use InfluxDB\Database;
 use InfluxDB\Driver\UDP;
 
 /**
@@ -30,7 +33,7 @@ final class ConnectionFactory
      *
      * @return \InfluxDB\Database
      */
-    public function createConnection(string $database, string $host, int $httpPort, int $udpPort, string $user, string $password, bool $udp = false)
+    public function createConnection(string $database, string $host, int $httpPort, int $udpPort, string $user, string $password, bool $udp = false): Database
     {
         $protocol = $udp ? 'udp' : 'http';
         // Define the client key to retrieve or create the client instance.
@@ -53,7 +56,17 @@ final class ConnectionFactory
         return $client->selectDB($database);
     }
 
-    private function createClient(string $host, int $httpPort, int $udpPort, string $user, string $password, bool $udp = false)
+    /**
+     * @param string $host
+     * @param int    $httpPort
+     * @param int    $udpPort
+     * @param string $user
+     * @param string $password
+     * @param bool   $udp
+     *
+     * @return Client
+     */
+    private function createClient(string $host, int $httpPort, int $udpPort, string $user, string $password, bool $udp = false): Client
     {
         $client = new Client($host, $httpPort, $user, $password);
 

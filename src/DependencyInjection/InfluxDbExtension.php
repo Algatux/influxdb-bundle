@@ -31,25 +31,9 @@ final class InfluxDbExtension extends Extension
 
         // If the default connection if not defined, get the first one.
         $defaultConnection = isset($config['default_connection']) ? $config['default_connection'] : key($config['connections']);
-        foreach ($config['connections'] as $connection => $connectionConfig) {
-            $this->createConnection($container, $connection, $connectionConfig, 'http');
-            if ($connectionConfig['udp']) {
-                $this->createConnection($container, $connection, $connectionConfig, 'udp');
-            }
+        $this->buildConnections($container, $config, $defaultConnection);
 
-            $this->createConnectionListener($container, $connection, $defaultConnection);
-        }
-
-        $container->setAlias(
-            'algatux_influx_db.connection.http',
-            'algatux_influx_db.connection.'.$defaultConnection.'.http'
-        );
-        if ($container->hasDefinition('algatux_influx_db.connection.'.$defaultConnection.'.udp')) {
-            $container->setAlias(
-                'algatux_influx_db.connection.udp',
-                'algatux_influx_db.connection.'.$defaultConnection.'.udp'
-            );
-        }
+        $this->setDefaultConnectionAlias($container, $defaultConnection);
 
         return $config;
     }
@@ -78,7 +62,12 @@ final class InfluxDbExtension extends Extension
         $container->setDefinition('algatux_influx_db.connection.'.$connection.'.'.$protocol, $connectionDefinition);
     }
 
-    private function createConnectionListener(ContainerBuilder $container, $connection, $defaultConnection)
+    /**
+     * @param ContainerBuilder  $container
+     * @param string            $connection
+     * @param string            $defaultConnection
+     */
+    private function createConnectionListener(ContainerBuilder $container, $connection, string $defaultConnection)
     {
         $listenerArguments = [
             $connection,
@@ -100,5 +89,41 @@ final class InfluxDbExtension extends Extension
         ]);
 
         $container->setDefinition('algatux_influx_db.event_listener.'.$connection, $listenerDefinition);
+    }
+
+    /**
+     * @param ContainerBuilder  $container
+     * @param array             $config
+     * @param string            $defaultConnection
+     */
+    private function buildConnections(ContainerBuilder $container, array $config, string $defaultConnection)
+    {
+        foreach ($config['connections'] as $connection => $connectionConfig) {
+            $this->createConnection($container, $connection, $connectionConfig, 'http');
+            if ($connectionConfig['udp']) {
+                $this->createConnection($container, $connection, $connectionConfig, 'udp');
+            }
+
+            $this->createConnectionListener($container, $connection, $defaultConnection);
+        }
+    }
+
+    /**
+     * @param ContainerBuilder  $container
+     * @param string            $defaultConnection
+     */
+    private function setDefaultConnectionAlias(ContainerBuilder $container, string $defaultConnection)
+    {
+        $container->setAlias(
+            'algatux_influx_db.connection.http',
+            'algatux_influx_db.connection.' . $defaultConnection . '.http'
+        );
+
+        if ($container->hasDefinition('algatux_influx_db.connection.' . $defaultConnection . '.udp')) {
+            $container->setAlias(
+                'algatux_influx_db.connection.udp',
+                'algatux_influx_db.connection.' . $defaultConnection . '.udp'
+            );
+        }
     }
 }
