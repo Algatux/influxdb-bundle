@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Algatux\InfluxDbBundle\Events\Listeners;
 
@@ -10,7 +10,6 @@ use Algatux\InfluxDbBundle\Events\DeferredUdpEvent;
 use Algatux\InfluxDbBundle\Events\UdpEvent;
 use InfluxDB\Database;
 use InfluxDB\Point;
-use Symfony\Component\EventDispatcher\Event;
 
 /**
  * @internal
@@ -19,40 +18,39 @@ final class InfluxDbEventListener
 {
     const STORAGE_KEY_UDP = 'udp';
     const STORAGE_KEY_HTTP = 'http';
-
     /**
      * @var string
      */
     private $connection;
-
     /**
      * @var bool
      */
     private $isDefault;
-
     /**
      * @var Database
      */
     private $httpDatabase;
-
     /**
      * @var Database
      */
     private $udpDatabase;
-
     /**
      * @var array
      */
     private $storage;
 
     /**
-     * @param string   $connection
-     * @param bool     $isDefault
+     * @param string $connection
+     * @param bool $isDefault
      * @param Database $httpDatabase
      * @param Database $udpDatabase
      */
-    public function __construct(string $connection, bool $isDefault, Database $httpDatabase, Database $udpDatabase = null)
-    {
+    public function __construct(
+        string $connection,
+        bool $isDefault,
+        Database $httpDatabase,
+        Database $udpDatabase = null
+    ) {
         $this->connection = $connection;
         $this->isDefault = $isDefault;
         $this->httpDatabase = $httpDatabase;
@@ -85,11 +83,9 @@ final class InfluxDbEventListener
     }
 
     /**
-     * @param Event $event
-     *
      * @return bool
      */
-    public function onKernelTerminate(Event $event): bool
+    public function onKernelTerminate(): bool
     {
         foreach ($this->storage[static::STORAGE_KEY_UDP] as $precision => $points) {
             $this->writeUdpPoints($points, $precision);
