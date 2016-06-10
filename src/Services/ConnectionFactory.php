@@ -31,10 +31,17 @@ final class ConnectionFactory
      * @param string $password
      * @param bool   $udp
      *
-     * @return \InfluxDB\Database
+     * @return Database
      */
-    public function createConnection(string $database, string $host, int $httpPort, int $udpPort, string $user, string $password, bool $udp = false): Database
-    {
+    public function createConnection(
+        string $database,
+        string $host,
+        int $httpPort,
+        int $udpPort,
+        string $user,
+        string $password,
+        bool $udp = false
+    ): Database {
         $protocol = $udp ? 'udp' : 'http';
         // Define the client key to retrieve or create the client instance.
         $clientKey = sprintf('%s.%s.%s', $host, $udpPort, $httpPort);
@@ -58,8 +65,14 @@ final class ConnectionFactory
      *
      * @return Client
      */
-    private function createClient(string $host, int $httpPort, int $udpPort, string $user, string $password, bool $udp = false): Client
-    {
+    private function createClient(
+        string $host,
+        int $httpPort,
+        int $udpPort,
+        string $user,
+        string $password,
+        bool $udp = false
+    ): Client {
         $client = new Client($host, $httpPort, $user, $password);
 
         if ($udp) {
@@ -80,8 +93,15 @@ final class ConnectionFactory
      *
      * @return Client
      */
-    private function getClientForConfiguration(string $host, int $httpPort, int $udpPort, string $user, string $password, bool $udp, $clientKey): Client
-    {
+    private function getClientForConfiguration(
+        string $host,
+        int $httpPort,
+        int $udpPort,
+        string $user,
+        string $password,
+        bool $udp,
+        $clientKey
+    ): Client {
         if (!array_key_exists($clientKey, $this->clients)) {
             $client = $this->createClient($host, $httpPort, $udpPort, $user, $password, $udp);
             $this->clients[$clientKey] = $client;
