@@ -3,7 +3,6 @@ language: php
 php:
   - '7.0'
   - nightly
-  - hhvm
 
 env:
   global:
@@ -14,6 +13,10 @@ matrix:
   include:
     - php: '7.0'
       env: COMPOSER_FLAGS="--prefer-lowest"
+    - php: hhvm
+      env: COMPOSER_FLAGS="--prefer-lowest --ignore-platform-reqs"
+    - php: hhvm
+      env: COMPOSER_FLAGS="--ignore-platform-reqs"
     - php: '7.0'
       env: SYMFONY=2.8.*
     - php: '7.0'
