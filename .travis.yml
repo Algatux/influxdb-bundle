@@ -3,6 +3,7 @@ language: php
 php:
   - '7.0'
   - nightly
+  - hhvm
 
 env:
   global:
@@ -22,8 +23,8 @@ matrix:
     - php: '7.0'
       env: SYMFONY=dev-master
   allow_failures:
+    - php: hhvm
     - php: nightly
-    - env: SYMFONY=3.1.*
     - env: SYMFONY=dev-master
 
 cache:
