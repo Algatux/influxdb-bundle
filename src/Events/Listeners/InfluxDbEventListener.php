@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Algatux\InfluxDbBundle\Events\Listeners;
 
@@ -40,8 +40,8 @@ final class InfluxDbEventListener
     private $storage;
 
     /**
-     * @param string $connection
-     * @param bool $isDefault
+     * @param string   $connection
+     * @param bool     $isDefault
      * @param Database $httpDatabase
      * @param Database $udpDatabase
      */
