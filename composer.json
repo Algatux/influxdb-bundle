@@ -18,8 +18,7 @@
     },
     "require-dev": {
         "matthiasnoback/symfony-dependency-injection-test": "^0.7.6",
-        "phpspec/prophecy": "^1.6.0",
-        "phpunit/phpunit": "^5.2",
+        "phpunit/phpunit": "^5.4",
         "sllh/php-cs-fixer-styleci-bridge": "^2.0",
         "symfony/phpunit-bridge": "^3.1"
     },
