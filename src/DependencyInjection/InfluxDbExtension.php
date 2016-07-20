@@ -9,6 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
@@ -35,6 +36,10 @@ final class InfluxDbExtension extends Extension
         $this->buildConnections($container, $config, $defaultConnection);
 
         $this->setDefaultConnectionAlias($container, $defaultConnection);
+
+        if (interface_exists(FormInterface::class)) {
+            $loader->load('form.xml');
+        }
 
         return $config;
     }

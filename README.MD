@@ -182,3 +182,32 @@ To get more information, run:
 ```bash
 ./app/console help <command>
 ```
+
+### Form types
+
+This bundle provides several pre-defined form types. They are useful but optional.
+
+If you want to use them, you have to require the `symfony/form` package.
+
+Description of each of them is on the class doc block. Here is a short usage example:
+
+```php
+$form
+    ->add('measurement', MeasurementType::class, [
+        'connection' => 'default' // Optional: The connection you want to use.
+    ])
+    ->add('fields', FieldKeyType::class, [
+        'measurement' => 'cpu', // The concerned measurement.
+        'multiple' => true, // Parent type is ChoiceType. You can use parent option like multiple.
+    ])
+    ->add('tags', TagKeyType::class, [
+        'measurement' => 'cpu',
+        'exclude_host' => false, // True by default. Excludes the 'host' choice value.
+        'multiple' => true,
+    ])
+    ->add('tag_value', TagValueType::class, [
+        'measurement' => 'disk',
+        'tag_key' => 'fstype', // The related tag key.
+    ])
+;
+```
