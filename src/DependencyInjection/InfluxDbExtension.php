@@ -28,6 +28,7 @@ final class InfluxDbExtension extends Extension
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('factory.xml');
+        $loader->load('registry.xml');
 
         // If the default connection if not defined, get the first one.
         $defaultConnection = isset($config['default_connection']) ? $config['default_connection'] : key($config['connections']);
@@ -59,7 +60,12 @@ final class InfluxDbExtension extends Extension
         $connectionDefinition->setFactory([new Reference('algatux_influx_db.connection_factory'), 'createConnection']);
 
         // E.g.: algatux_influx_db.connection.default.http
-        $container->setDefinition('algatux_influx_db.connection.'.$connection.'.'.$protocol, $connectionDefinition);
+        $connectionServiceName = 'algatux_influx_db.connection.'.$connection.'.'.$protocol;
+        $container->setDefinition($connectionServiceName, $connectionDefinition);
+
+        // Add the connection to the registry
+        $container->getDefinition('algatux_influx_db.connection_registry')
+            ->addMethodCall('addConnection', [$connection, $protocol, new Reference($connectionServiceName)]);
     }
 
     /**
@@ -125,5 +131,9 @@ final class InfluxDbExtension extends Extension
                 'algatux_influx_db.connection.'.$defaultConnection.'.udp'
             );
         }
+
+        // Set the default connection name on the registry constructor.
+        $container->getDefinition('algatux_influx_db.connection_registry')
+            ->setArguments([$defaultConnection]);
     }
 }

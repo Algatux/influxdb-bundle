@@ -92,6 +92,17 @@ $httpDatabase = $this->get('algatux_influx_db.connection.default.http');
 $udpDatabase = $this->get('algatux_influx_db.connection.default.udp');
 ```
 
+You can also retrieve them thanks to the registry:
+
+```php
+$database = $this->get('algatux_influx_db.connection_registry')->getDefaultHttpConnection();
+$database = $this->get('algatux_influx_db.connection_registry')->getDefaultUdpConnection();
+
+// Same as before.
+$database = $this->get('algatux_influx_db.connection_registry')->getHttpConnection('default');
+$database = $this->get('algatux_influx_db.connection_registry')->getUdpConnection('default');
+```
+
 To manipulate the database, please read the official documentation
 for [reading](https://github.com/influxdata/influxdb-php#reading)
 and [writing](https://github.com/influxdata/influxdb-php#writing-data).
