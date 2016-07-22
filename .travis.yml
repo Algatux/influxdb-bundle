@@ -1,8 +1,5 @@
 language: php
-
-php:
-  - '7.0'
-  - nightly
+sudo: false
 
 env:
   global:
@@ -11,6 +8,7 @@ env:
 matrix:
   fast_finish: true
   include:
+    - php: '7.0'
     - php: '7.0'
       env: COMPOSER_FLAGS="--prefer-lowest"
     - php: hhvm
@@ -25,6 +23,7 @@ matrix:
       env: SYMFONY=3.1.*
     - php: '7.0'
       env: SYMFONY=dev-master
+    - php: nightly
   allow_failures:
     - php: hhvm
     - php: nightly
@@ -38,10 +37,12 @@ before_install:
   - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then phpenv config-rm xdebug.ini; fi;
   - composer self-update
   - composer config --quiet --global github-oauth.github.com ${GITHUB_OAUTH_TOKEN}
+  - composer require "satooshi/php-coveralls" --no-update
   - if [ "$SYMFONY" != "" ]; then composer require "symfony/symfony:${SYMFONY}" --no-update; fi;
 
 install:
   - mkdir --parents "${HOME}/bin"
+  - wget https://scrutinizer-ci.com/ocular.phar --output-document="${HOME}/bin/ocular" && chmod +x "${HOME}/bin/ocular"
   - composer global require --prefer-dist --no-interaction sllh/composer-lint:@stable
   - composer update --prefer-dist --no-interaction ${COMPOSER_FLAGS}
 
@@ -50,11 +51,11 @@ before_script:
 
 script:
   - composer validate
-  - phpunit -c . --coverage-clover=./build/coverage/coverage.clover
+  - phpunit -c . --coverage-clover=./build/coverage/coverage.xml
 
 after_success:
-  - wget https://scrutinizer-ci.com/ocular.phar --output-document="${HOME}/bin/ocular" && chmod +x "${HOME}/bin/ocular"
-  - ocular code-coverage:upload --format=php-clover ./build/coverage/coverage.clover
+  - ocular code-coverage:upload --format=php-clover ./build/coverage/coverage.xml
+  - php vendor/bin/coveralls -v
 
 notifications:
   on_success: never
