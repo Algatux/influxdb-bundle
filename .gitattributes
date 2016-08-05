@@ -5,4 +5,5 @@
 /.scrutinizer.yml   export-ignore
 /.php_cs            export-ignore
 /.stylecy.yml       export-ignore
+/.coveralls.yml     export-ignore
 /phpunit.xml.dist   export-ignore
