@@ -23,7 +23,14 @@
     "require-dev": {
         "matthiasnoback/symfony-dependency-injection-test": "^0.7.6",
         "sllh/php-cs-fixer-styleci-bridge": "^2.0",
-        "symfony/phpunit-bridge": "^3.1"
+        "symfony/phpunit-bridge": "^3.1",
+        "symfony/web-profiler-bundle": "^2.8 || ^3.0"
+    },
+    "suggest": {
+        "symfony/web-profiler-bundle": "To get Influx queries profiling"
+    },
+    "conflict": {
+        "symfony/web-profiler-bundle": "<2.8 || >=4.0"
     },
     "autoload": {
         "psr-4": { "Algatux\\InfluxDbBundle\\": "src/" }

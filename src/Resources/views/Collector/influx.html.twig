@@ -1,0 +1,30 @@
+{% extends '@WebProfiler/Profiler/layout.html.twig' %}
+
+{% block toolbar %}
+    {% set icon %}
+
+        {#{{ include('InfluxDbBundle:Icon:influx.svg') }}#}
+
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4AgICgQUXHVGowAABDxJREFUSMeVll1sVFUQx39zSlvph3y2hhckCImtgF8oHxq1JBIoNLVl9+yCAY2aNJoQogIvPLg++UKihKAEE2JMY/eeZXfTNCwFIwRElAAaVFJi1IRoYgyQqnWFunvv+OCFLNttlfNy587X/8yZMzNHmGBls9mphUJhL/CUiBxV1UPAoLX2Mv9zyXiCdDo9y/f9I8CCMlEAnFXVQyIyYK09d9sA6XR6ru/7HwNzgW8AD9gqIodU9WlgZon6JVXNGmMyFy5c+CyRSAQTAiSTyQXGmCPALOBkdXV1R1dX12/OuedFZLGqblHVpcaYZ1S1C7inxPwnVX27ubl5d1tbW3EMgHNuGXAQmAbkgIi19lqJfJuITI1GoztKeAtV1YrIdqAmZPdYa/fdAuCcWwUcAOoBb3h4eGNPT0+hPELP83pF5DtV/dQY85iqLgLqVPVHEakDXgQOW2tX3QTwPK9dRLJAjYi8r6ovW2v9SvnxPG+9iHwkIvtF5L0gCL66oeucmw5cAf4EpllrfUkmk0uNMZ8AdSKyMxKJbBcRHcf5EyLyjoicVtWL1tpd5TrOuW+B+4wx90cika+NMeYNoA4YiEaj2yZw3iYirwFtvu/vBB6opKeqJ8PvMgCjqldD2ZPOuYpGqVSqU0ReamhoiFlrf4/H4z+Et2zMMsacCsll4b85HTLOAfv6+vrmlIW8EVgDbGpvbx8tEY3kcrnaMYUl8nl5BDcQpwRBsL6qqupD59y8cOevq+rSSCTSU550ETmTz+cfLgdYt27d92Gi5zvnppumpqbzQB5YZIz5NQiCzcCgc24AWDg0NLS5Ul583z8RBMHyChEo8MW/pCw2YcWdASaJyJJ4PH4eSAIrVHVWa2trd39/f2OFs/5SRB6s2H9EzobH9IgJGacAbuxIRO4OgmBRsVjcpKrVo6Oje5xzqVQq9YpzbjaAtfZvoNE5V1WWs+mq2hL6uXdSiHQqZCxXVUmlUtPCmwLQB/TlcrnafD6/AtjhnJstIkOqOk9VtzrnhoFHgSlhg3wotL0mAJlMZkaxWLwM/CEiHcDj0Wj0rfFasKqK53mLjTH7gcuquldEjgFNwFHgLuBEbW3tWgPQ3d19FbgITFHV3SJydMIeL6LxePwMMFIsFm0sFnNBEMwBjofOBydPnry6s7NzxJQYHQ/J1pGRkfP/NakymcwM4JcNGzZc8TyvLWw3M4E00NnR0fEXwE2AIAhyIVldX19/zvO8F7LZ7NTxAAqFwkpVHQyrPAc0Ah8AsfAC3DpwEomEaWlpeVdEngUaQvYoMKiqB0TkcOksds4NAj8DzwGTgF3RaPTV8poZM9H6+/sbr1+/3ikiUWAlcEfpLBaRY6p6CdgNVIVJfzMWiyVua+gD9Pb23llTU7NWRNaq6kpgRnlBq+qWWCy257ZfFRX6fJWILAHWqOpqoDkcjQcnsvsHlYrk+isJd7sAAAAASUVORK5CYII=">
+
+        <span class="sf-toolbar-value">{{ collector.queryCount }}</span>
+        <span class="sf-toolbar-info-piece-additional-detail">
+            <span class="sf-toolbar-label">in</span>
+            <span class="sf-toolbar-value">{{ '%0.2f'|format(collector.time * 1000) }}</span>
+            <span class="sf-toolbar-label">ms</span>
+        </span>
+    {% endset %}
+
+    {% set text %}
+        <div class="sf-toolbar-info-piece">
+            <b>Database Queries</b>
+            <span class="sf-toolbar-status {{ collector.queryCount > 50 ? 'sf-toolbar-status-yellow' : '' }}">{{ collector.queryCount }}</span>
+        </div>
+        <div class="sf-toolbar-info-piece">
+            <b>Query time</b>
+            <span>{{ '%0.2f'|format(collector.time * 1000) }} ms</span>
+        </div>
+    {% endset %}
+
+    {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { 'link': true }) }}
+{% endblock %}

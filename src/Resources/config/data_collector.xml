@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="algatux_influx_db.influx_data_collector"
+                 class="Algatux\InfluxDbBundle\DataCollector\InfluxDataCollector"
+                 public="false">
+            <tag name="data_collector" template="InfluxDbBundle:Collector:influx.html.twig" id="influx" priority="250" />
+        </service>
+    </services>
+</container>

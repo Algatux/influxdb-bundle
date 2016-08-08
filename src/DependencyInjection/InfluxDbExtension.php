@@ -4,6 +4,7 @@ namespace Algatux\InfluxDbBundle\DependencyInjection;
 
 use Algatux\InfluxDbBundle\Events\Listeners\InfluxDbEventListener;
 use InfluxDB\Database;
+use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -34,6 +35,10 @@ final class InfluxDbExtension extends Extension
         $this->buildConnections($container, $config, $defaultConnection);
 
         $this->setDefaultConnectionAlias($container, $defaultConnection);
+
+        if (class_exists(WebProfilerBundle::class)) {
+            $loader->load('data_collector.xml');
+        }
 
         return $config;
     }
