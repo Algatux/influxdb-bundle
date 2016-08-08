@@ -1,2 +1,1 @@
-service_name: travis-ci
-coverage_clover: ./build/coverage/coverage.clover
+coverage_clover: ./build/coverage/coverage.xml
