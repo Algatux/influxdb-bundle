@@ -1,1 +1,2 @@
-coverage_clover: ./build/coverage/coverage.xml
+coverage_clover: build/coverage/coverage.xml
+json_path: build/coverage/coverage-upload.json
