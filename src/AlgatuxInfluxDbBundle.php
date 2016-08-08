@@ -6,11 +6,9 @@ use Algatux\InfluxDbBundle\DependencyInjection\InfluxDbExtension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * Class InfluxDbBundle.
- *
- * @deprecated please use AlgatuxInfluxDbBundle instead
+ * Class AlgatuxInfluxDbBundle.
  */
-final class InfluxDbBundle extends Bundle
+final class AlgatuxInfluxDbBundle extends Bundle
 {
     /**
      * @return InfluxDbExtension
