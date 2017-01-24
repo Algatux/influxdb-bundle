@@ -22,6 +22,8 @@ matrix:
     - php: '7.0'
       env: SYMFONY=3.1.*
     - php: '7.0'
+      env: SYMFONY=3.2.*
+    - php: '7.0'
       env: SYMFONY=dev-master
     - php: nightly
   allow_failures:
@@ -38,6 +40,7 @@ before_install:
   - composer self-update
   - composer config --quiet --global github-oauth.github.com ${GITHUB_OAUTH_TOKEN}
   - composer require "satooshi/php-coveralls" --no-update
+  - composer require "phpunit/phpunit" --no-update
   - if [ "$SYMFONY" != "" ]; then composer require "symfony/symfony:${SYMFONY}" --no-update; fi;
 
 install:
@@ -51,7 +54,7 @@ before_script:
 
 script:
   - composer validate
-  - phpunit -c . --coverage-clover=./build/coverage/coverage.xml
+  - vendor/bin/phpunit -c . --coverage-clover=./build/coverage/coverage.xml
 
 after_success:
   - ocular code-coverage:upload --format=php-clover ./build/coverage/coverage.xml
