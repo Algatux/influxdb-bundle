@@ -48,7 +48,7 @@ before_install:
   - composer self-update
   - composer config --quiet --global github-oauth.github.com ${GITHUB_OAUTH_TOKEN}
   - composer require "satooshi/php-coveralls" --no-update
-  - composer require "phpunit/phpunit" --no-update
+  - composer require phpunit/phpunit:^5.6 --no-update
   - if [ "$SYMFONY" != "" ]; then composer require "symfony/symfony:${SYMFONY}" --no-update; fi;
 
 install:
