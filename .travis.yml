@@ -10,21 +10,29 @@ matrix:
   include:
     - php: '7.0'
     - php: '7.0'
-      env: COMPOSER_FLAGS="--prefer-lowest"
+      env:
+        - COMPOSER_FLAGS="--prefer-lowest"
     - php: hhvm
-      env: COMPOSER_FLAGS="--prefer-lowest --ignore-platform-reqs"
+      env:
+        - COMPOSER_FLAGS="--prefer-lowest --ignore-platform-reqs"
     - php: hhvm
-      env: COMPOSER_FLAGS="--ignore-platform-reqs"
+      env:
+        - COMPOSER_FLAGS="--ignore-platform-reqs"
     - php: '7.0'
-      env: SYMFONY=2.8.*
+      env:
+        - SYMFONY=2.8.*
     - php: '7.0'
-      env: SYMFONY=3.0.*
+      env:
+        - SYMFONY=3.0.*
     - php: '7.0'
-      env: SYMFONY=3.1.*
+      env:
+        - SYMFONY=3.1.*
     - php: '7.0'
-      env: SYMFONY=3.2.*
+      env:
+        - SYMFONY=3.2.*
     - php: '7.0'
-      env: SYMFONY=dev-master
+      env:
+        - SYMFONY=dev-master
     - php: nightly
   allow_failures:
     - php: hhvm
