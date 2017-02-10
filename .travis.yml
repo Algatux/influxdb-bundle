@@ -37,7 +37,8 @@ matrix:
   allow_failures:
     - php: hhvm
     - php: nightly
-    - env: SYMFONY=dev-master
+    - env:
+        - SYMFONY=dev-master
 
 cache:
   directories:
