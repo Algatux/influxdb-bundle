@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Algatux\InfluxDbBundle\DataCollector;
 
@@ -8,6 +6,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
+/**
+ * Class InfluxDataCollector.
+ */
 final class InfluxDataCollector extends DataCollector
 {
     /**

@@ -21,7 +21,7 @@
             <span class="sf-toolbar-status {{ collector.queryCount > 50 ? 'sf-toolbar-status-yellow' : '' }}">{{ collector.queryCount }}</span>
         </div>
         <div class="sf-toolbar-info-piece">
-            <b>Query time</b>
+            <b>InfluxQuery time</b>
             <span>{{ '%0.2f'|format(collector.time * 1000) }} ms</span>
         </div>
     {% endset %}
