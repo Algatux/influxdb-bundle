@@ -27,13 +27,13 @@
         "symfony/form": "^2.8 || ^3.0",
         "symfony/web-profiler-bundle": "^2.8 || ^3.0"
     },
-    "suggest": {
-      "symfony/form": "Needed for form types usage",
-        "symfony/web-profiler-bundle": "To get Influx queries profiling"
-    },
     "conflict": {
-        "symfony/form": "<2.8 || >=4.0",
-        "symfony/web-profiler-bundle": "<2.8 || >=4.0"
+        "symfony/web-profiler-bundle": "<2.8 || >=4.0",
+        "symfony/form": "<2.8 || >=4.0"
+    },
+    "suggest": {
+        "symfony/form": "Needed for form types usage",
+        "symfony/web-profiler-bundle": "To get Influx queries profiling"
     },
     "autoload": {
         "psr-4": { "Algatux\\InfluxDbBundle\\": "src/" }
