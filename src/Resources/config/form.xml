@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="algatux_influx_db.form.type" class="Algatux\InfluxDbBundle\Form\Type\AbstractInfluxChoiceType"
+                 abstract="true">
+            <call method="setConnectionRegistry">
+                <argument type="service" id="algatux_influx_db.connection_registry" />
+            </call>
+        </service>
+
+        <service id="algatux_influx_db.form.type.field_key" class="Algatux\InfluxDbBundle\Form\Type\FieldKeyType"
+                 parent="algatux_influx_db.form.type">
+            <tag name="form.type" />
+        </service>
+
+        <service id="algatux_influx_db.form.type.measurement" class="Algatux\InfluxDbBundle\Form\Type\MeasurementType"
+                 parent="algatux_influx_db.form.type">
+            <tag name="form.type" />
+        </service>
+
+        <service id="algatux_influx_db.form.type.tag_key" class="Algatux\InfluxDbBundle\Form\Type\TagKeyType"
+                 parent="algatux_influx_db.form.type">
+            <tag name="form.type" />
+        </service>
+
+        <service id="algatux_influx_db.form.type.tag_value" class="Algatux\InfluxDbBundle\Form\Type\TagValueType"
+                 parent="algatux_influx_db.form.type">
+            <tag name="form.type" />
+        </service>
+
+    </services>
+</container>
