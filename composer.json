@@ -30,7 +30,7 @@
         "symfony/form": "Needed for form types usage"
     },
     "conflict": {
-        "symfony/form": "<2.8 || >=4.0"
+        "symfony/form": "<2.8"
     },
     "autoload": {
         "psr-4": { "Algatux\\InfluxDbBundle\\": "src/" }
