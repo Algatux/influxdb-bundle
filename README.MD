@@ -24,7 +24,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-        new Algatux\InfluxDbBundle\InfluxDbBundle(),
+        new Algatux\InfluxDbBundle\AlgatuxInfluxDbBundle(),
     );
 
     // ...
