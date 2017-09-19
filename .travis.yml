@@ -24,6 +24,8 @@ matrix:
     - php: '7.0'
       env: SYMFONY=3.2.*
     - php: '7.0'
+      env: SYMFONY=3.3.*
+    - php: '7.0'
       env: SYMFONY=dev-master
     - php: nightly
   allow_failures:
