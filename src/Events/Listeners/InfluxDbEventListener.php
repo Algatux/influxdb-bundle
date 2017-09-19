@@ -82,10 +82,7 @@ final class InfluxDbEventListener
         return true;
     }
 
-    /**
-     * @return bool
-     */
-    public function onKernelTerminate(): bool
+    public function onProcessTerminate(): bool
     {
         foreach ($this->storage[static::STORAGE_KEY_UDP] as $precision => $points) {
             $this->writeUdpPoints($points, $precision);
@@ -99,6 +96,22 @@ final class InfluxDbEventListener
         $this->initStorage();
 
         return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function onKernelTerminate(): bool
+    {
+        return $this->onProcessTerminate();
+    }
+
+    /**
+     * @return bool
+     */
+    public function onConsoleTerminate(): bool
+    {
+        return $this->onProcessTerminate();
     }
 
     private function initStorage()

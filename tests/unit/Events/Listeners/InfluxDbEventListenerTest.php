@@ -111,6 +111,29 @@ class InfluxDbEventListenerTest extends \PHPUnit_Framework_TestCase
         $listener->onKernelTerminate(new Event());
     }
 
+    public function test_listening_for_deferred_http_infuxdb_event_from_console()
+    {
+        $event1 = new DeferredHttpEvent([1], Database::PRECISION_SECONDS);
+        $event2 = new DeferredHttpEvent([2], Database::PRECISION_SECONDS);
+        $event3 = new DeferredHttpEvent([3], Database::PRECISION_SECONDS);
+
+        $httpDatabase = $this->prophesize(Database::class);
+        $httpDatabase->writePoints(Argument::cetera())
+            ->shouldBeCalledTimes(1)
+            ->willReturn(true);
+
+        $udpDatabase = $this->prophesize(Database::class);
+        $udpDatabase->writePoints(Argument::cetera())
+            ->shouldNotBeCalled();
+
+        $listener = new InfluxDbEventListener('default', true, $httpDatabase->reveal(), $udpDatabase->reveal());
+        $listener->onPointsCollected($event1);
+        $listener->onPointsCollected($event2);
+        $listener->onPointsCollected($event3);
+
+        $listener->onConsoleTerminate(new Event());
+    }
+
     public function test_not_available_deferred_udp_infuxdb_event()
     {
         $event = new DeferredUdpEvent([], Database::PRECISION_SECONDS);

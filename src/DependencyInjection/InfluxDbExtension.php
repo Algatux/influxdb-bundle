@@ -98,6 +98,10 @@ final class InfluxDbExtension extends Extension
             'event' => 'kernel.terminate',
             'method' => 'onKernelTerminate',
         ]);
+        $listenerDefinition->addTag('kernel.event_listener', [
+            'event' => 'console.terminate',
+            'method' => 'onConsoleTerminate',
+        ]);
 
         $container->setDefinition('algatux_influx_db.event_listener.'.$connection, $listenerDefinition);
     }
