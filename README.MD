@@ -87,7 +87,7 @@ You can directly access to the `InfluxDB\Database` trough UDP or HTTP with those
 
 ```php
 $httpDatabase = $this->get('algatux_influx_db.connection.http'); // Default HTTP connection
-$udpDatabase = $this->get('algatux_influx_db.connection.udp');   // Default HTTP connection
+$udpDatabase = $this->get('algatux_influx_db.connection.udp');   // Default UDP connection
 
 // Same as before.
 $httpDatabase = $this->get('algatux_influx_db.connection.default.http');
