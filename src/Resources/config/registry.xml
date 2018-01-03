@@ -6,7 +6,7 @@
 
     <services>
 
-        <service id="algatux_influx_db.connection_registry" class="Algatux\InfluxDbBundle\Services\ConnectionRegistry" />
+        <service id="algatux_influx_db.connection_registry" class="Algatux\InfluxDbBundle\Services\ConnectionRegistry" public="true"/>
 
     </services>
 </container>

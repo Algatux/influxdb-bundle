@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- config/command.xml -->
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <!-- commands -->
+
+        <service id="algatux_influx_db.command.create_database" class="Algatux\InfluxDbBundle\Command\CreateDatabaseCommand">
+            <tag name="console.command"/>
+        </service>
+
+        <service id="algatux_influx_db.command.drop_database" class="Algatux\InfluxDbBundle\Command\DropDatabaseCommand">
+            <tag name="console.command"/>
+        </service>
+
+    </services>
+
+</container>

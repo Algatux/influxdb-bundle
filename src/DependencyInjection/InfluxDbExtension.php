@@ -5,6 +5,7 @@ namespace Algatux\InfluxDbBundle\DependencyInjection;
 use Algatux\InfluxDbBundle\Events\Listeners\InfluxDbEventListener;
 use InfluxDB\Database;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader;
@@ -30,6 +31,7 @@ final class InfluxDbExtension extends Extension
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('factory.xml');
         $loader->load('registry.xml');
+        $loader->load('command.xml');
 
         // If the default connection if not defined, get the first one.
         $defaultConnection = isset($config['default_connection']) ? $config['default_connection'] : key($config['connections']);
@@ -63,6 +65,7 @@ final class InfluxDbExtension extends Extension
             'udp' === $protocol,
         ]);
         $connectionDefinition->setFactory([new Reference('algatux_influx_db.connection_factory'), 'createConnection']);
+        $connectionDefinition->setPublic(true);
 
         // E.g.: algatux_influx_db.connection.default.http
         $connectionServiceName = 'algatux_influx_db.connection.'.$connection.'.'.$protocol;
@@ -131,14 +134,15 @@ final class InfluxDbExtension extends Extension
     {
         $container->setAlias(
             'algatux_influx_db.connection.http',
-            'algatux_influx_db.connection.'.$defaultConnection.'.http'
+            new Alias('algatux_influx_db.connection.'.$defaultConnection.'.http', true)
         );
 
         if ($container->hasDefinition('algatux_influx_db.connection.'.$defaultConnection.'.udp')) {
             $container->setAlias(
                 'algatux_influx_db.connection.udp',
-                'algatux_influx_db.connection.'.$defaultConnection.'.udp'
+                new Alias('algatux_influx_db.connection.'.$defaultConnection.'.udp', true)
             );
+
         }
 
         // Set the default connection name on the registry constructor.
