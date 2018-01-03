@@ -142,7 +142,6 @@ final class InfluxDbExtension extends Extension
                 'algatux_influx_db.connection.udp',
                 new Alias('algatux_influx_db.connection.'.$defaultConnection.'.udp', true)
             );
-
         }
 
         // Set the default connection name on the registry constructor.
