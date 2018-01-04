@@ -39,15 +39,15 @@ install:
   - composer update --prefer-dist --no-interaction ${COMPOSER_FLAGS}
 
 before_script:
-  - echo "zend_extension=xdebug.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini;
+  - echo "zend_extension=xdebug.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
 script:
   - composer validate
-  - vendor/bin/phpunit -c . --coverage-clover=./build/coverage/coverage.xml
+  - bin/phpunit -c . --coverage-clover=./build/coverage/coverage.xml
 
 after_success:
   - ocular code-coverage:upload --format=php-clover ./build/coverage/coverage.xml
-  - php vendor/bin/coveralls -v
+  - php bin/coveralls -v
 
 notifications:
   on_success: never
