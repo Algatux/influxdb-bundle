@@ -6,11 +6,12 @@ namespace Algatux\InfluxDbBundle\Tests\unit\Command;
 
 use Algatux\InfluxDbBundle\Command\CreateDatabaseCommand;
 use InfluxDB\Database;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final class CreateDatabaseCommandTest extends \PHPUnit_Framework_TestCase
+final class CreateDatabaseCommandTest extends TestCase
 {
     public function test_execute()
     {

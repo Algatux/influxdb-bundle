@@ -7,8 +7,9 @@ namespace Algatux\InfluxDbBundle\unit\Events;
 use Algatux\InfluxDbBundle\Events\AbstractInfluxDbEvent;
 use Algatux\InfluxDbBundle\Events\HttpEvent;
 use InfluxDB\Database;
+use PHPUnit\Framework\TestCase;
 
-class InfluxDbEventTest extends \PHPUnit_Framework_TestCase
+class InfluxDbEventTest extends TestCase
 {
     /**
      * @group legacy

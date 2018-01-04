@@ -17,11 +17,12 @@
     "require": {
         "php": "^7.0",
         "influxdb/influxdb-php": "^1.2",
+        "phpunit/phpunit": "^6.5",
         "symfony/console": "^2.8 || ^3.0 || ^4.0",
         "symfony/framework-bundle": "^2.8 || ^3.0 || ^4.0"
     },
     "require-dev": {
-        "matthiasnoback/symfony-dependency-injection-test": "^1.0",
+        "matthiasnoback/symfony-dependency-injection-test": "^2.0",
         "symfony/form": "^2.8 || ^3.0 || ^4.0",
         "symfony/phpunit-bridge": "^4.0"
     },
@@ -35,7 +36,8 @@
         "psr-4": { "Algatux\\InfluxDbBundle\\": "src/" }
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "bin-dir": "bin"
     },
     "extra": {
         "branch-alias": {

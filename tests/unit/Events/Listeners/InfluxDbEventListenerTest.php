@@ -10,10 +10,11 @@ use Algatux\InfluxDbBundle\Events\HttpEvent;
 use Algatux\InfluxDbBundle\Events\Listeners\InfluxDbEventListener;
 use Algatux\InfluxDbBundle\Events\UdpEvent;
 use InfluxDB\Database;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Symfony\Component\EventDispatcher\Event;
 
-class InfluxDbEventListenerTest extends \PHPUnit_Framework_TestCase
+class InfluxDbEventListenerTest extends TestCase
 {
     public function test_listening_for_udp_infuxdb_event()
     {

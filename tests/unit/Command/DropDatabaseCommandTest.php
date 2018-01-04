@@ -6,11 +6,12 @@ namespace Algatux\InfluxDbBundle\Tests\unit\Command;
 
 use Algatux\InfluxDbBundle\Command\DropDatabaseCommand;
 use InfluxDB\Database;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final class DropDatabaseCommandTest extends \PHPUnit_Framework_TestCase
+final class DropDatabaseCommandTest extends TestCase
 {
     public function test_execute()
     {
