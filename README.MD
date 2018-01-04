@@ -213,3 +213,23 @@ $form
     ])
 ;
 ```
+
+### Contributing
+
+Feel free to contribute by opening a pull request, if you find a bug or to suggest a new feature.
+If you like docker, this repository is provided with a dev environment with some scripts to prepare and use it.
+All you need is docker and docker-compose installed on your system.
+
+```
+ make setup  # will build the needed containers and setup the project
+```
+
+```
+ make start  # will start the needed containers and put you inside the php-cli container
+```
+
+```
+ make test  # will launch the test suite
+```
+
+Note: All these scripts are meant to be used outside the containers.
