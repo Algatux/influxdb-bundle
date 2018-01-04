@@ -1,0 +1,26 @@
+version: "3.1"
+
+services:
+  php-cli:
+    image: algatux/php-cli-mongodb:1.1
+    volumes:
+        - ./:/home/user-dev/project
+    tty: true
+    depends_on:
+      - influx
+    container_name: ifx_php
+  chronograf:
+    image: chronograf:latest
+    ports:
+      - 8888:8888
+    depends_on:
+      - influx
+  influx:
+    image: influxdb:1.4
+    ports:
+      - 8083:8083
+      - 8086:8086
+    environment:
+      - INFLUXDB_DB=testdb
+      - INFLUXDB_GRAPHITE_ENABLED=false
+    container_name: ifx_influx

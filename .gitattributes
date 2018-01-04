@@ -7,3 +7,5 @@
 /.stylecy.yml       export-ignore
 /.coveralls.yml     export-ignore
 /phpunit.xml.dist   export-ignore
+/docker-compose-yml export-ignore
+/Makefile           export-ignore
