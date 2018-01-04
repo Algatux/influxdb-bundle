@@ -17,26 +17,22 @@ use InfluxDB\Point;
 final class InfluxDbEventListener
 {
     const STORAGE_KEY_UDP = 'udp';
+
     const STORAGE_KEY_HTTP = 'http';
-    /**
-     * @var string
-     */
+
+    /** @var string */
     private $connection;
-    /**
-     * @var bool
-     */
+
+    /** @var bool */
     private $isDefault;
-    /**
-     * @var Database
-     */
+
+    /** @var Database */
     private $httpDatabase;
-    /**
-     * @var Database
-     */
+
+    /** @var Database */
     private $udpDatabase;
-    /**
-     * @var array
-     */
+
+    /** @var array */
     private $storage;
 
     /**
