@@ -23,7 +23,7 @@ final class FieldKeyType extends AbstractInfluxChoiceType
                 'choices' => function (Options $options) {
                     return $this->loadChoicesFromQuery(
                         sprintf(
-                            'SELECT fieldKey FROM "default"._fieldKeys WHERE _name = \'%s\'',
+                            'SHOW FIELD KEYS FROM "%s"',
                             $options['measurement']
                         ),
                         'fieldKey',
