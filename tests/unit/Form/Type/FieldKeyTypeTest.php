@@ -49,7 +49,7 @@ final class FieldKeyTypeTest extends AbstractInfluxChoiceTypeTest
         ]));
 
         $this->database->expects($this->once())->method('query')
-            ->with('SELECT fieldKey FROM "default"._fieldKeys WHERE _name = \'cpu\'')
+            ->with('SHOW FIELD KEYS FROM "cpu"')
             ->willReturn($resultSet)
         ;
 
