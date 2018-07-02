@@ -16,7 +16,7 @@
     ],
     "require": {
         "php": "^7.0",
-        "influxdb/influxdb-php": "^1.2",
+        "influxdata/influxdb-php": "^1.2",
         "symfony/console": "^2.8 || ^3.0 || ^4.0",
         "symfony/framework-bundle": "^2.8 || ^3.0 || ^4.0"
     },
