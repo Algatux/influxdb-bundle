@@ -66,6 +66,7 @@ final class InfluxDbExtension extends Extension
         ]);
         $connectionDefinition->setFactory([new Reference('algatux_influx_db.connection_factory'), 'createConnection']);
         $connectionDefinition->setPublic(true);
+        $connectionDefinition->setLazy(true);
 
         // E.g.: algatux_influx_db.connection.default.http
         $connectionServiceName = 'algatux_influx_db.connection.'.$connection.'.'.$protocol;
