@@ -26,7 +26,8 @@
         "symfony/phpunit-bridge": "^4.0"
     },
     "suggest": {
-        "symfony/form": "Needed for form types usage"
+        "symfony/form": "Needed for form types usage",
+        "symfony/proxy-manager-bridge": "Needed to lazy-load connection services"
     },
     "conflict": {
         "symfony/form": "<2.8"
