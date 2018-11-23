@@ -15,6 +15,6 @@ influx_db:
         ssl:
             database: test
             host: localhost
-            ssl: false
+            ssl: true
             username: foo
             password: bar
