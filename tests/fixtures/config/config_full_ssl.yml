@@ -3,6 +3,7 @@ influx_db:
     host: localhost
     database: telegraf
     ssl: true
+    ssl_verification: true
     udp_port: 1337
     http_port: 42
     username: 'foo'

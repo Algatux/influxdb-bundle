@@ -20,6 +20,9 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  */
 final class InfluxDbExtension extends Extension
 {
+    const PROTOCOL_UDP = 'udp';
+    const PROTOCOL_HTTP = 'http';
+
     /**
      * {@inheritdoc}
      */
@@ -62,8 +65,9 @@ final class InfluxDbExtension extends Extension
             $config['udp_port'],
             $config['username'],
             $config['password'],
-            'udp' === $protocol,
-            $config['ssl'] ?: false,
+            self::PROTOCOL_UDP === $protocol,
+            $config['ssl'],
+            $config['ssl_verification'],
         ]);
         $connectionDefinition->setFactory([new Reference('algatux_influx_db.connection_factory'), 'createConnection']);
         $connectionDefinition->setPublic(true);
@@ -119,9 +123,9 @@ final class InfluxDbExtension extends Extension
     private function buildConnections(ContainerBuilder $container, array $config, string $defaultConnection)
     {
         foreach ($config['connections'] as $connection => $connectionConfig) {
-            $this->createConnection($container, $connection, $connectionConfig, 'http');
+            $this->createConnection($container, $connection, $connectionConfig, self::PROTOCOL_HTTP);
             if ($connectionConfig['udp']) {
-                $this->createConnection($container, $connection, $connectionConfig, 'udp');
+                $this->createConnection($container, $connection, $connectionConfig, self::PROTOCOL_UDP);
             }
 
             $this->createConnectionListener($container, $connection, $defaultConnection);

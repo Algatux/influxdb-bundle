@@ -1,0 +1,5 @@
+influx_db:
+    host: localhost
+    database: telegraf
+    ssl: true
+    ssl_verification: true

@@ -31,6 +31,7 @@ final class ConnectionFactory
      * @param string $password
      * @param bool   $udp
      * @param bool   $ssl
+     * @param bool   $sslVerify
      *
      * @return Database
      */
@@ -42,7 +43,8 @@ final class ConnectionFactory
         string $user,
         string $password,
         bool $udp = false,
-        bool $ssl = false
+        bool $ssl = false,
+        bool $sslVerify = false
     ): Database {
         $protocol = $udp ? 'udp' : 'http';
         // Define the client key to retrieve or create the client instance.
@@ -52,7 +54,17 @@ final class ConnectionFactory
         }
         $clientKey .= '.'.$protocol;
 
-        $client = $this->getClientForConfiguration($host, $httpPort, $udpPort, $user, $password, $udp, $ssl, $clientKey);
+        $client = $this->getClientForConfiguration(
+            $host,
+            $httpPort,
+            $udpPort,
+            $user,
+            $password,
+            $udp,
+            $ssl,
+            $ssl && $sslVerify, // ssl must be enabled to enable ssl verification
+            $clientKey
+        );
 
         return $client->selectDB($database);
     }
@@ -65,6 +77,7 @@ final class ConnectionFactory
      * @param string $password
      * @param bool   $udp
      * @param bool   $ssl
+     * @param bool   $sslVerify
      *
      * @return Client
      */
@@ -75,9 +88,10 @@ final class ConnectionFactory
         string $user,
         string $password,
         bool $udp = false,
-        bool $ssl = false
+        bool $ssl = false,
+        bool $sslVerify = false
     ): Client {
-        $client = new Client($host, $httpPort, $user, $password, $ssl);
+        $client = new Client($host, $httpPort, $user, $password, $ssl, $sslVerify);
 
         if ($udp) {
             $client->setDriver(new UDP($client->getHost(), $udpPort));
@@ -94,7 +108,8 @@ final class ConnectionFactory
      * @param string $password
      * @param bool   $udp
      * @param bool   $ssl
-     * @param string $clientKey
+     * @param bool   $sslVerify
+     * @param        $clientKey
      *
      * @return Client
      */
@@ -106,10 +121,11 @@ final class ConnectionFactory
         string $password,
         bool $udp,
         bool $ssl,
+        bool $sslVerify,
         $clientKey
     ): Client {
         if (!array_key_exists($clientKey, $this->clients)) {
-            $client = $this->createClient($host, $httpPort, $udpPort, $user, $password, $udp, $ssl);
+            $client = $this->createClient($host, $httpPort, $udpPort, $user, $password, $udp, $ssl, $sslVerify);
             $this->clients[$clientKey] = $client;
 
             return $client;
