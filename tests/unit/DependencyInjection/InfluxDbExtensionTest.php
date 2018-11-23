@@ -40,6 +40,35 @@ class InfluxDbExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasService('algatux_influx_db.event_listener.default', InfluxDbEventListener::class);
     }
 
+    public function test_load_with_ssl()
+    {
+        $this->load([
+            'host' => 'localhost',
+            'database' => 'telegraf',
+            'ssl' => true,
+        ]);
+        $this->compile();
+
+        // Alias connections
+        $this->assertContainerBuilderHasService('algatux_influx_db.connection.http', Database::class);
+        $httpDefaultConnection = $this->container->get('algatux_influx_db.connection.http');
+        $this->assertInstanceOf(Database::class, $httpDefaultConnection);
+        $this->assertSame('telegraf', $httpDefaultConnection->getName());
+
+        $this->assertContainerBuilderNotHasService('algatux_influx_db.connection.udp');
+
+        // 'default' connections
+        $this->assertContainerBuilderHasService('algatux_influx_db.connection.default.http', Database::class);
+        $httpDefaultConnection = $this->container->get('algatux_influx_db.connection.default.http');
+        $this->assertInstanceOf(Database::class, $httpDefaultConnection);
+        $this->assertSame('telegraf', $httpDefaultConnection->getName());
+
+        $this->assertContainerBuilderNotHasService('algatux_influx_db.connection.default.udp');
+
+        // Listener
+        $this->assertContainerBuilderHasService('algatux_influx_db.event_listener.default', InfluxDbEventListener::class);
+    }
+
     public function test_load_with_udp()
     {
         $this->load([
