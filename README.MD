@@ -57,6 +57,10 @@ influx_db:
 
             # Set it to true to activate the UDP connection
             udp:                  false
+            
+            # Set it to true to enable SSL over HTTP (required for Influx Cloud)
+            ssl:                  false
+            
             udp_port:             4444
             http_port:            8086
             username:             ''
@@ -75,6 +79,10 @@ influx_db:
 
     # Set it to true to activate the UDP connection
     udp:                  false
+    
+    # Set it to true to enable SSL over HTTP (required for Influx Cloud)
+    ssl:                  false
+    
     udp_port:             4444
     http_port:            8086
     username:             ''
@@ -83,7 +91,7 @@ influx_db:
 
 ### Services
 
-You can directly access to the `InfluxDB\Database` trough UDP or HTTP with those services:
+You can directly access to the `InfluxDB\Database` through UDP or HTTP with those services:
 
 ```php
 $httpDatabase = $this->get('algatux_influx_db.connection.http'); // Default HTTP connection
@@ -109,7 +117,7 @@ To manipulate the database, please read the official documentation
 for [reading](https://github.com/influxdata/influxdb-php#reading)
 and [writing](https://github.com/influxdata/influxdb-php#writing-data).
 
-### Sending data to influx db trough events
+### Sending data to influx db through events
 
 Assuming this collection to send:
 

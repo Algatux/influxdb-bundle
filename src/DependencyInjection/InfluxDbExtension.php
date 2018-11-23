@@ -63,6 +63,7 @@ final class InfluxDbExtension extends Extension
             $config['username'],
             $config['password'],
             'udp' === $protocol,
+            $config['ssl']?:false
         ]);
         $connectionDefinition->setFactory([new Reference('algatux_influx_db.connection_factory'), 'createConnection']);
         $connectionDefinition->setPublic(true);
