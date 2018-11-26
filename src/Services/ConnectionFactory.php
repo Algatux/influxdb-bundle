@@ -32,6 +32,8 @@ final class ConnectionFactory
      * @param bool   $udp
      * @param bool   $ssl
      * @param bool   $sslVerify
+     * @param float  $timeout
+     * @param float  $connectTimeout
      *
      * @return Database
      */
@@ -44,7 +46,9 @@ final class ConnectionFactory
         string $password,
         bool $udp = false,
         bool $ssl = false,
-        bool $sslVerify = false
+        bool $sslVerify = false,
+        float $timeout = 0.0,
+        float $connectTimeout = 0.0
     ): Database {
         $protocol = $udp ? 'udp' : 'http';
         // Define the client key to retrieve or create the client instance.
@@ -63,6 +67,8 @@ final class ConnectionFactory
             $udp,
             $ssl,
             $ssl && $sslVerify, // ssl must be enabled to enable ssl verification
+            $timeout,
+            $connectTimeout,
             $clientKey
         );
 
@@ -78,6 +84,8 @@ final class ConnectionFactory
      * @param bool   $udp
      * @param bool   $ssl
      * @param bool   $sslVerify
+     * @param float  $timeout
+     * @param float  $connectTimeout
      *
      * @return Client
      */
@@ -89,9 +97,11 @@ final class ConnectionFactory
         string $password,
         bool $udp = false,
         bool $ssl = false,
-        bool $sslVerify = false
+        bool $sslVerify = false,
+        float $timeout = 0.0,
+        float $connectTimeout = 0.0
     ): Client {
-        $client = new Client($host, $httpPort, $user, $password, $ssl, $sslVerify);
+        $client = new Client($host, $httpPort, $user, $password, $ssl, $sslVerify, $timeout, $connectTimeout);
 
         if ($udp) {
             $client->setDriver(new UDP($client->getHost(), $udpPort));
@@ -109,6 +119,8 @@ final class ConnectionFactory
      * @param bool   $udp
      * @param bool   $ssl
      * @param bool   $sslVerify
+     * @param float  $timeout
+     * @param float  $connectTimeout
      * @param        $clientKey
      *
      * @return Client
@@ -122,10 +134,12 @@ final class ConnectionFactory
         bool $udp,
         bool $ssl,
         bool $sslVerify,
+        float $timeout,
+        float $connectTimeout,
         $clientKey
     ): Client {
         if (!array_key_exists($clientKey, $this->clients)) {
-            $client = $this->createClient($host, $httpPort, $udpPort, $user, $password, $udp, $ssl, $sslVerify);
+            $client = $this->createClient($host, $httpPort, $udpPort, $user, $password, $udp, $ssl, $sslVerify, $timeout, $connectTimeout);
             $this->clients[$clientKey] = $client;
 
             return $client;

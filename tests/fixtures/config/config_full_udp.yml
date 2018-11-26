@@ -7,3 +7,5 @@ influx_db:
     http_port: 42
     username: 'foo'
     password: 'bar'
+    timeout: 1.5
+    connect_timeout: 1

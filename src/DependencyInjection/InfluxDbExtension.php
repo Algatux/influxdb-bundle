@@ -68,6 +68,8 @@ final class InfluxDbExtension extends Extension
             self::PROTOCOL_UDP === $protocol,
             $config['ssl'],
             $config['ssl_verification'],
+            $config['timeout'],
+            $config['connect_timeout'],
         ]);
         $connectionDefinition->setFactory([new Reference('algatux_influx_db.connection_factory'), 'createConnection']);
         $connectionDefinition->setPublic(true);

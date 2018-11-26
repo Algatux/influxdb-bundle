@@ -67,6 +67,10 @@ influx_db:
             http_port:            8086
             username:             ''
             password:             ''
+
+            # Setup timeout or connection timeout (seconds) for your requests
+            timeout:              0.0
+            connect_timeout:      0.0
 ```
 
 If you have only one connection to configure, this can be simplified to this:
@@ -91,6 +95,10 @@ influx_db:
     http_port:            8086
     username:             ''
     password:             ''
+
+    # Setup timeout or connection timeout (seconds) for your requests
+    timeout:              0.0
+    connect_timeout:      0.0
 ```
 
 ### Services
