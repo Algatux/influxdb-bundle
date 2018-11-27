@@ -29,6 +29,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'host' => 'localhost',
                     'database' => 'telegraf',
                     'udp' => false,
+                    'ssl' => false,
                     'udp_port' => '4444',
                     'http_port' => '8086',
                     'username' => '',
@@ -42,7 +43,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
         ]);
     }
 
-    public function test_full_configuration_process()
+    public function test_full_udp_configuration_process()
     {
         $expectedConfiguration = [
             'default_connection' => 'default',
@@ -51,6 +52,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'host' => 'localhost',
                     'database' => 'telegraf',
                     'udp' => true,
+                    'ssl' => false,
                     'udp_port' => '1337',
                     'http_port' => '42',
                     'username' => 'foo',
@@ -60,7 +62,30 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
         ];
 
         $this->assertProcessedConfigurationEquals($expectedConfiguration, [
-            __DIR__.'/../../fixtures/config/config_full.yml',
+            __DIR__.'/../../fixtures/config/config_full_udp.yml',
+        ]);
+    }
+
+    public function test_full_ssl_configuration_process()
+    {
+        $expectedConfiguration = [
+            'default_connection' => 'default',
+            'connections' => [
+                'default' => [
+                    'host' => 'localhost',
+                    'database' => 'telegraf',
+                    'udp' => false,
+                    'ssl' => true,
+                    'udp_port' => '1337',
+                    'http_port' => '42',
+                    'username' => 'foo',
+                    'password' => 'bar',
+                ],
+            ],
+        ];
+
+        $this->assertProcessedConfigurationEquals($expectedConfiguration, [
+            __DIR__.'/../../fixtures/config/config_full_ssl.yml',
         ]);
     }
 
@@ -73,15 +98,27 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'database' => 'telegraf',
                     'host' => 'localhost',
                     'udp' => false,
+                    'ssl' => false,
                     'udp_port' => 4444,
                     'http_port' => 8086,
                     'username' => 'foo',
                     'password' => 'bar',
                 ],
-                'test' => [
+                'udp' => [
                     'database' => 'test',
                     'host' => 'localhost',
                     'udp' => true,
+                    'ssl' => false,
+                    'udp_port' => 4444,
+                    'http_port' => 8086,
+                    'username' => 'foo',
+                    'password' => 'bar',
+                ],
+                'ssl' => [
+                    'database' => 'test',
+                    'host' => 'localhost',
+                    'udp' => false,
+                    'ssl' => true,
                     'udp_port' => 4444,
                     'http_port' => 8086,
                     'username' => 'foo',

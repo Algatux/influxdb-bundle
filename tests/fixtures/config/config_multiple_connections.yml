@@ -6,9 +6,15 @@ influx_db:
             host: localhost
             username: foo
             password: bar
-        test:
+        udp:
             database: test
             host: localhost
             udp: true
+            username: foo
+            password: bar
+        ssl:
+            database: test
+            host: localhost
+            ssl: true
             username: foo
             password: bar
