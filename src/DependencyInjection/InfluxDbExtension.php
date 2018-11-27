@@ -21,6 +21,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 final class InfluxDbExtension extends Extension
 {
     const PROTOCOL_UDP = 'udp';
+
     const PROTOCOL_HTTP = 'http';
 
     /**
