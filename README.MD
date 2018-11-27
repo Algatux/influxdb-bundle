@@ -60,6 +60,8 @@ influx_db:
             
             # Set it to true to enable SSL over HTTP (required for Influx Cloud)
             ssl:                  false
+            # Set it to true to activate the ssl verification
+            ssl_verification:            false
             
             udp_port:             4444
             http_port:            8086
@@ -82,6 +84,8 @@ influx_db:
     
     # Set it to true to enable SSL over HTTP (required for Influx Cloud)
     ssl:                  false
+    # Set it to true to activate the ssl verification
+    ssl_verification:     false
     
     udp_port:             4444
     http_port:            8086

@@ -30,6 +30,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'database' => 'telegraf',
                     'udp' => false,
                     'ssl' => false,
+                    'ssl_verification' => false,
                     'udp_port' => '4444',
                     'http_port' => '8086',
                     'username' => '',
@@ -43,6 +44,29 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
         ]);
     }
 
+    public function test_minimal_configuration_with_ssl_process()
+    {
+        $expectedConfiguration = [
+            'connections' => [
+                'default' => [
+                    'host' => 'localhost',
+                    'database' => 'telegraf',
+                    'udp' => false,
+                    'ssl' => true,
+                    'ssl_verification' => true,
+                    'udp_port' => '4444',
+                    'http_port' => '8086',
+                    'username' => '',
+                    'password' => '',
+                ],
+            ],
+        ];
+
+        $this->assertProcessedConfigurationEquals($expectedConfiguration, [
+            __DIR__.'/../../fixtures/config/config_minimal_ssl.yml',
+        ]);
+    }
+
     public function test_full_udp_configuration_process()
     {
         $expectedConfiguration = [
@@ -53,6 +77,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'database' => 'telegraf',
                     'udp' => true,
                     'ssl' => false,
+                    'ssl_verification' => false,
                     'udp_port' => '1337',
                     'http_port' => '42',
                     'username' => 'foo',
@@ -76,6 +101,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'database' => 'telegraf',
                     'udp' => false,
                     'ssl' => true,
+                    'ssl_verification' => true,
                     'udp_port' => '1337',
                     'http_port' => '42',
                     'username' => 'foo',
@@ -99,6 +125,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'host' => 'localhost',
                     'udp' => false,
                     'ssl' => false,
+                    'ssl_verification' => false,
                     'udp_port' => 4444,
                     'http_port' => 8086,
                     'username' => 'foo',
@@ -109,6 +136,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'host' => 'localhost',
                     'udp' => true,
                     'ssl' => false,
+                    'ssl_verification' => false,
                     'udp_port' => 4444,
                     'http_port' => 8086,
                     'username' => 'foo',
@@ -119,6 +147,18 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'host' => 'localhost',
                     'udp' => false,
                     'ssl' => true,
+                    'ssl_verification' => true,
+                    'udp_port' => 4444,
+                    'http_port' => 8086,
+                    'username' => 'foo',
+                    'password' => 'bar',
+                ],
+                'ssl_no_check' => [
+                    'database' => 'test',
+                    'host' => 'localhost',
+                    'udp' => false,
+                    'ssl' => true,
+                    'ssl_verification' => false,
                     'udp_port' => 4444,
                     'http_port' => 8086,
                     'username' => 'foo',
