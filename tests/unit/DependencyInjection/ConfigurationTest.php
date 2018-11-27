@@ -35,6 +35,8 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'http_port' => '8086',
                     'username' => '',
                     'password' => '',
+                    'timeout' => 0.0,
+                    'connect_timeout' => 0.0,
                 ],
             ],
         ];
@@ -58,6 +60,8 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'http_port' => '8086',
                     'username' => '',
                     'password' => '',
+                    'timeout' => 0.0,
+                    'connect_timeout' => 0.0,
                 ],
             ],
         ];
@@ -82,6 +86,8 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'http_port' => '42',
                     'username' => 'foo',
                     'password' => 'bar',
+                    'timeout' => 1.5,
+                    'connect_timeout' => 1,
                 ],
             ],
         ];
@@ -106,6 +112,8 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'http_port' => '42',
                     'username' => 'foo',
                     'password' => 'bar',
+                    'timeout' => 0.0,
+                    'connect_timeout' => 0.0,
                 ],
             ],
         ];
@@ -130,6 +138,8 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'http_port' => 8086,
                     'username' => 'foo',
                     'password' => 'bar',
+                    'timeout' => 1,
+                    'connect_timeout' => 0.0,
                 ],
                 'udp' => [
                     'database' => 'test',
@@ -141,6 +151,8 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'http_port' => 8086,
                     'username' => 'foo',
                     'password' => 'bar',
+                    'timeout' => 0.0,
+                    'connect_timeout' => 1,
                 ],
                 'ssl' => [
                     'database' => 'test',
@@ -152,6 +164,8 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'http_port' => 8086,
                     'username' => 'foo',
                     'password' => 'bar',
+                    'timeout' => 0.0,
+                    'connect_timeout' => 0.0,
                 ],
                 'ssl_no_check' => [
                     'database' => 'test',
@@ -163,6 +177,8 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'http_port' => 8086,
                     'username' => 'foo',
                     'password' => 'bar',
+                    'timeout' => 0.0,
+                    'connect_timeout' => 1,
                 ],
             ],
         ];

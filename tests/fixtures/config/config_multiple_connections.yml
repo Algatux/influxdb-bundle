@@ -6,12 +6,14 @@ influx_db:
             host: localhost
             username: foo
             password: bar
+            timeout: 1
         udp:
             database: test
             host: localhost
             udp: true
             username: foo
             password: bar
+            connect_timeout: 1
         ssl:
             database: test
             host: localhost
@@ -26,3 +28,4 @@ influx_db:
             ssl_verification: false
             username: foo
             password: bar
+            connect_timeout: 1
