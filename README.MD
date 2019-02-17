@@ -71,6 +71,12 @@ influx_db:
             # Setup timeout or connection timeout (seconds) for your requests
             timeout:              0.0
             connect_timeout:      0.0
+            
+            # Set it to false to disable the event listener configuration
+            listener_enabled:     true
+
+            # Simple override for the default event listener class (constructor args and methods must match)
+            listener_class:       Algatux\InfluxDbBundle\Events\Listeners\InfluxDbEventListener
 ```
 
 If you have only one connection to configure, this can be simplified to this:
@@ -99,6 +105,12 @@ influx_db:
     # Setup timeout or connection timeout (seconds) for your requests
     timeout:              0.0
     connect_timeout:      0.0
+            
+    # Set it to false to disable the event listener configuration
+    listener_enabled:     true
+
+    # Simple override for the default event listener class (constructor args and methods must match)
+    listener_class:       Algatux\InfluxDbBundle\Events\Listeners\InfluxDbEventListener
 ```
 
 ### Services
@@ -233,6 +245,12 @@ $form
     ])
 ;
 ```
+
+### Custom event listeners
+
+In order to make it more flexible, you can override or even completely disable the default event listener and implement your own.
+
+It is useful i.e. if you want to add additional logging or error handling around the actual database calls.
 
 ### Contributing
 
