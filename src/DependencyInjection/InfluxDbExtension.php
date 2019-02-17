@@ -2,7 +2,6 @@
 
 namespace Algatux\InfluxDbBundle\DependencyInjection;
 
-use Algatux\InfluxDbBundle\Events\Listeners\InfluxDbEventListener;
 use InfluxDB\Database;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Alias;

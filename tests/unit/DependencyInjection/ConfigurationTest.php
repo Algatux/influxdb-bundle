@@ -39,7 +39,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'timeout' => 0.0,
                     'connect_timeout' => 0.0,
                     'listener_enabled' => true,
-                    'listener_class' => InfluxDbEventListener::class
+                    'listener_class' => InfluxDbEventListener::class,
                 ],
             ],
         ];
@@ -66,7 +66,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'timeout' => 0.0,
                     'connect_timeout' => 0.0,
                     'listener_enabled' => true,
-                    'listener_class' => InfluxDbEventListener::class
+                    'listener_class' => InfluxDbEventListener::class,
                 ],
             ],
         ];
@@ -94,7 +94,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'timeout' => 1.5,
                     'connect_timeout' => 1,
                     'listener_enabled' => true,
-                    'listener_class' => InfluxDbEventListener::class
+                    'listener_class' => InfluxDbEventListener::class,
                 ],
             ],
         ];
@@ -122,7 +122,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'timeout' => 0.0,
                     'connect_timeout' => 0.0,
                     'listener_enabled' => true,
-                    'listener_class' => InfluxDbEventListener::class
+                    'listener_class' => InfluxDbEventListener::class,
                 ],
             ],
         ];
@@ -150,7 +150,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'timeout' => 1,
                     'connect_timeout' => 0.0,
                     'listener_enabled' => true,
-                    'listener_class' => InfluxDbEventListener::class
+                    'listener_class' => InfluxDbEventListener::class,
                 ],
                 'listener_disabled' => [
                     'database' => 'telegraf',
@@ -165,7 +165,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'timeout' => 1,
                     'connect_timeout' => 0.0,
                     'listener_enabled' => false,
-                    'listener_class' => InfluxDbEventListener::class
+                    'listener_class' => InfluxDbEventListener::class,
                 ],
                 'listener_class_override' => [
                     'database' => 'telegraf',
@@ -180,7 +180,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'timeout' => 1,
                     'connect_timeout' => 0.0,
                     'listener_enabled' => true,
-                    'listener_class' => 'Acme\CustomInfluxDbEventListener'
+                    'listener_class' => 'Acme\CustomInfluxDbEventListener',
                 ],
                 'udp' => [
                     'database' => 'test',
@@ -195,7 +195,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'timeout' => 0.0,
                     'connect_timeout' => 1,
                     'listener_enabled' => true,
-                    'listener_class' => InfluxDbEventListener::class
+                    'listener_class' => InfluxDbEventListener::class,
                 ],
                 'ssl' => [
                     'database' => 'test',
@@ -210,7 +210,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'timeout' => 0.0,
                     'connect_timeout' => 0.0,
                     'listener_enabled' => true,
-                    'listener_class' => InfluxDbEventListener::class
+                    'listener_class' => InfluxDbEventListener::class,
                 ],
                 'ssl_no_check' => [
                     'database' => 'test',
@@ -225,7 +225,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'timeout' => 0.0,
                     'connect_timeout' => 1,
                     'listener_enabled' => true,
-                    'listener_class' => InfluxDbEventListener::class
+                    'listener_class' => InfluxDbEventListener::class,
                 ],
             ],
         ];
