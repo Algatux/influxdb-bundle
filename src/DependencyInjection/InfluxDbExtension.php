@@ -2,7 +2,6 @@
 
 namespace Algatux\InfluxDbBundle\DependencyInjection;
 
-use Algatux\InfluxDbBundle\Events\Listeners\InfluxDbEventListener;
 use InfluxDB\Database;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Alias;
@@ -88,10 +87,15 @@ final class InfluxDbExtension extends Extension
     /**
      * @param ContainerBuilder $container
      * @param string           $connection
+     * @param array            $config
      * @param string           $defaultConnection
      */
-    private function createConnectionListener(ContainerBuilder $container, $connection, string $defaultConnection)
+    private function createConnectionListener(ContainerBuilder $container, $connection, array $config, string $defaultConnection)
     {
+        if (!$config['listener_enabled']) {
+            return;
+        }
+
         $listenerArguments = [
             $connection,
             $connection === $defaultConnection,
@@ -101,7 +105,7 @@ final class InfluxDbExtension extends Extension
             array_push($listenerArguments, new Reference('algatux_influx_db.connection.'.$connection.'.udp'));
         }
 
-        $listenerDefinition = new Definition(InfluxDbEventListener::class, $listenerArguments);
+        $listenerDefinition = new Definition($config['listener_class'], $listenerArguments);
         $listenerDefinition->addTag('kernel.event_listener', [
             'event' => 'influxdb.points_collected',
             'method' => 'onPointsCollected',
@@ -131,7 +135,7 @@ final class InfluxDbExtension extends Extension
                 $this->createConnection($container, $connection, $connectionConfig, self::PROTOCOL_UDP);
             }
 
-            $this->createConnectionListener($container, $connection, $defaultConnection);
+            $this->createConnectionListener($container, $connection, $connectionConfig, $defaultConnection);
         }
     }
 

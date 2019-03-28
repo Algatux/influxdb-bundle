@@ -6,6 +6,7 @@ namespace Algatux\InfluxDbBundle\Tests\unit;
 
 use Algatux\InfluxDbBundle\DependencyInjection\Configuration;
 use Algatux\InfluxDbBundle\DependencyInjection\InfluxDbExtension;
+use Algatux\InfluxDbBundle\Events\Listeners\InfluxDbEventListener;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionConfigurationTestCase;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
@@ -37,6 +38,8 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'password' => '',
                     'timeout' => 0.0,
                     'connect_timeout' => 0.0,
+                    'listener_enabled' => true,
+                    'listener_class' => InfluxDbEventListener::class,
                 ],
             ],
         ];
@@ -62,6 +65,8 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'password' => '',
                     'timeout' => 0.0,
                     'connect_timeout' => 0.0,
+                    'listener_enabled' => true,
+                    'listener_class' => InfluxDbEventListener::class,
                 ],
             ],
         ];
@@ -88,6 +93,8 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'password' => 'bar',
                     'timeout' => 1.5,
                     'connect_timeout' => 1,
+                    'listener_enabled' => true,
+                    'listener_class' => InfluxDbEventListener::class,
                 ],
             ],
         ];
@@ -114,6 +121,8 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'password' => 'bar',
                     'timeout' => 0.0,
                     'connect_timeout' => 0.0,
+                    'listener_enabled' => true,
+                    'listener_class' => InfluxDbEventListener::class,
                 ],
             ],
         ];
@@ -140,6 +149,38 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'password' => 'bar',
                     'timeout' => 1,
                     'connect_timeout' => 0.0,
+                    'listener_enabled' => true,
+                    'listener_class' => InfluxDbEventListener::class,
+                ],
+                'listener_disabled' => [
+                    'database' => 'telegraf',
+                    'host' => 'localhost',
+                    'udp' => false,
+                    'ssl' => false,
+                    'ssl_verification' => false,
+                    'udp_port' => 4444,
+                    'http_port' => 8086,
+                    'username' => 'foo',
+                    'password' => 'bar',
+                    'timeout' => 1,
+                    'connect_timeout' => 0.0,
+                    'listener_enabled' => false,
+                    'listener_class' => InfluxDbEventListener::class,
+                ],
+                'listener_class_override' => [
+                    'database' => 'telegraf',
+                    'host' => 'localhost',
+                    'udp' => false,
+                    'ssl' => false,
+                    'ssl_verification' => false,
+                    'udp_port' => 4444,
+                    'http_port' => 8086,
+                    'username' => 'foo',
+                    'password' => 'bar',
+                    'timeout' => 1,
+                    'connect_timeout' => 0.0,
+                    'listener_enabled' => true,
+                    'listener_class' => 'Acme\CustomInfluxDbEventListener',
                 ],
                 'udp' => [
                     'database' => 'test',
@@ -153,6 +194,8 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'password' => 'bar',
                     'timeout' => 0.0,
                     'connect_timeout' => 1,
+                    'listener_enabled' => true,
+                    'listener_class' => InfluxDbEventListener::class,
                 ],
                 'ssl' => [
                     'database' => 'test',
@@ -166,6 +209,8 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'password' => 'bar',
                     'timeout' => 0.0,
                     'connect_timeout' => 0.0,
+                    'listener_enabled' => true,
+                    'listener_class' => InfluxDbEventListener::class,
                 ],
                 'ssl_no_check' => [
                     'database' => 'test',
@@ -179,6 +224,8 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'password' => 'bar',
                     'timeout' => 0.0,
                     'connect_timeout' => 1,
+                    'listener_enabled' => true,
+                    'listener_class' => InfluxDbEventListener::class,
                 ],
             ],
         ];

@@ -2,6 +2,7 @@
 
 namespace Algatux\InfluxDbBundle\DependencyInjection;
 
+use Algatux\InfluxDbBundle\Events\Listeners\InfluxDbEventListener;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -77,6 +78,14 @@ final class Configuration implements ConfigurationInterface
                             ->floatNode('connect_timeout')
                                 ->defaultValue(0.0)
                                 ->info('Setup connection timeout (seconds) for your requests')
+                            ->end()
+                            ->booleanNode('listener_enabled')
+                                ->defaultTrue()
+                                ->info('Set it to false to disable the event listener configuration')
+                            ->end()
+                            ->scalarNode('listener_class')
+                                ->defaultValue(InfluxDbEventListener::class)
+                                ->info('Simple override for the default event listener class (constructor args and methods must match)')
                             ->end()
                         ->end()
                     ->end()

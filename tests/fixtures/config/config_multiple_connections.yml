@@ -7,6 +7,20 @@ influx_db:
             username: foo
             password: bar
             timeout: 1
+        listener_disabled:
+            database: telegraf
+            host: localhost
+            username: foo
+            password: bar
+            timeout: 1
+            listener_enabled: false
+        listener_class_override:
+            database: telegraf
+            host: localhost
+            username: foo
+            password: bar
+            timeout: 1
+            listener_class: 'Acme\CustomInfluxDbEventListener'
         udp:
             database: test
             host: localhost
