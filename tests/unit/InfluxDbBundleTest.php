@@ -16,7 +16,7 @@ class InfluxDbBundleTest extends AbstractContainerBuilderTestCase
      */
     protected $bundle;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

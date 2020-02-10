@@ -10,7 +10,7 @@ use InfluxDB\ResultSet;
  */
 final class TagKeyTypeTest extends AbstractInfluxChoiceTypeTest
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
