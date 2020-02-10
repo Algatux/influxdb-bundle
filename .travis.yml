@@ -21,6 +21,12 @@ matrix:
       env: SYMFONY=4.0.*
     - php: '7.3'
       env: SYMFONY=4.0.*
+    - php: '7.1'
+      env: SYMFONY=5.0.*
+    - php: '7.2'
+      env: SYMFONY=5.0.*
+    - php: '7.3'
+      env: SYMFONY=5.0.*
     - php: '7.3'
       env: SYMFONY=dev-master
   allow_failures:
