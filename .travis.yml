@@ -11,8 +11,6 @@ matrix:
     - php: '7.0'
     - php: '7.0'
       env: COMPOSER_FLAGS="--prefer-lowest"
-    - php: '7.0'
-      env: SYMFONY=2.8.*
     - php: '7.1'
       env: SYMFONY=3.4.*
     - php: '7.1'
