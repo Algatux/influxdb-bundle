@@ -37,9 +37,9 @@ cache:
 
 before_install:
   - composer self-update
-  -  if [ "$GITHUB_OAUTH_TOKEN" != "" ]; then composer config --quiet --global github-oauth.github.com ${GITHUB_OAUTH_TOKEN}; fi;
-  - composer require "satooshi/php-coveralls" --no-update
+  - if [ "$GITHUB_OAUTH_TOKEN" != "" ]; then composer config --quiet --global github-oauth.github.com ${GITHUB_OAUTH_TOKEN}; fi;
   - if [ "$SYMFONY" != "" ]; then composer require "symfony/symfony:${SYMFONY}" --no-update; fi;
+  - composer require "php-coveralls/php-coveralls" --no-update
 
 install:
   - mkdir --parents "${HOME}/bin"
