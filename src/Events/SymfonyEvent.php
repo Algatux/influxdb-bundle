@@ -12,4 +12,3 @@ if (class_exists('\Symfony\Contracts\EventDispatcher\Event')) {
     {
     }
 }
-
