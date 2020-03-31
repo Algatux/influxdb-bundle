@@ -1,9 +1,9 @@
 <?php
 
-namespace Algatux\InfluxDbBundle\Tests\unit\Form\Type;
+namespace Yproximite\InfluxDbBundle\Tests\unit\Form\Type;
 
-use Algatux\InfluxDbBundle\Form\Type\AbstractInfluxChoiceType;
-use Algatux\InfluxDbBundle\Services\ConnectionRegistry;
+use Yproximite\InfluxDbBundle\Form\Type\AbstractInfluxChoiceType;
+use Yproximite\InfluxDbBundle\Services\ConnectionRegistry;
 use InfluxDB\Database;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;

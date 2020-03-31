@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Algatux\InfluxDbBundle\unit\Events\Listeners;
+namespace Yproximite\InfluxDbBundle\unit\Events\Listeners;
 
-use Algatux\InfluxDbBundle\Events\DeferredHttpEvent;
-use Algatux\InfluxDbBundle\Events\DeferredUdpEvent;
-use Algatux\InfluxDbBundle\Events\HttpEvent;
-use Algatux\InfluxDbBundle\Events\Listeners\InfluxDbEventListener;
-use Algatux\InfluxDbBundle\Events\SymfonyEvent;
-use Algatux\InfluxDbBundle\Events\UdpEvent;
+use Yproximite\InfluxDbBundle\Events\DeferredHttpEvent;
+use Yproximite\InfluxDbBundle\Events\DeferredUdpEvent;
+use Yproximite\InfluxDbBundle\Events\HttpEvent;
+use Yproximite\InfluxDbBundle\Events\Listeners\InfluxDbEventListener;
+use Yproximite\InfluxDbBundle\Events\SymfonyEvent;
+use Yproximite\InfluxDbBundle\Events\UdpEvent;
 use InfluxDB\Database;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;

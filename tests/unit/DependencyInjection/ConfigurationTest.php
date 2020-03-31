@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Algatux\InfluxDbBundle\Tests\unit;
+namespace Yproximite\InfluxDbBundle\Tests\unit;
 
-use Algatux\InfluxDbBundle\DependencyInjection\Configuration;
-use Algatux\InfluxDbBundle\DependencyInjection\InfluxDbExtension;
-use Algatux\InfluxDbBundle\Events\Listeners\InfluxDbEventListener;
+use Yproximite\InfluxDbBundle\DependencyInjection\Configuration;
+use Yproximite\InfluxDbBundle\DependencyInjection\InfluxDbExtension;
+use Yproximite\InfluxDbBundle\Events\Listeners\InfluxDbEventListener;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionConfigurationTestCase;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;

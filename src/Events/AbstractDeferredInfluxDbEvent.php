@@ -1,6 +1,6 @@
 <?php
 
-namespace Algatux\InfluxDbBundle\Events;
+namespace Yproximite\InfluxDbBundle\Events;
 
 /**
  * Class AbstractDeferredInfluxDbEvent.

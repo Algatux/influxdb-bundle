@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Algatux\InfluxDbBundle\Command;
+namespace Yproximite\InfluxDbBundle\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -21,7 +21,7 @@ final class DropDatabaseCommand extends AbstractConnectionCommand
         parent::configure();
 
         $this
-            ->setName('algatux:influx:database:drop')
+            ->setName('yproximite:influx:database:drop')
             ->setDescription('Drops the configured database')
             ->addOption('if-exists', null, InputOption::VALUE_NONE, 'Don\'t trigger an error, when the database doesn\'t exist')
             ->addOption('force', null, InputOption::VALUE_NONE, 'Set this parameter to execute this action')

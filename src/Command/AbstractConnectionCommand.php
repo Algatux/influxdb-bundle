@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Algatux\InfluxDbBundle\Command;
+namespace Yproximite\InfluxDbBundle\Command;
 
 use InfluxDB\Database;
 use Symfony\Component\Console\Input\InputInterface;
@@ -39,8 +39,8 @@ abstract class AbstractConnectionCommand extends AbstractCommand
         parent::initialize($input, $output);
 
         $this->connection = $input->getOption('connection')
-            ? $this->getContainer()->get('algatux_influx_db.connection.'.$input->getOption('connection').'.http')
-            : $this->getContainer()->get('algatux_influx_db.connection.http')
+            ? $this->getContainer()->get('yproximite_influx_db.connection.'.$input->getOption('connection').'.http')
+            : $this->getContainer()->get('yproximite_influx_db.connection.http')
         ;
     }
 }

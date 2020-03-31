@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Algatux\InfluxDbBundle\Services;
+namespace Yproximite\InfluxDbBundle\Services;
 
 use InfluxDB\Client;
 use InfluxDB\Database;

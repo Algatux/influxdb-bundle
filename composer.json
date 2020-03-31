@@ -1,5 +1,5 @@
 {
-    "name": "algatux/influxdb-bundle",
+    "name": "yproximite/influxdb-bundle",
     "description": "Bundle service integration of official influxdb/influxdb-php client",
     "keywords": ["InfluxDB", "Symfony", "database"],
     "type": "symfony-bundle",
@@ -34,7 +34,7 @@
         "symfony/form": "<3.4"
     },
     "autoload": {
-        "psr-4": { "Algatux\\InfluxDbBundle\\": "src/" }
+        "psr-4": { "Yproximite\\InfluxDbBundle\\": "src/" }
     },
     "config": {
         "sort-packages": true

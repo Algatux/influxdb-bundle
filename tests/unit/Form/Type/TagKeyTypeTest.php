@@ -1,8 +1,8 @@
 <?php
 
-namespace Algatux\InfluxDbBundle\Tests\unit\Form\Type;
+namespace Yproximite\InfluxDbBundle\Tests\unit\Form\Type;
 
-use Algatux\InfluxDbBundle\Form\Type\TagKeyType;
+use Yproximite\InfluxDbBundle\Form\Type\TagKeyType;
 use InfluxDB\ResultSet;
 
 /**

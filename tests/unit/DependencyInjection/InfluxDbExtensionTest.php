@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Algatux\InfluxDbBundle\unit\DependencyInjection;
+namespace Yproximite\InfluxDbBundle\unit\DependencyInjection;
 
-use Algatux\InfluxDbBundle\DependencyInjection\InfluxDbExtension;
-use Algatux\InfluxDbBundle\Events\Listeners\InfluxDbEventListener;
-use Algatux\InfluxDbBundle\Exception\ConnectionNotFoundException;
+use Yproximite\InfluxDbBundle\DependencyInjection\InfluxDbExtension;
+use Yproximite\InfluxDbBundle\Events\Listeners\InfluxDbEventListener;
+use Yproximite\InfluxDbBundle\Exception\ConnectionNotFoundException;
 use InfluxDB\Database;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 
@@ -21,23 +21,23 @@ class InfluxDbExtensionTest extends AbstractExtensionTestCase
         $this->compile();
 
         // Alias connections
-        $this->assertContainerBuilderHasService('algatux_influx_db.connection.http', Database::class);
-        $httpDefaultConnection = $this->container->get('algatux_influx_db.connection.http');
+        $this->assertContainerBuilderHasService('yproximite_influx_db.connection.http', Database::class);
+        $httpDefaultConnection = $this->container->get('yproximite_influx_db.connection.http');
         $this->assertInstanceOf(Database::class, $httpDefaultConnection);
         $this->assertSame('telegraf', $httpDefaultConnection->getName());
 
-        $this->assertContainerBuilderNotHasService('algatux_influx_db.connection.udp');
+        $this->assertContainerBuilderNotHasService('yproximite_influx_db.connection.udp');
 
         // 'default' connections
-        $this->assertContainerBuilderHasService('algatux_influx_db.connection.default.http', Database::class);
-        $httpDefaultConnection = $this->container->get('algatux_influx_db.connection.default.http');
+        $this->assertContainerBuilderHasService('yproximite_influx_db.connection.default.http', Database::class);
+        $httpDefaultConnection = $this->container->get('yproximite_influx_db.connection.default.http');
         $this->assertInstanceOf(Database::class, $httpDefaultConnection);
         $this->assertSame('telegraf', $httpDefaultConnection->getName());
 
-        $this->assertContainerBuilderNotHasService('algatux_influx_db.connection.default.udp');
+        $this->assertContainerBuilderNotHasService('yproximite_influx_db.connection.default.udp');
 
         // Listener
-        $this->assertContainerBuilderHasService('algatux_influx_db.event_listener.default', InfluxDbEventListener::class);
+        $this->assertContainerBuilderHasService('yproximite_influx_db.event_listener.default', InfluxDbEventListener::class);
     }
 
     public function test_load_with_ssl()
@@ -50,23 +50,23 @@ class InfluxDbExtensionTest extends AbstractExtensionTestCase
         $this->compile();
 
         // Alias connections
-        $this->assertContainerBuilderHasService('algatux_influx_db.connection.http', Database::class);
-        $httpDefaultConnection = $this->container->get('algatux_influx_db.connection.http');
+        $this->assertContainerBuilderHasService('yproximite_influx_db.connection.http', Database::class);
+        $httpDefaultConnection = $this->container->get('yproximite_influx_db.connection.http');
         $this->assertInstanceOf(Database::class, $httpDefaultConnection);
         $this->assertSame('telegraf', $httpDefaultConnection->getName());
 
-        $this->assertContainerBuilderNotHasService('algatux_influx_db.connection.udp');
+        $this->assertContainerBuilderNotHasService('yproximite_influx_db.connection.udp');
 
         // 'default' connections
-        $this->assertContainerBuilderHasService('algatux_influx_db.connection.default.http', Database::class);
-        $httpDefaultConnection = $this->container->get('algatux_influx_db.connection.default.http');
+        $this->assertContainerBuilderHasService('yproximite_influx_db.connection.default.http', Database::class);
+        $httpDefaultConnection = $this->container->get('yproximite_influx_db.connection.default.http');
         $this->assertInstanceOf(Database::class, $httpDefaultConnection);
         $this->assertSame('telegraf', $httpDefaultConnection->getName());
 
-        $this->assertContainerBuilderNotHasService('algatux_influx_db.connection.default.udp');
+        $this->assertContainerBuilderNotHasService('yproximite_influx_db.connection.default.udp');
 
         // Listener
-        $this->assertContainerBuilderHasService('algatux_influx_db.event_listener.default', InfluxDbEventListener::class);
+        $this->assertContainerBuilderHasService('yproximite_influx_db.event_listener.default', InfluxDbEventListener::class);
     }
 
     public function test_load_with_udp()
@@ -79,45 +79,45 @@ class InfluxDbExtensionTest extends AbstractExtensionTestCase
         $this->compile();
 
         // Alias connections
-        $this->assertContainerBuilderHasService('algatux_influx_db.connection.http', Database::class);
-        $httpDefaultConnection = $this->container->get('algatux_influx_db.connection.http');
+        $this->assertContainerBuilderHasService('yproximite_influx_db.connection.http', Database::class);
+        $httpDefaultConnection = $this->container->get('yproximite_influx_db.connection.http');
         $this->assertInstanceOf(Database::class, $httpDefaultConnection);
         $this->assertSame('telegraf', $httpDefaultConnection->getName());
         $this->assertSame(
             $httpDefaultConnection,
-            $this->container->get('algatux_influx_db.connection_registry')->getDefaultHttpConnection()
+            $this->container->get('yproximite_influx_db.connection_registry')->getDefaultHttpConnection()
         );
 
-        $this->assertContainerBuilderHasService('algatux_influx_db.connection.udp', Database::class);
-        $udpDefaultConnection = $this->container->get('algatux_influx_db.connection.udp');
+        $this->assertContainerBuilderHasService('yproximite_influx_db.connection.udp', Database::class);
+        $udpDefaultConnection = $this->container->get('yproximite_influx_db.connection.udp');
         $this->assertInstanceOf(Database::class, $udpDefaultConnection);
         $this->assertSame('telegraf', $udpDefaultConnection->getName());
         $this->assertSame(
             $udpDefaultConnection,
-            $this->container->get('algatux_influx_db.connection_registry')->getDefaultUdpConnection()
+            $this->container->get('yproximite_influx_db.connection_registry')->getDefaultUdpConnection()
         );
 
         // 'default' connections
-        $this->assertContainerBuilderHasService('algatux_influx_db.connection.default.http', Database::class);
-        $httpDefaultConnection = $this->container->get('algatux_influx_db.connection.default.http');
+        $this->assertContainerBuilderHasService('yproximite_influx_db.connection.default.http', Database::class);
+        $httpDefaultConnection = $this->container->get('yproximite_influx_db.connection.default.http');
         $this->assertInstanceOf(Database::class, $httpDefaultConnection);
         $this->assertSame('telegraf', $httpDefaultConnection->getName());
         $this->assertSame(
             $httpDefaultConnection,
-            $this->container->get('algatux_influx_db.connection_registry')->getHttpConnection('default')
+            $this->container->get('yproximite_influx_db.connection_registry')->getHttpConnection('default')
         );
 
-        $this->assertContainerBuilderHasService('algatux_influx_db.connection.default.udp', Database::class);
-        $udpDefaultConnection = $this->container->get('algatux_influx_db.connection.default.udp');
+        $this->assertContainerBuilderHasService('yproximite_influx_db.connection.default.udp', Database::class);
+        $udpDefaultConnection = $this->container->get('yproximite_influx_db.connection.default.udp');
         $this->assertInstanceOf(Database::class, $udpDefaultConnection);
         $this->assertSame('telegraf', $udpDefaultConnection->getName());
         $this->assertSame(
             $udpDefaultConnection,
-            $this->container->get('algatux_influx_db.connection_registry')->getUdpConnection('default')
+            $this->container->get('yproximite_influx_db.connection_registry')->getUdpConnection('default')
         );
 
         // Listener
-        $this->assertContainerBuilderHasService('algatux_influx_db.event_listener.default', InfluxDbEventListener::class);
+        $this->assertContainerBuilderHasService('yproximite_influx_db.event_listener.default', InfluxDbEventListener::class);
     }
 
     public function test_load_multiple_connections()
@@ -154,35 +154,35 @@ class InfluxDbExtensionTest extends AbstractExtensionTestCase
         $this->load($config);
 
         // Alias connections
-        $this->assertContainerBuilderHasService('algatux_influx_db.connection.http', Database::class);
-        $httpDefaultConnection = $this->container->get('algatux_influx_db.connection.http');
+        $this->assertContainerBuilderHasService('yproximite_influx_db.connection.http', Database::class);
+        $httpDefaultConnection = $this->container->get('yproximite_influx_db.connection.http');
         $this->assertInstanceOf(Database::class, $httpDefaultConnection);
         $this->assertSame('other_database', $httpDefaultConnection->getName());
 
-        $this->assertContainerBuilderHasService('algatux_influx_db.connection.udp', Database::class);
-        $udpDefaultConnection = $this->container->get('algatux_influx_db.connection.udp');
+        $this->assertContainerBuilderHasService('yproximite_influx_db.connection.udp', Database::class);
+        $udpDefaultConnection = $this->container->get('yproximite_influx_db.connection.udp');
         $this->assertInstanceOf(Database::class, $udpDefaultConnection);
         $this->assertSame('other_database', $udpDefaultConnection->getName());
 
         foreach ($config['connections'] as $connection => $connectionConfig) {
-            $this->assertContainerBuilderHasService('algatux_influx_db.connection.'.$connection.'.http', Database::class);
-            $httpDefaultConnection = $this->container->get('algatux_influx_db.connection.'.$connection.'.http');
+            $this->assertContainerBuilderHasService('yproximite_influx_db.connection.'.$connection.'.http', Database::class);
+            $httpDefaultConnection = $this->container->get('yproximite_influx_db.connection.'.$connection.'.http');
             $this->assertInstanceOf(Database::class, $httpDefaultConnection);
             $this->assertSame($connectionConfig['database'], $httpDefaultConnection->getName());
 
             if (array_key_exists('udp', $connectionConfig) && $connectionConfig['udp']) {
-                $this->assertContainerBuilderHasService('algatux_influx_db.connection.'.$connection.'.udp', Database::class);
-                $udpDefaultConnection = $this->container->get('algatux_influx_db.connection.'.$connection.'.udp');
+                $this->assertContainerBuilderHasService('yproximite_influx_db.connection.'.$connection.'.udp', Database::class);
+                $udpDefaultConnection = $this->container->get('yproximite_influx_db.connection.'.$connection.'.udp');
                 $this->assertInstanceOf(Database::class, $udpDefaultConnection);
                 $this->assertSame($connectionConfig['database'], $udpDefaultConnection->getName());
             } else {
-                $this->assertContainerBuilderNotHasService('algatux_influx_db.connection.'.$connection.'.udp');
+                $this->assertContainerBuilderNotHasService('yproximite_influx_db.connection.'.$connection.'.udp');
             }
 
-            $this->assertContainerBuilderHasService('algatux_influx_db.event_listener.'.$connection, InfluxDbEventListener::class);
+            $this->assertContainerBuilderHasService('yproximite_influx_db.event_listener.'.$connection, InfluxDbEventListener::class);
         }
 
-        $this->assertAttributeCount(5, 'clients', $this->container->get('algatux_influx_db.connection_factory'));
+        $this->assertAttributeCount(5, 'clients', $this->container->get('yproximite_influx_db.connection_factory'));
     }
 
     public function test_registry_with_undefined_connection()
@@ -194,7 +194,7 @@ class InfluxDbExtensionTest extends AbstractExtensionTestCase
         $this->compile();
 
         $this->expectException(ConnectionNotFoundException::class);
-        $this->container->get('algatux_influx_db.connection_registry')->getHttpConnection('undefined');
+        $this->container->get('yproximite_influx_db.connection_registry')->getHttpConnection('undefined');
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Algatux\InfluxDbBundle\Events;
+namespace Yproximite\InfluxDbBundle\Events;
 
 // Symfony 5+
 if (class_exists('\Symfony\Contracts\EventDispatcher\Event')) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Algatux\InfluxDbBundle\Form\Type;
+namespace Yproximite\InfluxDbBundle\Form\Type;
 
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;

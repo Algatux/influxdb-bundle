@@ -2,10 +2,10 @@
 
 //declare(strict_types=1);
 
-namespace Algatux\InfluxDbBundle\unit;
+namespace Yproximite\InfluxDbBundle\unit;
 
-use Algatux\InfluxDbBundle\DependencyInjection\InfluxDbExtension;
-use Algatux\InfluxDbBundle\InfluxDbBundle;
+use Yproximite\InfluxDbBundle\DependencyInjection\InfluxDbExtension;
+use Yproximite\InfluxDbBundle\InfluxDbBundle;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Algatux\InfluxDbBundle\Events;
+namespace Yproximite\InfluxDbBundle\Events;
 
 /**
  * Class DeferredUdpEvent.

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Algatux\InfluxDbBundle\Tests\unit\Command;
+namespace Yproximite\InfluxDbBundle\Tests\unit\Command;
 
-use Algatux\InfluxDbBundle\Command\DropDatabaseCommand;
+use Yproximite\InfluxDbBundle\Command\DropDatabaseCommand;
 use InfluxDB\Database;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
@@ -21,14 +21,14 @@ final class DropDatabaseCommandTest extends TestCase
         $connection->getName()->shouldBeCalled()->willReturn('test');
 
         $container = $this->prophesize(ContainerInterface::class);
-        $container->get('algatux_influx_db.connection.http')
+        $container->get('yproximite_influx_db.connection.http')
             ->shouldBeCalled()
             ->willReturn($connection);
 
         $application = new Application();
         $application->add(new DropDatabaseCommand());
 
-        $command = $application->find('algatux:influx:database:drop');
+        $command = $application->find('yproximite:influx:database:drop');
         $command->setContainer($container->reveal());
 
         $commandTester = new CommandTester($command);
@@ -45,14 +45,14 @@ final class DropDatabaseCommandTest extends TestCase
         $connection->getName()->shouldBeCalled()->willReturn('test');
 
         $container = $this->prophesize(ContainerInterface::class);
-        $container->get('algatux_influx_db.connection.http')
+        $container->get('yproximite_influx_db.connection.http')
             ->shouldBeCalled()
             ->willReturn($connection);
 
         $application = new Application();
         $application->add(new DropDatabaseCommand());
 
-        $command = $application->find('algatux:influx:database:drop');
+        $command = $application->find('yproximite:influx:database:drop');
         $command->setContainer($container->reveal());
 
         $commandTester = new CommandTester($command);
@@ -69,14 +69,14 @@ final class DropDatabaseCommandTest extends TestCase
         $connection->getName()->shouldBeCalled()->willReturn('foo');
 
         $container = $this->prophesize(ContainerInterface::class);
-        $container->get('algatux_influx_db.connection.foo.http')
+        $container->get('yproximite_influx_db.connection.foo.http')
             ->shouldBeCalled()
             ->willReturn($connection);
 
         $application = new Application();
         $application->add(new DropDatabaseCommand());
 
-        $command = $application->find('algatux:influx:database:drop');
+        $command = $application->find('yproximite:influx:database:drop');
         $command->setContainer($container->reveal());
 
         $commandTester = new CommandTester($command);
@@ -93,14 +93,14 @@ final class DropDatabaseCommandTest extends TestCase
         $connection->getName()->shouldBeCalled()->willReturn('test');
 
         $container = $this->prophesize(ContainerInterface::class);
-        $container->get('algatux_influx_db.connection.http')
+        $container->get('yproximite_influx_db.connection.http')
             ->shouldBeCalled()
             ->willReturn($connection);
 
         $application = new Application();
         $application->add(new DropDatabaseCommand());
 
-        $command = $application->find('algatux:influx:database:drop');
+        $command = $application->find('yproximite:influx:database:drop');
         $command->setContainer($container->reveal());
 
         $commandTester = new CommandTester($command);
@@ -117,14 +117,14 @@ final class DropDatabaseCommandTest extends TestCase
         $connection->getName()->shouldBeCalled()->willReturn('test');
 
         $container = $this->prophesize(ContainerInterface::class);
-        $container->get('algatux_influx_db.connection.http')
+        $container->get('yproximite_influx_db.connection.http')
             ->shouldBeCalled()
             ->willReturn($connection);
 
         $application = new Application();
         $application->add(new DropDatabaseCommand());
 
-        $command = $application->find('algatux:influx:database:drop');
+        $command = $application->find('yproximite:influx:database:drop');
         $command->setContainer($container->reveal());
 
         $commandTester = new CommandTester($command);

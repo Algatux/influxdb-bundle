@@ -1,8 +1,8 @@
 <?php
 
-namespace Algatux\InfluxDbBundle;
+namespace Yproximite\InfluxDbBundle;
 
-use Algatux\InfluxDbBundle\DependencyInjection\InfluxDbExtension;
+use Yproximite\InfluxDbBundle\DependencyInjection\InfluxDbExtension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 final class InfluxDbBundle extends Bundle

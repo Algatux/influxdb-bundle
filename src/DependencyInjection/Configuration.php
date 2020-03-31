@@ -1,8 +1,8 @@
 <?php
 
-namespace Algatux\InfluxDbBundle\DependencyInjection;
+namespace Yproximite\InfluxDbBundle\DependencyInjection;
 
-use Algatux\InfluxDbBundle\Events\Listeners\InfluxDbEventListener;
+use Yproximite\InfluxDbBundle\Events\Listeners\InfluxDbEventListener;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 

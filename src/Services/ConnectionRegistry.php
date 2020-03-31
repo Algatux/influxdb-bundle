@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Algatux\InfluxDbBundle\Services;
+namespace Yproximite\InfluxDbBundle\Services;
 
-use Algatux\InfluxDbBundle\Exception\ConnectionNotFoundException;
+use Yproximite\InfluxDbBundle\Exception\ConnectionNotFoundException;
 use InfluxDB\Database;
 
 /**

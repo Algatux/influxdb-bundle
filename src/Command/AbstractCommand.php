@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Algatux\InfluxDbBundle\Command;
+namespace Yproximite\InfluxDbBundle\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

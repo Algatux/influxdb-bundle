@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Algatux\InfluxDbBundle\Command;
+namespace Yproximite\InfluxDbBundle\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -21,7 +21,7 @@ final class CreateDatabaseCommand extends AbstractConnectionCommand
         parent::configure();
 
         $this
-            ->setName('algatux:influx:database:create')
+            ->setName('yproximite:influx:database:create')
             ->setDescription('Creates the configured database')
             ->addOption('if-not-exists', null, InputOption::VALUE_NONE, 'Don\'t trigger an error, when the database already exists')
         ;

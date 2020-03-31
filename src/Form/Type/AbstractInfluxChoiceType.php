@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Algatux\InfluxDbBundle\Form\Type;
+namespace Yproximite\InfluxDbBundle\Form\Type;
 
-use Algatux\InfluxDbBundle\Services\ConnectionRegistry;
+use Yproximite\InfluxDbBundle\Services\ConnectionRegistry;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

@@ -6,8 +6,8 @@
 
     <services>
 
-        <service id="algatux_influx_db.connection_factory"
-                 class="Algatux\InfluxDbBundle\Services\ConnectionFactory"
+        <service id="yproximite_influx_db.connection_factory"
+                 class="Yproximite\InfluxDbBundle\Services\ConnectionFactory"
                  public="false" />
 
     </services>

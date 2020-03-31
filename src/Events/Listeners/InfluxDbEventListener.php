@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Algatux\InfluxDbBundle\Events\Listeners;
+namespace Yproximite\InfluxDbBundle\Events\Listeners;
 
-use Algatux\InfluxDbBundle\Events\AbstractDeferredInfluxDbEvent;
-use Algatux\InfluxDbBundle\Events\AbstractInfluxDbEvent;
-use Algatux\InfluxDbBundle\Events\DeferredUdpEvent;
-use Algatux\InfluxDbBundle\Events\UdpEvent;
+use Yproximite\InfluxDbBundle\Events\AbstractDeferredInfluxDbEvent;
+use Yproximite\InfluxDbBundle\Events\AbstractInfluxDbEvent;
+use Yproximite\InfluxDbBundle\Events\DeferredUdpEvent;
+use Yproximite\InfluxDbBundle\Events\UdpEvent;
 use InfluxDB\Database;
 use InfluxDB\Point;
 

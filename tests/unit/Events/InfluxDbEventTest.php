@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Algatux\InfluxDbBundle\unit\Events;
+namespace Yproximite\InfluxDbBundle\unit\Events;
 
-use Algatux\InfluxDbBundle\Events\AbstractInfluxDbEvent;
-use Algatux\InfluxDbBundle\Events\HttpEvent;
+use Yproximite\InfluxDbBundle\Events\AbstractInfluxDbEvent;
+use Yproximite\InfluxDbBundle\Events\HttpEvent;
 use InfluxDB\Database;
 use PHPUnit\Framework\TestCase;
 

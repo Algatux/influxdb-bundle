@@ -1,6 +1,6 @@
 <?php
 
-namespace Algatux\InfluxDbBundle\DependencyInjection;
+namespace Yproximite\InfluxDbBundle\DependencyInjection;
 
 use InfluxDB\Database;
 use Symfony\Component\Config\FileLocator;
@@ -71,16 +71,16 @@ final class InfluxDbExtension extends Extension
             $config['timeout'],
             $config['connect_timeout'],
         ]);
-        $connectionDefinition->setFactory([new Reference('algatux_influx_db.connection_factory'), 'createConnection']);
+        $connectionDefinition->setFactory([new Reference('yproximite_influx_db.connection_factory'), 'createConnection']);
         $connectionDefinition->setPublic(true);
         $connectionDefinition->setLazy(true);
 
-        // E.g.: algatux_influx_db.connection.default.http
-        $connectionServiceName = 'algatux_influx_db.connection.'.$connection.'.'.$protocol;
+        // E.g.: yproximite_influx_db.connection.default.http
+        $connectionServiceName = 'yproximite_influx_db.connection.'.$connection.'.'.$protocol;
         $container->setDefinition($connectionServiceName, $connectionDefinition);
 
         // Add the connection to the registry
-        $container->getDefinition('algatux_influx_db.connection_registry')
+        $container->getDefinition('yproximite_influx_db.connection_registry')
             ->addMethodCall('addConnection', [$connection, $protocol, new Reference($connectionServiceName)]);
     }
 
@@ -99,10 +99,10 @@ final class InfluxDbExtension extends Extension
         $listenerArguments = [
             $connection,
             $connection === $defaultConnection,
-            new Reference('algatux_influx_db.connection.'.$connection.'.http'),
+            new Reference('yproximite_influx_db.connection.'.$connection.'.http'),
         ];
-        if ($container->hasDefinition('algatux_influx_db.connection.'.$connection.'.udp')) {
-            array_push($listenerArguments, new Reference('algatux_influx_db.connection.'.$connection.'.udp'));
+        if ($container->hasDefinition('yproximite_influx_db.connection.'.$connection.'.udp')) {
+            array_push($listenerArguments, new Reference('yproximite_influx_db.connection.'.$connection.'.udp'));
         }
 
         $listenerDefinition = new Definition($config['listener_class'], $listenerArguments);
@@ -119,7 +119,7 @@ final class InfluxDbExtension extends Extension
             'method' => 'onConsoleTerminate',
         ]);
 
-        $container->setDefinition('algatux_influx_db.event_listener.'.$connection, $listenerDefinition);
+        $container->setDefinition('yproximite_influx_db.event_listener.'.$connection, $listenerDefinition);
     }
 
     /**
@@ -146,19 +146,19 @@ final class InfluxDbExtension extends Extension
     private function setDefaultConnectionAlias(ContainerBuilder $container, string $defaultConnection)
     {
         $container->setAlias(
-            'algatux_influx_db.connection.http',
-            new Alias('algatux_influx_db.connection.'.$defaultConnection.'.http', true)
+            'yproximite_influx_db.connection.http',
+            new Alias('yproximite_influx_db.connection.'.$defaultConnection.'.http', true)
         );
 
-        if ($container->hasDefinition('algatux_influx_db.connection.'.$defaultConnection.'.udp')) {
+        if ($container->hasDefinition('yproximite_influx_db.connection.'.$defaultConnection.'.udp')) {
             $container->setAlias(
-                'algatux_influx_db.connection.udp',
-                new Alias('algatux_influx_db.connection.'.$defaultConnection.'.udp', true)
+                'yproximite_influx_db.connection.udp',
+                new Alias('yproximite_influx_db.connection.'.$defaultConnection.'.udp', true)
             );
         }
 
         // Set the default connection name on the registry constructor.
-        $container->getDefinition('algatux_influx_db.connection_registry')
+        $container->getDefinition('yproximite_influx_db.connection_registry')
             ->setArguments([$defaultConnection]);
     }
 }

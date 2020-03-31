@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Algatux\InfluxDbBundle\Exception;
+namespace Yproximite\InfluxDbBundle\Exception;
 
 /**
  * Thrown when an InfluxDB connection can't be retrieved from the registry.
