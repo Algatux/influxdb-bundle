@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace Algatux\InfluxDbBundle\Events;
 
 use InfluxDB\Point;
-use Symfony\Component\EventDispatcher\Event;
 
 /**
  * Class AbstractInfluxDbEvent.
  */
-abstract class AbstractInfluxDbEvent extends Event
+abstract class AbstractInfluxDbEvent extends SymfonyEvent
 {
     const NAME = 'influxdb.points_collected';
 

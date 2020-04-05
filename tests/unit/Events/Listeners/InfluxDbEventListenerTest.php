@@ -8,12 +8,13 @@ use Algatux\InfluxDbBundle\Events\DeferredHttpEvent;
 use Algatux\InfluxDbBundle\Events\DeferredUdpEvent;
 use Algatux\InfluxDbBundle\Events\HttpEvent;
 use Algatux\InfluxDbBundle\Events\Listeners\InfluxDbEventListener;
+use Algatux\InfluxDbBundle\Events\SymfonyEvent;
 use Algatux\InfluxDbBundle\Events\UdpEvent;
 use InfluxDB\Database;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
-use Symfony\Component\EventDispatcher\Event;
 
-class InfluxDbEventListenerTest extends \PHPUnit_Framework_TestCase
+class InfluxDbEventListenerTest extends TestCase
 {
     public function test_listening_for_udp_infuxdb_event()
     {
@@ -85,7 +86,7 @@ class InfluxDbEventListenerTest extends \PHPUnit_Framework_TestCase
         $listener->onPointsCollected($event2);
         $listener->onPointsCollected($event3);
 
-        $listener->onKernelTerminate(new Event());
+        $listener->onKernelTerminate(new SymfonyEvent());
     }
 
     public function test_listening_for_deferred_http_infuxdb_event()
@@ -108,7 +109,7 @@ class InfluxDbEventListenerTest extends \PHPUnit_Framework_TestCase
         $listener->onPointsCollected($event2);
         $listener->onPointsCollected($event3);
 
-        $listener->onKernelTerminate(new Event());
+        $listener->onKernelTerminate(new SymfonyEvent());
     }
 
     public function test_listening_for_deferred_http_infuxdb_event_from_console()
@@ -131,7 +132,7 @@ class InfluxDbEventListenerTest extends \PHPUnit_Framework_TestCase
         $listener->onPointsCollected($event2);
         $listener->onPointsCollected($event3);
 
-        $listener->onConsoleTerminate(new Event());
+        $listener->onConsoleTerminate(new SymfonyEvent());
     }
 
     public function test_not_available_deferred_udp_infuxdb_event()

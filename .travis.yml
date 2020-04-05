@@ -8,23 +8,27 @@ env:
 matrix:
   fast_finish: true
   include:
-    - php: '7.0'
-    - php: '7.0'
+    - php: '7.2'
+    - php: '7.2'
       env: COMPOSER_FLAGS="--prefer-lowest"
-    - php: '7.0'
-      env: SYMFONY=2.8.*
-    - php: '7.1'
+    - php: '7.2'
       env: SYMFONY=3.4.*
-    - php: '7.1'
-      env: SYMFONY=4.0.*
     - php: '7.2'
       env: SYMFONY=4.0.*
     - php: '7.3'
       env: SYMFONY=4.0.*
+    - php: '7.4'
+      env: SYMFONY=4.0.*
+    - php: '7.2'
+      env: SYMFONY=5.0.*
     - php: '7.3'
+      env: SYMFONY=5.0.*
+    - php: '7.4'
+      env: SYMFONY=5.0.*
+    - php: '7.4'
       env: SYMFONY=dev-master
   allow_failures:
-    - php: '7.3'
+    - php: '7.4'
     - env: SYMFONY=dev-master
 
 cache:
@@ -33,23 +37,23 @@ cache:
 
 before_install:
   - composer self-update
-  -  if [ "$GITHUB_OAUTH_TOKEN" != "" ]; then composer config --quiet --global github-oauth.github.com ${GITHUB_OAUTH_TOKEN}; fi;
-  - composer require "satooshi/php-coveralls" --no-update
-  - composer require "phpunit/phpunit:^5.6" --no-update
+  - if [ "$GITHUB_OAUTH_TOKEN" != "" ]; then composer config --quiet --global github-oauth.github.com ${GITHUB_OAUTH_TOKEN}; fi;
   - if [ "$SYMFONY" != "" ]; then composer require "symfony/symfony:${SYMFONY}" --no-update; fi;
+  - composer require "php-coveralls/php-coveralls" --no-update
 
 install:
   - mkdir --parents "${HOME}/bin"
   - wget https://scrutinizer-ci.com/ocular.phar --output-document="${HOME}/bin/ocular" && chmod +x "${HOME}/bin/ocular"
   - composer global require --prefer-dist --no-interaction sllh/composer-lint:@stable
   - composer update --prefer-dist --no-interaction ${COMPOSER_FLAGS}
+  - vendor/bin/simple-phpunit install
 
 before_script:
   - echo "zend_extension=xdebug.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
 script:
   - composer validate
-  - vendor/bin/phpunit -c . --coverage-clover=./build/coverage/coverage.xml
+  - vendor/bin/simple-phpunit --coverage-clover=./build/coverage/coverage.xml
 
 after_success:
   - ocular code-coverage:upload --format=php-clover ./build/coverage/coverage.xml

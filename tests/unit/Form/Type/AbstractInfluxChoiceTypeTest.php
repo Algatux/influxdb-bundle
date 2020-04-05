@@ -11,7 +11,7 @@ use Symfony\Component\Form\Test\TypeTestCase;
 abstract class AbstractInfluxChoiceTypeTest extends TypeTestCase
 {
     /**
-     * @var Database|\PHPUnit_Framework_MockObject_MockObject
+     * @var Database|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $database;
 
@@ -23,7 +23,7 @@ abstract class AbstractInfluxChoiceTypeTest extends TypeTestCase
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->database = $this->createMock(Database::class);
 
