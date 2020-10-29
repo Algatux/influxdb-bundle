@@ -12,21 +12,21 @@ matrix:
     - php: '7.2'
       env: COMPOSER_FLAGS="--prefer-lowest"
     - php: '7.2'
-      env: SYMFONY=3.4.*
+      env: SYMFONY_REQUIRE=3.4.*
     - php: '7.2'
-      env: SYMFONY=4.0.*
+      env: SYMFONY_REQUIRE=4.0.*
     - php: '7.3'
-      env: SYMFONY=4.0.*
+      env: SYMFONY_REQUIRE=4.0.*
     - php: '7.4'
-      env: SYMFONY=4.0.*
+      env: SYMFONY_REQUIRE=4.0.*
     - php: '7.2'
-      env: SYMFONY=5.0.*
+      env: SYMFONY_REQUIRE=5.0.*
     - php: '7.3'
-      env: SYMFONY=5.0.*
+      env: SYMFONY_REQUIRE=5.0.*
     - php: '7.4'
-      env: SYMFONY=5.0.*
+      env: SYMFONY_REQUIRE=5.0.*
     - php: '7.4'
-      env: SYMFONY=dev-master
+      env: SYMFONY_REQUIRE=dev-master
   allow_failures:
     - php: '7.4'
     - env: SYMFONY=dev-master
@@ -38,7 +38,7 @@ cache:
 before_install:
   - composer self-update
   - if [ "$GITHUB_OAUTH_TOKEN" != "" ]; then composer config --quiet --global github-oauth.github.com ${GITHUB_OAUTH_TOKEN}; fi;
-  - if [ "$SYMFONY" != "" ]; then composer require "symfony/symfony:${SYMFONY}" --no-update; fi;
+  - composer global require --no-progress --no-scripts --no-plugins symfony/flex dev-main
   - composer require "php-coveralls/php-coveralls" --no-update
 
 install:
