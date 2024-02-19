@@ -17,21 +17,17 @@
     "require": {
         "php": "^7.2",
         "influxdb/influxdb-php": "^1.2",
-        "symfony/console": "^3.4 || ^4.0 || ^5.0",
-        "symfony/framework-bundle": "^3.4 || ^4.0 || ^5.0"
+        "symfony/console": "^4.4 || ^5.4",
+        "symfony/framework-bundle": "^4.4 || ^5.4"
     },
     "require-dev": {
         "matthiasnoback/symfony-dependency-injection-test": "^4.1",
         "phpspec/prophecy": "^1.10",
-        "symfony/form": "^3.4 || ^4.0 || ^5.0",
-        "symfony/phpunit-bridge": "^3.4 || ^4.0 || ^5.0"
+        "symfony/form": "^4.4 || ^5.4"
     },
     "suggest": {
         "symfony/form": "Needed for form types usage",
         "symfony/proxy-manager-bridge": "Needed to lazy-load connection services"
-    },
-    "conflict": {
-        "symfony/form": "<3.4"
     },
     "autoload": {
         "psr-4": { "Algatux\\InfluxDbBundle\\": "src/" }
