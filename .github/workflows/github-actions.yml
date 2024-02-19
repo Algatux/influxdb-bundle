@@ -1,0 +1,65 @@
+on:
+  push:
+    branches: [ $default-branch ]
+  pull_request: ~
+
+permissions:
+  contents: read
+
+jobs:
+  phpunit:
+    strategy:
+      matrix:
+        include:
+          - php: '7.2'
+          - php: '7.3'
+          - php: '7.4'
+          - php: '7.2'
+            prefer_lowest: 1
+          - php: '7.2'
+            symfony: 4.4.*
+          - php: '7.2'
+            symfony: 4.4.*
+          - php: '7.3'
+            symfony: 4.4.*
+          - php: '7.4'
+            symfony: 4.4.*
+          - php: '7.2'
+            symfony: 5.4.*
+          - php: '7.3'
+            symfony: 5.4.*
+          - php: '7.4'
+            symfony: 5.4.*
+      fail-fast: false
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "${{ matrix.php }}"
+          tools: phpunit:8
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ matrix.php }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-${{ matrix.php }}
+      - name: Install global packages
+        run: composer global require satooshi/php-coveralls:@stable phpunit/phpunit:@stable --no-update
+      - name: Symfony version setup
+        if: ${{ matrix.symfony }}
+        run: composer require "symfony/symfony:${{ matrix.symfony }}" --no-update
+      - name: Install dependencies
+        run: composer update --prefer-dist --no-progress
+        env:
+          COMPOSER_PREFER_LOWEST: ${{ matrix.prefer_lowest }}
+      # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
+      # Docs: https://getcomposer.org/doc/articles/scripts.md
+      - name: Run test suite
+        run: phpunit -c phpunit.xml.dist

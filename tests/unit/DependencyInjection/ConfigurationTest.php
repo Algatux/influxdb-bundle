@@ -17,7 +17,9 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
     public function test_empty_configuration_process()
     {
         $this->expectException(InvalidConfigurationException::class);
-        $this->expectExceptionMessage('The child node "host" at path "influx_db.connections.default" must be configured.');
+        $this->expectExceptionMessageMatches(
+            '/^The child (node|config) "host" (under|at path) "influx_db.connections.default" must be configured/'
+        );
 
         $this->assertProcessedConfigurationEquals([], [
             __DIR__.'/../../fixtures/config/config_empty.yml',
