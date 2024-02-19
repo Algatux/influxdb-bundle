@@ -17,7 +17,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  *
  * @see http://symfony.com/doc/current/cookbook/bundles/extension.html
  */
-final class InfluxDbExtension extends Extension
+final class AlgatuxInfluxDbExtension extends Extension
 {
     const PROTOCOL_UDP = 'udp';
 

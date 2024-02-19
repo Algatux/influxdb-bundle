@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Algatux\InfluxDbBundle\Tests\unit;
 
 use Algatux\InfluxDbBundle\DependencyInjection\Configuration;
-use Algatux\InfluxDbBundle\DependencyInjection\InfluxDbExtension;
+use Algatux\InfluxDbBundle\DependencyInjection\AlgatuxInfluxDbExtension;
 use Algatux\InfluxDbBundle\Events\Listeners\InfluxDbEventListener;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionConfigurationTestCase;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -18,7 +18,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
     {
         $this->expectException(InvalidConfigurationException::class);
         $this->expectExceptionMessageMatches(
-            '/^The child (node|config) "host" (under|at path) "influx_db.connections.default" must be configured/'
+            '/^The child (node|config) "host" (under|at path) "algatux_influx_db.connections.default" must be configured/'
         );
 
         $this->assertProcessedConfigurationEquals([], [
@@ -244,7 +244,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
      */
     protected function getContainerExtension(): ExtensionInterface
     {
-        return new InfluxDbExtension();
+        return new AlgatuxInfluxDbExtension();
     }
 
     /**

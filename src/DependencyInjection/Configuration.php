@@ -19,11 +19,11 @@ final class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         if (method_exists(TreeBuilder::class, 'getRootNode')) {
-            $treeBuilder = new TreeBuilder('influx_db');
+            $treeBuilder = new TreeBuilder('algatux_influx_db');
             $rootNode = $treeBuilder->getRootNode();
         } else {
             $treeBuilder = new TreeBuilder();
-            $rootNode = $treeBuilder->root('influx_db');
+            $rootNode = $treeBuilder->root('algatux_influx_db');
         }
 
         $rootNode
