@@ -30,7 +30,7 @@ final class CreateDatabaseCommand extends AbstractConnectionCommand
     /**
      * {@inheritdoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if ($this->connection->exists() && !$input->getOption('if-not-exists')) {
             $this->io->error('Database "'.$this->connection->getName().'" already exists.');

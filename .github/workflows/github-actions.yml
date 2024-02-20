@@ -34,6 +34,8 @@ jobs:
             symfony: 5.4.*
           - php: '7.4'
             symfony: 5.4.*
+          - php: '8.3'
+            symfony: 6.4.*
       fail-fast: false
     runs-on: ubuntu-22.04
     steps:
