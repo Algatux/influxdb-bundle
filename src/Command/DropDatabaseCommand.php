@@ -31,7 +31,7 @@ final class DropDatabaseCommand extends AbstractConnectionCommand
     /**
      * {@inheritdoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if (!$input->getOption('force')) {
             $this->io->error(sprintf(<<<'EOF'
