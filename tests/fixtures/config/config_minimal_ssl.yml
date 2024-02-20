@@ -1,4 +1,4 @@
-influx_db:
+algatux_influx_db:
     host: localhost
     database: telegraf
     ssl: true

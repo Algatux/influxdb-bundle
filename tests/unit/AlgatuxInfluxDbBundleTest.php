@@ -4,15 +4,15 @@
 
 namespace Algatux\InfluxDbBundle\unit;
 
-use Algatux\InfluxDbBundle\DependencyInjection\InfluxDbExtension;
-use Algatux\InfluxDbBundle\InfluxDbBundle;
+use Algatux\InfluxDbBundle\DependencyInjection\AlgatuxInfluxDbExtension;
+use Algatux\InfluxDbBundle\AlgatuxInfluxDbBundle;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class InfluxDbBundleTest extends AbstractContainerBuilderTestCase
+class AlgatuxInfluxDbBundleTest extends AbstractContainerBuilderTestCase
 {
     /**
-     * @var InfluxDbBundle
+     * @var AlgatuxInfluxDbBundle
      */
     protected $bundle;
 
@@ -20,7 +20,7 @@ class InfluxDbBundleTest extends AbstractContainerBuilderTestCase
     {
         parent::setUp();
 
-        $this->bundle = new InfluxDbBundle();
+        $this->bundle = new AlgatuxInfluxDbBundle();
     }
 
     public function test_build()
@@ -31,6 +31,6 @@ class InfluxDbBundleTest extends AbstractContainerBuilderTestCase
     public function test_get_container_extension()
     {
         $this->assertInstanceOf(Bundle::class, $this->bundle);
-        $this->assertInstanceOf(InfluxDbExtension::class, $this->bundle->getContainerExtension());
+        $this->assertInstanceOf(AlgatuxInfluxDbExtension::class, $this->bundle->getContainerExtension());
     }
 }

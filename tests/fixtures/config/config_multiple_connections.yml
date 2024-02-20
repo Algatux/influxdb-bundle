@@ -1,4 +1,4 @@
-influx_db:
+algatux_influx_db:
     default_connection: test
     connections:
         default:

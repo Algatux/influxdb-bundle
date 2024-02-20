@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Algatux\InfluxDbBundle\unit\DependencyInjection;
 
-use Algatux\InfluxDbBundle\DependencyInjection\InfluxDbExtension;
+use Algatux\InfluxDbBundle\DependencyInjection\AlgatuxInfluxDbExtension;
 use Algatux\InfluxDbBundle\Events\Listeners\InfluxDbEventListener;
 use Algatux\InfluxDbBundle\Exception\ConnectionNotFoundException;
 use InfluxDB\Database;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 
-class InfluxDbExtensionTest extends AbstractExtensionTestCase
+class AlgatuxInfluxDbExtensionTest extends AbstractExtensionTestCase
 {
     public function test_load()
     {
@@ -203,7 +203,7 @@ class InfluxDbExtensionTest extends AbstractExtensionTestCase
     protected function getContainerExtensions(): array
     {
         return [
-            new InfluxDbExtension(),
+            new AlgatuxInfluxDbExtension(),
         ];
     }
 }

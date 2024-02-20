@@ -26,7 +26,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-        new Algatux\InfluxDbBundle\InfluxDbBundle(),
+        new Algatux\InfluxDbBundle\AlgatuxInfluxDbBundle(),
     );
 
     // ...
@@ -40,7 +40,7 @@ public function registerBundles()
 Here is the configuration reference:
 
 ```yaml
-influx_db:
+algatux_influx_db:
 
     # If not defined, the first connection will be taken.
     default_connection:   ~
@@ -82,7 +82,7 @@ influx_db:
 If you have only one connection to configure, this can be simplified to this:
 
 ```yaml
-influx_db:
+algatux_influx_db:
     # Your InfluxDB host address
     host:                 ~ # Required
 
